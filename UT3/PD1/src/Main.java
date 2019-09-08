@@ -13,13 +13,13 @@ public class Main {
         TArbolTrie trie = new TArbolTrie();
         
         // Cargamos palabras
-        String[] palabrasClave = ManejadorArchivosGenerico.leerArchivo("PalabrasIndice.txt");
+        String[] palabrasClave = ManejadorArchivosGenerico.leerArchivo("src/PalabrasIndice.txt");
         for (String palabra : palabrasClave) {
             //System.out.println(palabra);
             trie.insertar(IndizarLibro.filtrarPalabra(palabra));
         }
         
-        String[] lineasLibro = ManejadorArchivosGenerico.leerArchivo("libro.txt");
+        String[] lineasLibro = ManejadorArchivosGenerico.leerArchivo("src/libro.txt");
         int contLineas = 0;
         for (String linea : lineasLibro) {
             contLineas++;
