@@ -23,12 +23,19 @@ public class Main {
         // Leo de la entrada
         Scanner scan = new Scanner(System.in);
         String text = scan.nextLine();
+        String text2 = scan.nextLine();
+        String text3 = scan.nextLine();
+        String text4 = scan.nextLine();
+        String text5 = scan.nextLine();
         // Los agrego al array
-        for (int i = 0;i<6;i++){
-            linea[i] = text;
-        }
+        linea[0] = text;
+        linea[1] = text2;
+        linea[2] = text3;
+        linea[3] = text4;
+        linea[4] = text5;
         // Imprimo el array
-        for (int i = 0;i<6;i++){
+        System.out.println("Imprimiendo array de la forma ingresada");
+        for (int i = 0;i<5;i++){
             System.out.println(linea[i]);
         }
         // Ordeno e imprimo el array
