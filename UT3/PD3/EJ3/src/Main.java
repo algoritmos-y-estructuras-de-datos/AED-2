@@ -1,9 +1,13 @@
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author lucas
@@ -14,7 +18,26 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Creo String[] para agregar las lineas leidas por la entrada
+        String[] linea = new String[5];
+        // Leo de la entrada
+        Scanner scan = new Scanner(System.in);
+        String text = scan.nextLine();
+        // Los agrego al array
+        for (int i = 0;i<6;i++){
+            linea[i] = text;
+        }
+        // Imprimo el array
+        for (int i = 0;i<6;i++){
+            System.out.println(linea[i]);
+        }
+        // Ordeno e imprimo el array
+        Ordenacion(linea);
     }
-    
+
+    public static void Ordenacion(String[] linea) {
+        System.out.println("Shortest to longest: ");
+        Arrays.sort(linea, (s1, s2) -> s1.length() - s2.length());
+        Arrays.asList(linea).forEach(System.out::println);
+    }
 }
