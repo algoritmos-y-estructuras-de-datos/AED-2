@@ -26,12 +26,12 @@ public class TNodoTrie implements INodoTrie {
     public void insertar(String unaPalabra) {
         TNodoTrie nodo = this;
         for (int c = 0; c < unaPalabra.length(); c++) {
-            
-            if (!nodo.hijos.containsKey(unaPalabra.charAt(c))) {
-                nodo.hijos.put(unaPalabra.charAt(c), new TNodoTrie());
-                System.out.println(nodo.hijos.get(c));
+            String actualChar = String.valueOf(unaPalabra.charAt(c));
+            if (!nodo.hijos.containsKey(actualChar)) {
+                nodo.hijos.put(actualChar, new TNodoTrie());
+//                System.out.println(nodo.hijos.get(actualChar));
             }
-            nodo = nodo.hijos.get(unaPalabra.charAt(c));
+            nodo = nodo.hijos.get(actualChar);
         }
         nodo.esPalabra = true;
         nodo.inicio = inicio;
