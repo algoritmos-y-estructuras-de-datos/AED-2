@@ -22,6 +22,6 @@ public class TArbolTrie {
         }
     }
     public Integer buscar(String palabra){
-        return raiz.buscar(palabra, 0);
+        return raiz.busqueda(palabra);
     }
 }
