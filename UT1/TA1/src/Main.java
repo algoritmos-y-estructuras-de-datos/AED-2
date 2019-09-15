@@ -21,7 +21,7 @@ public class Main {
         int number = 12;
         Arrays.sort(list);
         System.out.printf("Binary Search %d in integer array %s %n", number, Arrays.toString(list));
-        System.out.println("Location of the number: " + binarySearchRecursive(12,list,0,list.length-1));
+        System.out.println("Location of the number: " + binarySearchRecursive(12, list, 0, list.length - 1));
         System.out.printf("Binary Search %d in integer array %s %n", 43, Arrays.toString(list));
         binarySearch(list, 43);
         list = new int[]{123, 243, 331, 1298};
@@ -77,6 +77,15 @@ public class Main {
             return middle;
         }
 
+        return -1;
+    }
+
+    public static int linearSearch(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) {
+                return i;
+            }
+        }
         return -1;
     }
 }
