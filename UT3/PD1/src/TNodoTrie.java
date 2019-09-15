@@ -8,7 +8,7 @@ public class TNodoTrie implements INodoTrie {
 
     //private static final int CANT_CHR_ABECEDARIO = 26;
     private static final char[] abc = new char[]{'a', 'c', 'g', 't'};
-    private HashMap<Comparable, TNodoTrie> hijos;
+    private HashMap<Character, TNodoTrie> hijos;
     private boolean esPalabra;
     private int inicio;
     public LinkedList<LinkedList<Integer>> datos;
@@ -26,15 +26,14 @@ public class TNodoTrie implements INodoTrie {
     public void insertar(String unaPalabra) {
         TNodoTrie nodo = this;
         for (int c = 0; c < unaPalabra.length(); c++) {
-            
-            if (!nodo.hijos.containsKey(unaPalabra.charAt(c))) {
-                nodo.hijos.put(unaPalabra.charAt(c), new TNodoTrie());
-                System.out.println(nodo.hijos.get(c));
+            Character character = unaPalabra.charAt(c);
+            if (!nodo.hijos.containsKey(character)) {
+                nodo.hijos.put(character, new TNodoTrie());
             }
-            nodo = nodo.hijos.get(unaPalabra.charAt(c));
+            nodo = nodo.hijos.get(character);
         }
         nodo.esPalabra = true;
-        nodo.inicio = inicio;
+        //nodo.setPosicion(posicion);
     }
 
     private void imprimir(String s, TNodoTrie nodo) {
@@ -70,15 +69,13 @@ public class TNodoTrie implements INodoTrie {
     }
 
     private void predecir(String s, String prefijo, LinkedList<String> palabras, TNodoTrie nodo) {
-        if (nodo != null) {
+         if (nodo != null) {
             if (nodo.esPalabra) {
                 palabras.add(prefijo + s);
-                System.out.println(prefijo + s);
             }
-
-           for (int c = 0; c < 26; c++) {
-                if (nodo.hijos.get(c) != null) {
-                    predecir(s + (char) (c + 'a'), prefijo, palabras, nodo.hijos.get(c));
+            for (Character caracter : nodo.hijos.keySet()) {
+                if (nodo.hijos.get(caracter) != null) {
+                    predecir(s + caracter, prefijo, palabras, nodo.hijos.get(caracter));
                 }
             }
         }
