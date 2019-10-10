@@ -1,6 +1,3 @@
-package Grafos;
-
-
 public class TAdyacencia implements IAdyacencia {
    
 

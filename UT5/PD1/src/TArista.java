@@ -1,4 +1,3 @@
-package Grafos;
 
 public class TArista implements IArista {
 
