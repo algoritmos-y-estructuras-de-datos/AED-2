@@ -58,7 +58,7 @@ protected TAristas lasAristas = new TAristas() ;
     public TGrafoNoDirigido Kruskal() {
         Set<TArista> F = new HashSet<>();
         Set<Comparable> V = getVertices().keySet();
-        HashMap<Comparable, Comparable> C = new HashMap(); //a qué componente pertenece
+        HashMap<Comparable, Comparable> C = new HashMap();
         for(Comparable v : V){
             C.put(v, v);
         }
@@ -81,5 +81,9 @@ protected TAristas lasAristas = new TAristas() ;
         }while((new HashSet(C.values()).size() != 1));
             
         return new TGrafoNoDirigido(getVertices().values(), F);
+    }
+    
+    public Collection<TVertice> verticesArticulacion(){
+        return null;
     }
 }
