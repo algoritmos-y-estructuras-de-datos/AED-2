@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class TAristas extends LinkedList<TArista> {
 
     private final static String SEPARADOR_ELEMENTOS_IMPRESOS = "-";
+    private Collection<TArista> aristas  = new LinkedList<TArista>();
     //private Collection<TArista> aristas  = new LinkedList<TArista>();
 
     /**
@@ -17,6 +18,11 @@ public class TAristas extends LinkedList<TArista> {
      * @param etDestino
      * @return
      */
+    
+    public Collection<TArista> getAristas() {
+        return aristas;
+    } 
+    
     public TArista buscar(Comparable etOrigen, Comparable etDestino) {
         TArista tempArista;
         for (TArista laa : this) {

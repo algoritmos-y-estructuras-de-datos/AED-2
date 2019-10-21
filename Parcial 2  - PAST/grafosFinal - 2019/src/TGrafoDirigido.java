@@ -9,6 +9,7 @@ import java.util.TreeMap;
 public class TGrafoDirigido implements IGrafoDirigido {
 
     private final Map<Comparable, TVertice> vertices; //lista de vertices del grafo.-
+    protected TAristas aristas;
 
     public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
         this.vertices = new HashMap<>();
@@ -254,7 +255,30 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Double[][] floyd() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int tamano = vertices.size();
+        Double[][] a = new Double[tamano][tamano];
+        Double[][] p = new Double[tamano][tamano];
+        Double[][] c = UtilGrafos.obtenerMatrizCostos(vertices);
+
+        for (int i = 0; i < tamano; i++) {
+            for (int j = 0; j < tamano; j++) {
+                p[i][j] = 0.0;
+                a[i][j] = c[i][j];
+            }
+        }
+        for (int k = 0; k < tamano; k++) {
+            for (int i = 0; i < tamano; i++) {
+                for (int j = 0; j < tamano; j++) {
+                    if ((a[i][k] + a[k][j]) < a[i][j]) {
+                        a[i][j] = a[i][k] + a[k][j];
+                        p[i][j] = k + 0.0;
+
+                    }
+                }
+            }
+        }
+        //floyd = a;
+        return a;
     }
 
     @Override
@@ -307,7 +331,73 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public boolean tieneCiclo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
+    }
+
+    public boolean contineAristasNegativas() {
+        for (TArista arista : aristas.getAristas()) {
+            if (arista.getCosto() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Double[] dijkstra(Comparable verticeInicial) {
+        if (contineAristasNegativas()) {
+            System.out.println("El grafo contiene aristas negativas");
+            return null;
+        } else if (!vertices.containsKey(verticeInicial)) {
+            System.out.println("El vértice de inicio no se encuentra en el grafo");
+            return null;
+        } else {
+            Double[] distMin = new Double[vertices.size()];
+            Double[][] matrizCostos = UtilGrafos.obtenerMatrizCostos(vertices);
+
+            LinkedList<TVertice> vertVmenosS = new LinkedList<>();
+            vertVmenosS.addAll(vertices.values());
+
+            Object[] listaEtiquetas = vertices.keySet().toArray();
+            int indiceInicial = 0;
+            for (int i = 0; i < listaEtiquetas.length; i++) {
+                if (verticeInicial.compareTo((Comparable) listaEtiquetas[i]) == 0) {
+                    indiceInicial = i;
+                }
+            }
+            for (int i = 0; i < matrizCostos.length; i++) {
+                if (i != indiceInicial) {
+                    distMin[i] = matrizCostos[indiceInicial][i];
+                } else {
+                    distMin[i] = -1.0;
+                }
+            }
+            vertVmenosS.remove(indiceInicial);
+
+            while (vertVmenosS.isEmpty() != true) {
+                double min = Double.MAX_VALUE;
+                int indiceV = indiceInicial;
+                for (int i = 0; i < matrizCostos.length; i++) {
+                    Comparable etiquetaBuscada = (Comparable) vertices.keySet().toArray()[i];
+                    if (i != indiceInicial && vertVmenosS.contains(vertices.get(etiquetaBuscada))) {
+                        if (min >= distMin[i]) {
+                            min = distMin[i];
+                            indiceV = i;
+                        }
+                    }
+                }
+                Comparable etiquetaVertice = (Comparable) vertices.keySet().toArray()[indiceV];
+                for (int i = 0; i < matrizCostos.length; i++) {
+                    if (i != indiceInicial && i != indiceV) {
+                        if (distMin[i] > distMin[indiceV] + matrizCostos[indiceV][i]) {
+                            distMin[i] = distMin[indiceV] + matrizCostos[indiceV][i];
+                        }
+                    }
+                }
+                vertVmenosS.remove(vertices.get(etiquetaVertice));
+            }
+            return distMin;
+        }
+
     }
 
     @Override
