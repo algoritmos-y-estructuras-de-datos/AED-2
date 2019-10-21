@@ -218,4 +218,15 @@ public class TVertice<T> implements IVertice {
         }
     }
 
+    public void ordenTopologico(LinkedList<TVertice> camino) {
+        this.setVisitado(true);
+        for (TAdyacencia ady : this.getAdyacentes()) {
+            if (!ady.getDestino().getVisitado()) {
+                ady.getDestino().ordenTopologico(camino);
+            }
+        }
+        camino.add(this);
+
+    }
+
 }
