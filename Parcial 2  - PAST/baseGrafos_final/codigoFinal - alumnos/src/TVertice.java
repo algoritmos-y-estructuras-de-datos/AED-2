@@ -4,18 +4,18 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TVertice implements IVertice{
+public class TVertice implements IVertice {
 
     private Comparable etiqueta;
     private LinkedList<TAdyacencia> adyacentes;
     private boolean visitado;
     private Object datos;
     public int cfuerte;
-    
+
     //datos para encontrar punto articulacion
     private int numero_bpf;
     private int bajo;
-    
+
     @Override
     public Comparable getEtiqueta() {
         return etiqueta;
@@ -36,7 +36,7 @@ public class TVertice implements IVertice{
     public void setVisitado(boolean valor) {
         this.visitado = valor;
     }
-    
+
     @Override
     public boolean getVisitado() {
         return this.visitado;
@@ -86,7 +86,6 @@ public class TVertice implements IVertice{
         return null;
     }
 
-
     @Override
     public TAdyacencia buscarAdyacencia(Comparable etiquetaDestino) {
         for (TAdyacencia adyacencia : adyacentes) {
@@ -99,7 +98,7 @@ public class TVertice implements IVertice{
 
     @Override
     public Object getDatos() {
-        return datos; 
+        return datos;
     }
 
     @Override
@@ -117,18 +116,18 @@ public class TVertice implements IVertice{
     @Override
     public TCaminos todosLosCaminos(Comparable etVertDest, TCamino caminoPrevio, TCaminos todosLosCaminos) {
         this.setVisitado(true);
-        for(TAdyacencia adyacencia: this.getAdyacentes()){
+        for (TAdyacencia adyacencia : this.getAdyacentes()) {
             TVertice destino = adyacencia.getDestino();
-            if(!destino.getVisitado()){
+            if (!destino.getVisitado()) {
                 //System.out.println(adyacencia.getCosto());
-                if(destino.getEtiqueta().compareTo(etVertDest) == 0){
+                if (destino.getEtiqueta().compareTo(etVertDest) == 0) {
                     TCamino copia = caminoPrevio.copiar();
                     copia.agregarAdyacencia(adyacencia);
                     //System.out.println(caminoPrevio.getCostoTotal() +"-"+adyacencia.getCosto());
-                    copia.setCostoTotal(caminoPrevio.getCostoTotal()+adyacencia.getCosto());
-                    
+                    copia.setCostoTotal(caminoPrevio.getCostoTotal() + adyacencia.getCosto());
+
                     todosLosCaminos.getCaminos().add(copia);
-                }else{
+                } else {
                     TCamino caminoPrevio2 = caminoPrevio.copiar();
                     caminoPrevio2.agregarAdyacencia(adyacencia);
                     //caminoPrevio2.setCostoTotal(caminoPrevio2.getCostoTotal()+adyacencia.getCosto());
@@ -148,13 +147,13 @@ public class TVertice implements IVertice{
             TVertice vertAdy = adyacente.getDestino();
             if (!vertAdy.getVisitado()) {
                 camino.agregarAdyacencia(adyacente);
-                if(vertAdy.tieneCiclo(camino)){
+                if (vertAdy.tieneCiclo(camino)) {
                     //System.out.println(camino.imprimirEtiquetas());
                     return true;
                 }
                 camino.eliminarAdyacencia(adyacente);
-                
-            }else{
+
+            } else {
                 return camino.existeVertice(vertAdy);
             }
         }
@@ -180,25 +179,24 @@ public class TVertice implements IVertice{
                     destino.setVisitado(true);
                 }
             }
-}
+        }
     }
 
-   /*
+    /*
     NUEVAS FUNCIONES
-    */
-    
+     */
     public void ordenTopologico(LinkedList<TVertice> camino) {
         this.setVisitado(true);
-        for(TAdyacencia ady: this.getAdyacentes()){
-            if(!ady.getDestino().getVisitado()){
+        for (TAdyacencia ady : this.getAdyacentes()) {
+            if (!ady.getDestino().getVisitado()) {
                 ady.getDestino().ordenTopologico(camino);
             }
         }
         camino.add(this);
-        
+
     }
-    
-     public void componentesFuertes(Collection<TVertice> visitados, int[] contador) {
+
+    public void componentesFuertes(Collection<TVertice> visitados, int[] contador) {
         LinkedList<Comparable> todosVertices = new LinkedList<>();
         setVisitado(true);
         visitados.add(this);
@@ -211,7 +209,8 @@ public class TVertice implements IVertice{
         this.cfuerte = contador[0];
         contador[0]++;
     }
-     public void puntosDeArticulacion(List<TVertice> vertices, int[] num, Comparable padre) {
+
+    public void puntosDeArticulacion(List<TVertice> vertices, int[] num, Comparable padre) {
         this.numero_bpf = num[0];
         int bajoC = this.numero_bpf;
         int hijos = 0;
@@ -223,7 +222,7 @@ public class TVertice implements IVertice{
             TVertice destino = adyacente.getDestino();
             if (!destino.getVisitado()) {
                 hijos += 1;
-                num[0] = num[0]+1;
+                num[0] = num[0] + 1;
                 destino.puntosDeArticulacion(vertices, num, this.getEtiqueta());
                 if (destino.bajo < bajoC) {
                     bajoC = destino.bajo;
@@ -233,7 +232,7 @@ public class TVertice implements IVertice{
                 }
             } else {
                 if ((padre == null || destino.getEtiqueta().compareTo(padre) != 0) && destino.numero_bpf < bajoC) {
-                        bajoC = destino.numero_bpf;
+                    bajoC = destino.numero_bpf;
                 }
             }
         }
@@ -248,8 +247,9 @@ public class TVertice implements IVertice{
                 vertices.add(this);
             }
         }
-}
-     public void bpfPostOrden(LinkedList<TVertice> visitados) {
+    }
+
+    public void bpfPostOrden(LinkedList<TVertice> visitados) {
         visitado = true;
         for (IAdyacencia adyacente : adyacentes) {
             if (!adyacente.getDestino().getVisitado()) {
@@ -257,5 +257,5 @@ public class TVertice implements IVertice{
             }
         }
         visitados.addFirst(this);
-}
+    }
 }

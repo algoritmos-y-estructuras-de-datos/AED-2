@@ -1,3 +1,4 @@
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,7 +10,7 @@ import java.util.LinkedList;
 public class TCamino {
 
     private final TVertice origen;
-    private final Collection<Comparable> otrosVertices;
+    private Collection<Comparable> otrosVertices;
 // es una lista de etiquetas de los vertices
 // ATENCIÓN: PONER LA CLASE CONCRETA QUE
 // SEA MÁS APROPIADA
@@ -59,10 +60,10 @@ public class TCamino {
         return otrosVertices;
     }
 
-    /* public void setOtrosVertices(Collection<Comparable> otrosVertices) {
+    public void setOtrosVertices(Collection<Comparable> otrosVertices) {
         this.otrosVertices = otrosVertices;
     }
-     */
+
     public Double getCostoTotal() {
         return costoTotal;
     }
