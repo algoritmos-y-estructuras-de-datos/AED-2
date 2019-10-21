@@ -1,5 +1,6 @@
 
 import java.util.Collection;
+import java.util.Comparator;
 
 import java.util.LinkedList;
 
@@ -79,6 +80,21 @@ public class TAristas extends LinkedList<TArista> {
             this.add(ta);
             this.add(ta.aristaInversa());
         }
+    }
+    
+    public LinkedList<TArista> obtenerAristasOrdenadasPorCosto() {
+        LinkedList<TArista> res = new LinkedList<>(this);
+        res.sort(new Comparator<TArista>() {
+            @Override
+            public int compare(TArista o1, TArista o2) {
+                if (o1.costo < o2.costo) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        return res;
     }
 
 }

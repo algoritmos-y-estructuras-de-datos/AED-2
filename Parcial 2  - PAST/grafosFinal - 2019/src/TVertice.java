@@ -229,4 +229,43 @@ public class TVertice<T> implements IVertice {
 
     }
 
+    public void puntosDeArticulacion(List<TVertice> vertices, int[] num, Comparable padre) {
+        this.bp = num[0];
+        int bajoC = this.bp;
+        int hijos = 0;
+        this.visitado = true;
+
+        boolean esArt = false;
+
+        for (TAdyacencia adyacente : adyacentes) {
+            TVertice destino = adyacente.getDestino();
+            if (!destino.getVisitado()) {
+                hijos += 1;
+                num[0] = num[0] + 1;
+                destino.puntosDeArticulacion(vertices, num, this.getEtiqueta());
+                if (destino.bajo < bajoC) {
+                    bajoC = destino.bajo;
+                }
+                if (destino.bajo >= this.bp) {
+                    esArt = true;
+                }
+            } else {
+                if ((padre == null || destino.getEtiqueta().compareTo(padre) != 0) && destino.bp < bajoC) {
+                    bajoC = destino.bp;
+                }
+            }
+        }
+        this.bajo = bajoC;
+
+        if (this.bp == 1) {
+            if (hijos > 1) {
+                vertices.add(this);
+            }
+        } else {
+            if (esArt) {
+                vertices.add(this);
+            }
+        }
+    }
+
 }

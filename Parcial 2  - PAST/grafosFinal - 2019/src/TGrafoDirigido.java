@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,7 +9,6 @@ import java.util.TreeMap;
 public class TGrafoDirigido implements IGrafoDirigido {
 
     private final Map<Comparable, TVertice> vertices; //lista de vertices del grafo.-
-    
 
     public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
         this.vertices = new HashMap<>();
@@ -158,7 +158,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return false;
     }
 
-
     public Object[] getEtiquetasOrdenado() {
         TreeMap<Comparable, TVertice> mapOrdenado = new TreeMap<>(this.getVertices());
         return mapOrdenado.keySet().toArray();
@@ -181,29 +180,76 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Collection<TVertice> bpf(TVertice vertice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (vertice == null || vertice.getVisitado()) {
+            return new LinkedList<>();
+        }
+        vertice = vertices.get(vertice.getEtiqueta());
+        Collection<TVertice> col = new LinkedList<>();
+        if (vertice != null) {
+            vertice.bpf(col);
+        }
+        return col;
     }
-
-    
 
     @Override
     public boolean tieneCiclo(TCamino camino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Comparable> formando = new ArrayList<>(camino.getOtrosVertices().size() + 1);
+        formando.add(camino.getOrigen().getEtiqueta());
+        for (Comparable vertice : camino.getOtrosVertices()) {
+            if (formando.contains(vertice)) {
+                return true;
+            }
+            formando.add(vertice);
+        }
+        return false;
     }
 
     @Override
     public Collection<TVertice> bpf() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        desvisitarVertices();
+        Collection<TVertice> visitados = new LinkedList<TVertice>();
+        Collection<TVertice> verticesAVisitar = this.vertices.values();
+        if (verticesAVisitar != null) {
+            for (TVertice v : verticesAVisitar) {
+                if (!v.getVisitado()) {
+                    v.bpf(visitados);
+                }
+            }
+        }
+        return visitados;
     }
 
     @Override
     public Collection<TVertice> bpf(Comparable etiquetaOrigen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        desvisitarVertices();
+        Collection<TVertice> visitados = new LinkedList<TVertice>();
+        TVertice vertice = vertices.get(etiquetaOrigen);
+        if (vertice != null) {
+            vertice.bpf(visitados);
+        }
+        return visitados;
     }
 
     @Override
     public Comparable centroDelGrafo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Double[][] A = this.floyd();
+        Double excMin = Double.MAX_VALUE;
+        int columna = 0;
+        Comparable vertMin = null;
+        for (Comparable v : vertices.keySet()) {
+            Double excentricidad = Double.MIN_VALUE;
+            for (Double[] A1 : A) {
+                if (A1[columna] > excentricidad) {
+                    excentricidad = A1[columna];
+                }
+            }
+            if (excentricidad < excMin) {
+                excMin = excentricidad;
+                vertMin = v;
+            }
+            columna++;
+        }
+        return vertMin;
     }
 
     @Override
@@ -213,7 +259,22 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Double[][] A = this.floyd();
+        int columna = 0;
+        for (Comparable v : vertices.keySet()) {
+            if (v.equals(etiquetaVertice)) {
+                break;
+            } else {
+                columna++;
+            }
+        }
+        Double max = Double.MIN_VALUE;
+        for (Double[] A1 : A) {
+            if (A1[columna] > max) {
+                max = A1[columna];
+            }
+        }
+        return max;
     }
 
     @Override
@@ -223,7 +284,20 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public TCaminos todosLosCaminos(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        desvisitarVertices();
+        TVertice origen = this.vertices.get(etiquetaOrigen);
+        TVertice destino = this.vertices.get(etiquetaDestino);
+
+        TCaminos todosLosCaminos = new TCaminos();
+
+        if (origen == null || destino == null) {
+            return todosLosCaminos;
+        }
+
+        TCamino caminoPrevio = new TCamino(origen);
+
+        origen.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos);
+        return todosLosCaminos;
     }
 
     @Override
@@ -241,7 +315,4 @@ public class TGrafoDirigido implements IGrafoDirigido {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-
-   
 }
