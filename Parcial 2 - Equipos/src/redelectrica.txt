@@ -1,0 +1,3 @@
+Costo total con Prim: 824.0
+Costo total con Kruskal: 732.0Costo total con Prim: 824.0
+Costo total con Kruskal: 732.0
