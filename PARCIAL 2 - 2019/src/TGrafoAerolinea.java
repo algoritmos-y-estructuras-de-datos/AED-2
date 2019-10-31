@@ -19,13 +19,23 @@ public class TGrafoAerolinea extends TGrafoDirigido implements IGrafoAerolinea {
 
     @Override
     public LinkedList<TVertice> menosEscalas(Comparable origen, Comparable destino) {
-        TVertice verticeO = buscarVertice(origen);
-        TVertice verticeD = buscarVertice(destino);
-        LinkedList<TVertice> col = new LinkedList<>();
+        TVertice verticeO = this.buscarVertice(origen);
+        TVertice verticeD = null;
+        LinkedList<TVertice> visitados = new LinkedList<>();
         if (verticeO != null) {
-            verticeO.bea(col,verticeD);
+            verticeD = verticeO.menosEscalas(destino);
         }
-        return col;
+        if (verticeD != null) {
+            while (verticeD != null) {
+                visitados.addFirst(verticeD);
+                verticeD = verticeD.getPredecesor();
+            }
+        }
+        for(TVertice v:this.getVertices().values()){
+            v.setVisitado(false);
+            v.setPredecesor(null);
+        }
+        return visitados;
     }
 
 }

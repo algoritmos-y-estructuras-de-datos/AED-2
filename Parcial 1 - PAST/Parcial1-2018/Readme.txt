@@ -1,0 +1,2 @@
+Como lo interprete: tiene dos parametros, nombre del nodo por donde se empieza a buscar y 
+la cantidad de personas por cada contacto con la que puede contactar, se devuelve una lista con las personas que se contactaron
