@@ -1,0 +1,19 @@
+
+public  int[] clasificar(int[] datosParaClasificar, int metodoClasificacion, boolean cascara){
+switch (metodoClasificacion) {
+case METODO_CLASIFICACION_INSERCION:
+                        if (cascara) {
+                               return ordenarPorInsercionCascara(datosParaClasificar);  
+                        } else {
+       return ordenarPorInsercion(datosParaClasificar);
+                        }
+}
+}
+
+
+protected int[] ordenarPorInsercionCascara(int[] datosParaClasificar) {
+if (datosParaClasificar != null) { 
+return datosParaClasificar;
+}
+return null;
+}
