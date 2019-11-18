@@ -3,12 +3,28 @@ package clasificacion;
 public interface IClasificador {
 
     public static final int METODO_CLASIFICACION_INSERCION = 1;
+    public static final int METODO_CLASIFICACION_INSERCION_INVERSO = 12;
+    
     public static final int METODO_CLASIFICACION_SHELL = 2;
+    public static final int METODO_CLASIFICACION_SHELL_INVERSO = 13;
+    
     public static final int METODO_CLASIFICACION_BURBUJA = 3;
-    public static final int METODO_CLASIFICACION_QUICKSORT = 4;
-    public static final int METODO_CLASIFICACION_HEAPSORT = 5;
-    public static final int METODO_CLASIFICACION_SELECCION = 6;
+    public static final int METODO_CLASIFICACION_BURBUJA_INVERSO = 14;
     public static final int METODO_CLASIFICACION_BURBUJA_MEJORADO = 7;
+    
+    public static final int METODO_CLASIFICACION_QUICKSORT = 4;
+    public static final int METODO_CLASIFICACION_QUICKSORT_INVERSO = 15;
+    
+    public static final int METODO_CLASIFICACION_HEAPSORT = 5;
+    public static final int METODO_CLASIFICACION_HEAPSORT_INVERSO = 8;
+    
+    public static final int METODO_CLASIFICACION_SELECCION = 6;
+    public static final int METODO_CLASIFICACION_SELECCION_INVERSO = 16;
+    
+    // Otros
+    public static final int METODO_CLASIFICACION_BINSORT = 9;
+    public static final int METODO_CLASIFICACION_RADIXSORT = 10;
+    public static final int METODO_CLASIFICACION_CUENTA = 11;
 
     /**
      * Punto de entrada al clasificador. Se le debe pasar en el primer argumento

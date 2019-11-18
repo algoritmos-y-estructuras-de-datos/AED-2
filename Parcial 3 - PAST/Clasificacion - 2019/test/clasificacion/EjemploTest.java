@@ -10,7 +10,7 @@ public class EjemploTest {
     private int[] vectorPrueba;
     private int[] vectorAsc;
     private int[] vectorDesc;
-    private int tamanio = 10000;
+    private int tamanio = 100;
     private IClasificador tc;
     private TClasificadorConErrores tcMal;
 
@@ -48,6 +48,30 @@ public class EjemploTest {
         
         assertTrue(tc.estaOrdenadoSinRepetidos(vectorResultado));
     }
+    
+    @Test
+    public void testInserDirecInverso() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_INSERCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testInserDirecInverso_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_INSERCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testInserDirecInverso_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_INSERCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
 
     @Test
     public void testShell() {
@@ -71,6 +95,30 @@ public class EjemploTest {
                 IClasificador.METODO_CLASIFICACION_SHELL);
         
         assertTrue(tc.estaOrdenadoSinRepetidos(vectorResultado));
+    }
+    
+    @Test
+    public void testShellInverso() {
+	int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_SHELL_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testShellInverso_ascendente() {
+	int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_SHELL_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testShellInverso_descendente() {
+	int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_SHELL_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
     }
 
     @Test
@@ -97,7 +145,30 @@ public class EjemploTest {
         assertTrue(tc.estaOrdenadoSinRepetidos(vectorResultado));
     }
     
-    /*
+    @Test
+    public void testBurbujaInverso() {
+	int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_BURBUJA_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testBurbujaInverso_ascendente() {
+	int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_BURBUJA_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testBurbujaInverso_descendente() {
+	int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_BURBUJA_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
     @Test
     public void testBurbujaMejorado() {
 	int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
@@ -105,7 +176,6 @@ public class EjemploTest {
         
         assertTrue(tc.estaOrdenadoSinRepetidos(vectorResultado));
     }
-    */
 
     @Test
     //public void testQuiksort() {
@@ -135,6 +205,30 @@ public class EjemploTest {
     }
     
     @Test
+    public void testQuicksortInverso() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_QUICKSORT_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testQuicksortInverso_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_QUICKSORT_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testQuicksortInverso_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_QUICKSORT_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
     //public void testQuiksort() {
     public void testQuicksortMal() {
         int[] vectorResultado = tcMal.clasificar(vectorPrueba.clone(),
@@ -148,7 +242,7 @@ public class EjemploTest {
         int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
                 IClasificador.METODO_CLASIFICACION_HEAPSORT);
         
-        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+        assertTrue(tc.estaOrdenado(vectorResultado));
     }
     
     @Test
@@ -156,13 +250,37 @@ public class EjemploTest {
         int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
                 IClasificador.METODO_CLASIFICACION_HEAPSORT);
         
-        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+        assertTrue(tc.estaOrdenado(vectorResultado));
     }
     
     @Test
     public void testHeapsort_descendente() {
         int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
                 IClasificador.METODO_CLASIFICACION_HEAPSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testHeapsortInverso() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_HEAPSORT_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testHeapsortInverso_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_HEAPSORT_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testHeapsortInverso_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_HEAPSORT_INVERSO);
         
         assertTrue(tc.estaOrdenadoInverso(vectorResultado));
     }
@@ -187,6 +305,102 @@ public class EjemploTest {
     public void testSeleccion_descendente() {
         int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
                 IClasificador.METODO_CLASIFICACION_SELECCION);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testSeleccionInverso() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_SELECCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testSeleccionInverso_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_SELECCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testSeleccionInverso_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_SELECCION_INVERSO);
+        
+        assertTrue(tc.estaOrdenadoInverso(vectorResultado));
+    }
+    
+    @Test
+    public void testBinsort() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_BINSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testBinsort_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_BINSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testBinsort_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_BINSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testRadixsort() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_RADIXSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testRadixsort_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_RADIXSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testRadixsort_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_RADIXSORT);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testCuenta() {
+        int[] vectorResultado = tc.clasificar(vectorPrueba.clone(),
+                IClasificador.METODO_CLASIFICACION_CUENTA);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testCuenta_ascendente() {
+        int[] vectorResultado = tc.clasificar(vectorAsc.clone(),
+                IClasificador.METODO_CLASIFICACION_CUENTA);
+        
+        assertTrue(tc.estaOrdenado(vectorResultado));
+    }
+    
+    @Test
+    public void testCuenta_descendente() {
+        int[] vectorResultado = tc.clasificar(vectorDesc.clone(),
+                IClasificador.METODO_CLASIFICACION_CUENTA);
         
         assertTrue(tc.estaOrdenado(vectorResultado));
     }
