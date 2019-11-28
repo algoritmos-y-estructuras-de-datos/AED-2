@@ -25,6 +25,7 @@ public interface IClasificador {
     public static final int METODO_CLASIFICACION_BINSORT = 9;
     public static final int METODO_CLASIFICACION_RADIXSORT = 10;
     public static final int METODO_CLASIFICACION_CUENTA = 11;
+    public static final int METODO_ORDENAR_SELECCION_PRIORITY = 17;
 
     /**
      * Punto de entrada al clasificador. Se le debe pasar en el primer argumento

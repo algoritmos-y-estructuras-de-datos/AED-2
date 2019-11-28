@@ -1,22 +1,23 @@
 package clasificacion;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class TClasificador implements IClasificador {
-    
+
     public static final int ALEATORIO = 1;
     public static final int DESCENDENTE = 2;
     public static final int ASCENDENTE = 3;
-    
+
     public static final int MAXIMO_CUENTA = 30000;
-    
+
     public static final long TIEMPO_RESOLUCION = 10000000;
 
     public static void main(String args[]) {
         IGeneradorDatos gdg = new GeneradorDatosGenericos();
         TClasificador tc = new TClasificador();
-        
+
         long tiempo;
         int[] tamanios = new int[]{300, 10000, 30000};
         for (int tamanio : tamanios) {
@@ -29,7 +30,7 @@ public class TClasificador implements IClasificador {
             System.out.println("tiempo INSERCIÓN ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_INSERCION, DESCENDENTE, tamanio);
             System.out.println("tiempo INSERCIÓN descendente: " + tiempo);
-            
+
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_SHELL, ALEATORIO, tamanio);
             System.out.println("tiempo SHELL aleatorio: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_SHELL, ASCENDENTE, tamanio);
@@ -64,34 +65,41 @@ public class TClasificador implements IClasificador {
             System.out.println("tiempo HEAPSORT ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_HEAPSORT, DESCENDENTE, tamanio);
             System.out.println("tiempo HEAPSORT descendente: " + tiempo);
-            
+
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_SELECCION, ALEATORIO, tamanio);
             System.out.println("tiempo SELECCION aleatorio: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_SELECCION, ASCENDENTE, tamanio);
             System.out.println("tiempo SELECCION ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_SELECCION, DESCENDENTE, tamanio);
             System.out.println("tiempo SELECCION descendente: " + tiempo);
-            
+
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_BINSORT, ALEATORIO, tamanio);
             System.out.println("tiempo BINSORT aleatorio: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_BINSORT, ASCENDENTE, tamanio);
             System.out.println("tiempo BINSORT ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_BINSORT, DESCENDENTE, tamanio);
             System.out.println("tiempo BINSORT descendente: " + tiempo);
-            
+
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_RADIXSORT, ALEATORIO, tamanio);
             System.out.println("tiempo RADIXSORT aleatorio: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_RADIXSORT, ASCENDENTE, tamanio);
             System.out.println("tiempo RADIXSORT ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_RADIXSORT, DESCENDENTE, tamanio);
             System.out.println("tiempo RADIXSORT descendente: " + tiempo);
-            
+
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_CUENTA, ALEATORIO, tamanio);
             System.out.println("tiempo CUENTA aleatorio: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_CUENTA, ASCENDENTE, tamanio);
             System.out.println("tiempo CUENTA ascendente: " + tiempo);
             tiempo = tc.medirAlgoritmo(METODO_CLASIFICACION_CUENTA, DESCENDENTE, tamanio);
             System.out.println("tiempo CUENTA descendente: " + tiempo);
+            
+            tiempo = tc.medirAlgoritmo(METODO_ORDENAR_SELECCION_PRIORITY, ALEATORIO, tamanio);
+            System.out.println("tiempo SELECCION PRIORITY aleatorio: " + tiempo);
+            tiempo = tc.medirAlgoritmo(METODO_ORDENAR_SELECCION_PRIORITY, ASCENDENTE, tamanio);
+            System.out.println("tiempo SELECCION PRIORITY ascendente: " + tiempo);
+            tiempo = tc.medirAlgoritmo(METODO_ORDENAR_SELECCION_PRIORITY, DESCENDENTE, tamanio);
+            System.out.println("tiempo SELECCION PRIORITY descendente: " + tiempo);
         }
     }
 
@@ -139,13 +147,15 @@ public class TClasificador implements IClasificador {
                 return ordenarPorRadixsort(datosParaClasificar);
             case METODO_CLASIFICACION_CUENTA:
                 return ordenarPorCuenta(datosParaClasificar);
+            case METODO_ORDENAR_SELECCION_PRIORITY:
+                return ordenarPorSeleccionPriority(datosParaClasificar);
             default:
                 System.err.println("Este codigo no deberia haberse ejecutado");
                 break;
         }
         return datosParaClasificar;
     }
-    
+
     public int[] clasificar(int[] datosParaClasificar, int metodoClasificacion, boolean cascara) {
         switch (metodoClasificacion) {
             case METODO_CLASIFICACION_INSERCION:
@@ -208,6 +218,12 @@ public class TClasificador implements IClasificador {
                 } else {
                     return ordenarPorCuentaCascara(datosParaClasificar);
                 }
+            case METODO_ORDENAR_SELECCION_PRIORITY:
+                if (cascara) {
+                    return ordenarPorSeleccionPriority(datosParaClasificar);
+                } else {
+                    return ordenarPorSeleccionPriorityCascara(datosParaClasificar);
+                }
             default:
                 System.err.println("Este codigo no deberia haberse ejecutado");
                 break;
@@ -238,7 +254,7 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorShellInverso(int[] datosParaClasificar) {
         int j, inc;
         int[] incrementos = new int[]{3223, 358, 51, 10, 3, 1};
@@ -258,9 +274,9 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorShellCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
@@ -284,7 +300,7 @@ public class TClasificador implements IClasificador {
         }
         return null;
     }
-    
+
     protected int[] ordenarPorInsercionInverso(int[] datosParaClasificar) {
         if (datosParaClasificar != null) {
             for (int i = 1; i < datosParaClasificar.length; i++) {
@@ -299,9 +315,9 @@ public class TClasificador implements IClasificador {
         }
         return null;
     }
-       
+
     protected int[] ordenarPorInsercionCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
@@ -322,7 +338,7 @@ public class TClasificador implements IClasificador {
         }
         return null;
     }
-    
+
     public int[] ordenarPorBurbujaInverso(int[] datosParaClasificar) {
         if (datosParaClasificar != null) {
             int n = datosParaClasificar.length - 1;
@@ -338,14 +354,14 @@ public class TClasificador implements IClasificador {
         }
         return null;
     }
-    
+
     protected int[] ordenarPorBurbujaCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
     }
-    
+
     private int[] ordenarPorBurbujaMejorado(int[] datosParaClasificar) {
         //datosParaClasificar = null;
         if (datosParaClasificar != null) {
@@ -358,34 +374,36 @@ public class TClasificador implements IClasificador {
                         intercambiar(datosParaClasificar, j - 1, j);
                     }
                 }
-                if (!huboIntercambio) break;
+                if (!huboIntercambio) {
+                    break;
+                }
             }
             return datosParaClasificar;
         }
         return null;
     }
-    
+
     protected int[] ordenarPorBurbujaMejoradoCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
     }
-    
+
     @Override
     public int[] ordenarPorQuickSort(int[] datosParaClasificar) {
         //quickSort(datosParaClasificar, 0, datosParaClasificar.length - 1);
         quicksort(datosParaClasificar, 0, datosParaClasificar.length - 1);
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorQuicksortCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
     }
-    
+
     private void quicksort(int[] entrada, int i, int j) {
         int izquierda = i;
         int derecha = j;
@@ -417,13 +435,13 @@ public class TClasificador implements IClasificador {
             }
         }
     }
-    
+
     protected int[] ordenarPorQuickSortInverso(int[] datosParaClasificar) {
         //quickSort(datosParaClasificar, 0, datosParaClasificar.length - 1);
         quicksortInverso(datosParaClasificar, 0, datosParaClasificar.length - 1);
         return datosParaClasificar;
     }
-    
+
     private void quicksortInverso(int[] entrada, int i, int j) {
         int izquierda = i;
         int derecha = j;
@@ -459,7 +477,7 @@ public class TClasificador implements IClasificador {
             }
         }
     }
-    
+
 //    private void quickSort(int[] arreglo, int bajo, int alto) {
 //        if (bajo < alto + 1) {
 //            int p = particion(arreglo, bajo, alto);
@@ -467,7 +485,6 @@ public class TClasificador implements IClasificador {
 //            quickSort(arreglo, p + 1, alto);
 //        }
 //    }
-    
 //    private int particion(int[] arreglo, int bajo, int alto) {
 //        intercambiar(arreglo, bajo, obtenerPivote(bajo, alto));
 //        //intercambiar(arreglo, bajo, obtenerPivote(arreglo, bajo, alto));
@@ -481,9 +498,8 @@ public class TClasificador implements IClasificador {
 //        intercambiar(arreglo, bajo, borde - 1);
 //        return borde - 1;
 //    }
-    
     private int encuentraPivote(int izquierda, int derecha, int[] entrada) {
-        return (derecha-izquierda)/2+izquierda;
+        return (derecha - izquierda) / 2 + izquierda;
         //return ((izquierda + derecha) / 2);
     }
 
@@ -491,51 +507,55 @@ public class TClasificador implements IClasificador {
     public int[] ordenarPorSeleccion(int[] datosParaClasificar) {
         int tope = datosParaClasificar.length - 1;
         int indMin;
-        
+
         for (int i = 0; i <= tope; i++) {
             indMin = obtenerMinimo(datosParaClasificar, i, tope);
             // Sólo intercambio si son distintos índices
-            if (indMin != i)
+            if (indMin != i) {
                 intercambiar(datosParaClasificar, i, indMin);
+            }
         }
-        
+
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorSeleccionCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
     }
-    
+
     protected int[] ordenarPorSeleccionInverso(int[] datosParaClasificar) {
         int tope = datosParaClasificar.length - 1;
         int indMin;
-        
+
         //for (int i = 0; i <= tope; i++) {
         for (int i = tope; i >= 0; i--) { // recorro de forma inversa
             //indMin = obtenerMinimo(datosParaClasificar, i, tope);
             indMin = obtenerMinimo(datosParaClasificar, 0, i);
             // Sólo intercambio si son distintos índices
-            if (indMin != i)
+            if (indMin != i) {
                 intercambiar(datosParaClasificar, i, indMin);
+            }
         }
-        
+
         return datosParaClasificar;
     }
-    
+
     /**
      * Retorna índice del valor mínimo de un arreglo
+     *
      * @param arreglo
      * @return índice del valor mínimo
      */
     public static int obtenerMinimo(int[] arreglo) {
         return obtenerMinimo(arreglo, 0, arreglo.length - 1);
     }
-    
+
     /**
      * Retorna índice del valor mínimo de un arreglo
+     *
      * @param arreglo
      * @param izq índice izquierda
      * @param der índice derecha
@@ -544,17 +564,18 @@ public class TClasificador implements IClasificador {
     public static int obtenerMinimo(int[] arreglo, int izq, int der) {
         int indice = izq;
         int valor = arreglo[izq];
-        
-        if (izq > der)
+
+        if (izq > der) {
             return -1;
-        
+        }
+
         for (int i = izq; i <= der; i++) {
             if (arreglo[i] < valor) {
                 indice = i;
                 valor = arreglo[i];
             }
         }
-        
+
         return indice;
     }
 
@@ -563,7 +584,6 @@ public class TClasificador implements IClasificador {
 //        // Implementar m�todo aqu�
 //        return null;
 //    }
-    
     @Override
     public int[] ordenarPorHeapSort(int[] datosParaClasificar) {
         for (int i = (datosParaClasificar.length - 1) / 2; i >= 0; i--) {
@@ -575,12 +595,12 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     private void armaHeap(int[] datosParaClasificar, int primero, int ultimo) {
         if (primero < ultimo) {
             int r = primero;
             while (r <= ultimo / 2) {
-                if (ultimo == 2 * r) { 
+                if (ultimo == 2 * r) {
                     if (datosParaClasificar[r] > datosParaClasificar[r * 2]) {
                         intercambiar(datosParaClasificar, r, 2 * r);
                     }
@@ -603,7 +623,7 @@ public class TClasificador implements IClasificador {
         }
 
     }
-    
+
     //protected int[] ordenarPorHeapSort(int[] datosParaClasificar) {
     public int[] ordenarPorHeapSortInverso(int[] datosParaClasificar) {
         for (int i = (datosParaClasificar.length - 1) / 2; i >= 0; i--) { //Armo el heap inicial de n-1 div 2 hasta 0
@@ -615,9 +635,9 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorHeapSortCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
@@ -655,12 +675,12 @@ public class TClasificador implements IClasificador {
             }
         }
     }
-    
+
     @Override
     public int[] ordenarPorCuenta(int[] datosParaClasificar) {
         return ordenarPorCuenta(datosParaClasificar, MAXIMO_CUENTA);
     }
-    
+
     public int[] ordenarPorCuenta(int[] datosParaClasificar, int maximo) {
         int[] cuenta = new int[maximo + 1];
         for (int i = 0; i < datosParaClasificar.length; i++) {
@@ -677,25 +697,49 @@ public class TClasificador implements IClasificador {
         }
         return salida;
     }
-    
+
     protected int[] ordenarPorCuentaCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
     }
-    
+
+    protected int[] ordenarPorSeleccionPriorityCascara(int[] datosParaClasificar) {
+        if (datosParaClasificar != null) {
+            return datosParaClasificar;
+        }
+        return null;
+    }
+
     protected int[] ordenarPorBinsort(int[] datosParaClasificar) {
         int max = maximo(datosParaClasificar);
         int cifrasMax = numeroDeCifras(max);
         return binsort(datosParaClasificar, cifrasMax, false);
     }
-    
+
     protected int[] ordenarPorBinsortCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
+    }
+
+    protected int[] ordenarPorSeleccionPriority(int[] datosParaClasificar) {
+        if (datosParaClasificar.length == 0) {
+            return datosParaClasificar;
+        }
+        PriorityQueue<Integer> pr = new PriorityQueue<>(datosParaClasificar.length, Integer::compareTo);
+        for (int aDatosParaClasificar : datosParaClasificar) {
+            pr.add(aDatosParaClasificar);
+        }
+        int i = 0;
+        while (!pr.isEmpty()) {
+            int y = pr.poll();
+            datosParaClasificar[i] = y;
+            i++;
+        }
+        return datosParaClasificar;
     }
 
     private int[] binsort(int[] datosParaClasificar, int cifrasMax, boolean radix) {
@@ -724,7 +768,7 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     private int digitoEnPosicion(int n, int pos) {
         int a = n % (int) Math.pow(10, pos);
         int x = (int) Math.pow(10, pos - 1);
@@ -732,11 +776,11 @@ public class TClasificador implements IClasificador {
             return 0;
         }
         while (a >= 10) {
-            a = a/10;
+            a = a / 10;
         }
         return a;
     }
-    
+
     private int maximo(int[] datos) {
         int max = Integer.MIN_VALUE;
         for (int i : datos) {
@@ -746,11 +790,11 @@ public class TClasificador implements IClasificador {
         }
         return max;
     }
-    
+
     private int numeroDeCifras(int i) {
         return (int) (Math.log10(i) + 1);
     }
-    
+
     protected int[] ordenarPorRadixsort(int[] datosParaClasificar) {
         int max = maximo(datosParaClasificar);
         int cifrasMax = numeroDeCifras(max);
@@ -759,9 +803,9 @@ public class TClasificador implements IClasificador {
         }
         return datosParaClasificar;
     }
-    
+
     protected int[] ordenarPorRadixsortCascara(int[] datosParaClasificar) {
-        if (datosParaClasificar != null) { 
+        if (datosParaClasificar != null) {
             return datosParaClasificar;
         }
         return null;
@@ -783,7 +827,7 @@ public class TClasificador implements IClasificador {
         }
         return true;
     }
-    
+
     @Override
     public boolean estaOrdenadoInverso(int[] datosParaVerificar) {
         for (int i = 0; i < datosParaVerificar.length - 1; i++) {
@@ -794,7 +838,7 @@ public class TClasificador implements IClasificador {
         }
         return true;
     }
-    
+
     @Override
     public boolean estaOrdenadoSinRepetidos(int[] datosParaVerificar) {
         for (int i = 0; i < datosParaVerificar.length - 1; i++) {
@@ -805,11 +849,11 @@ public class TClasificador implements IClasificador {
         }
         return true;
     }
-    
+
     public long medirAlgoritmo(int algoritmo, int tipoOrden, int tamanio) {
         IGeneradorDatos gen = new GeneradorDatosGenericos();
         int[] vectorOriginal, resultado;
-        
+
         // Tipo de vectores generados
         switch (tipoOrden) {
             case ALEATORIO:
@@ -824,7 +868,7 @@ public class TClasificador implements IClasificador {
             default:
                 return -1;
         }
-        
+
         // con el generador de datos aleatorios, para el tamaño T, en orden “tipoOrden”
         //ascendente, descendente o aleatorio)
         long t1 = System.nanoTime();
@@ -839,13 +883,13 @@ public class TClasificador implements IClasificador {
             //long t2 = System.nanoTime();
             total = System.nanoTime() - t1;
         }
-        long tiempoMedioAlgoritmoBase = total/cantLlamadas;
+        long tiempoMedioAlgoritmoBase = total / cantLlamadas;
         // lo que lleva ejecutar 1 vez el algoritmo, para ese conjunto de datos
         // ahora tenemos que calcular cuánto se fue en las “cáscaras” y descontarlo
         vectorOriginal = gen.generarDatosAscendentes(tamanio);
         // con el generador de datos aleatorios, para el tamaño T, en orden “tipoOrden”
         //ascendente, descendente o aleatorio)
-        
+
         t1 = System.nanoTime();
         total = 0;
         cantLlamadas = 0;
@@ -858,11 +902,12 @@ public class TClasificador implements IClasificador {
             //long t2 = System.nanoTime();
             total = System.nanoTime() - t1;
         }
-        long tiempoMedioCascara = total/cantLlamadas;
-        
+        long tiempoMedioCascara = total / cantLlamadas;
+
         // lo que lleva ejecutar 1 vez la infraestructura del algoritmo, para ese
         // conjunto de datos
         long tiempoMedioAlgoritmo = tiempoMedioAlgoritmoBase - tiempoMedioCascara;
         return tiempoMedioAlgoritmo;
     }
+
 }
