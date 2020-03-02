@@ -1,0 +1,19 @@
+UT3 - PD1
+
+El trie desarrollado en la Unidad Temática 2, en el Trabajo de Aplicación 2, tenía su TNodoTrie implementado
+aprovechando el conocimiento de los códigos ASCII del conjunto de caracteres del alfabeto considerado. Luego
+desarrollamos un pequeño programa que tiene la funcionalidad de “autocompletar” o “predecir” texto a medida que
+vamos tecleando. Sin embargo, esta implementación resulta muy poco flexible si queremos extenderla para otros
+alfabetos. Una forma de resolver esto sería utilizando, dentro del TNodoTrie, un HashMap que, dada una clave,
+devuelva la referencia al TNodoTrie correspondiente (subárbol).
+Se requiere entonces:
+
+     Desarrolla nuevamente el trie utilizando HashMap en el TNodoTrie y el progama UT2/TA3 del predictor
+
+     Inserta en el trie las strings indicadas y prueba el programa.
+
+     Compara las 2 implementaciones, en cuanto a consumo de memoria y tiempo de ejecución (para esto último
+        será necesario crear un método que ejecute múltiples búsquedas, muchas veces, y medir el tiempo
+        utilizando las funciones de java)
+
+     Comenta en el foro tus conclusiones sobre esta aplicación. 

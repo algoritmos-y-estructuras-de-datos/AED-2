@@ -1,4 +1,0 @@
-algoritmo,tiempo,memoria
-MedicionPredecirLinkedList,180256464,937264
-MedicionPredecirTrie,22389333,10450571
-MedicionPredecirHashMap,219317797,1007201

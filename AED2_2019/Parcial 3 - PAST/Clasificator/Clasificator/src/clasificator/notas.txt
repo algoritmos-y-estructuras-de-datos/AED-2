@@ -1,0 +1,10 @@
+ACLARACIONES:
+- Consideramos siempre si un conjunto está ordenado si luego de cada método de clasificación, se verifica que esta ordenado ascendentemente.
+- Los tiempos de inicio y fin son en nano segundos, tomados inmediatamente antes y despues de cada llamada a los metodos de clasificación. 
+- Los tiempos anotados en la planilla, son la diferencia entre el fin y el inicio.
+- Todas las llamadas a cada método de clasificación, estan agrupadas segun el tamaño del conjunto de datos (300, 10000, 30000).
+
+COMENTARIOS:
+1) Para los conjuntos de datos pequeños y grandes, shellsort es el más rápido en promedio.
+2) Para los conjuntos de datos grandes, Inserción Directa es el más lento si no está ordenado.
+3) BubbleSort es el método más lento en promedio, para ambos conjuntos de datos.
