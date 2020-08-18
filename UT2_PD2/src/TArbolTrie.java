@@ -17,11 +17,11 @@ public class TArbolTrie {
         raiz.insertar(palabra);
     }
     
-    public void insertar(String palabra,Integer paginas){
+    public void insertarConPaginas(String palabra,Integer paginas){
         if(raiz == null){
             raiz = new TNodoTrie();
         }
-        raiz.insertar(palabra,paginas);
+        raiz.insertar(palabra);
     }
     
     public void imprimir() {

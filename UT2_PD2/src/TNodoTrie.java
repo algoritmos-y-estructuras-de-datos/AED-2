@@ -22,7 +22,7 @@ public class TNodoTrie {
         esPalabra = false;
     }
 
-    public void insertar(String palabras, Integer paginas) {
+    public void insertarConPaginas(String palabras, Integer paginas) {
         TNodoTrie nodo = this;
 
         for (int i = 0; i < palabras.length(); i++) {
