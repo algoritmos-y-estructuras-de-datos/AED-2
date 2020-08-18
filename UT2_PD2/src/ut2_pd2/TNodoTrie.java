@@ -28,17 +28,30 @@ public class TNodoTrie {
         for (int i = 0; i < palabras.length(); i++) {
             int indice = palabras.charAt(i) - 'a';
             if (nodo.hijos[indice] == null) {
-                System.out.println("No se encuentra");
+                nodo.hijos[indice] = new TNodoTrie();
+            }
+            nodo = nodo.hijos[indice];
+        }
+        nodo.esPalabra = true;
+        nodo.paginas.add(paginas);
+    }
+
+    public String paginasDePalabra(String palabras){
+        TNodoTrie nodo = this;
+        for (int i = 0; i < palabras.length(); i++) {
+            int indice = palabras.charAt(i) - 'a';
+            if (nodo.hijos[indice] == null) {
+                return "No se encuentra";
             }
             nodo = nodo.hijos[indice];
         }
         if (nodo.esPalabra) {
-            System.out.println(nodo.paginas.toString());
+            return nodo.paginas.toString();
         } else {
-            System.out.println("No se encuentra");
+            return "No se encuentra";
         }
     }
-
+    
     public void insertar(String unaPalabra) {
         TNodoTrie nodo = this;
         for (int c = 0; c < unaPalabra.length(); c++) {
