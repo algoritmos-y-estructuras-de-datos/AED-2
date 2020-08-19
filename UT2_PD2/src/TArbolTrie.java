@@ -9,7 +9,7 @@
  * @author lucas
  */
 public class TArbolTrie {
-    private TNodoTrie raiz;
+    public TNodoTrie raiz;
     
     public void insertar(String palabra){
         if(raiz == null){
@@ -33,4 +33,5 @@ public class TArbolTrie {
     public Integer buscar(String palabra){
         return raiz.busqueda(palabra);
     }
+    
 }
