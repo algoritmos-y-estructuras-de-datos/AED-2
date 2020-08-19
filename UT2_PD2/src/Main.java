@@ -39,12 +39,18 @@ public class Main {
      */
     public static void main(String[] args) {
         TArbolTrie arbol = new TArbolTrie();
+        arbol.insertarConPaginas("ala",1);
+        arbol.insertarConPaginas("ala",3);
+        
+        arbol.imprimir();
+        
+        /*
         String[] array = ManejadorArchivosGenerico.leerArchivo("src/palabras.txt");
         for (String i : array){
             arbol.insertar(i);
         }
         
-        System.out.println(arbol.buscar("alar"));
+        System.out.println(arbol.buscar("alar"));*/
     }
     
 }

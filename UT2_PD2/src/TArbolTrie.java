@@ -21,7 +21,7 @@ public class TArbolTrie {
         if(raiz == null){
             raiz = new TNodoTrie();
         }
-        raiz.insertar(palabra);
+        raiz.insertarConPaginas(palabra,paginas);
     }
     
     public void imprimir() {
