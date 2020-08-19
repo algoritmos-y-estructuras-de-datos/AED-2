@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TNodoTrie {
 
-    private static final int CANT_CHR_ABECEDARIO = 26;
+    private static final int CANT_CHR_ABECEDARIO = 145;
     private TNodoTrie[] hijos;
     private boolean esPalabra;
     private ArrayList<Integer> paginas = new ArrayList<Integer>();
@@ -22,18 +22,20 @@ public class TNodoTrie {
         esPalabra = false;
     }
 
-    public void insertarConPaginas(String palabras, Integer paginas) {
+    public int insertarConPaginas(String palabras, Integer paginas) {
         TNodoTrie nodo = this;
-
+        int comparaciones = 0;
         for (int i = 0; i < palabras.length(); i++) {
             int indice = palabras.charAt(i) - 'a';
             if (nodo.hijos[indice] == null) {
                 nodo.hijos[indice] = new TNodoTrie();
             }
+            comparaciones++;
             nodo = nodo.hijos[indice];
         }
         nodo.esPalabra = true;
         nodo.paginas.add(paginas);
+        return comparaciones;
     }
 
     public String paginasDePalabra(String palabras){
@@ -54,14 +56,17 @@ public class TNodoTrie {
     
     public void insertar(String unaPalabra) {
         TNodoTrie nodo = this;
+        int comparaciones = 0;
         for (int c = 0; c < unaPalabra.length(); c++) {
             int indice = unaPalabra.charAt(c) - 'a';
             if (nodo.hijos[indice] == null) {
                 nodo.hijos[indice] = new TNodoTrie();
             }
+            comparaciones++;
             nodo = nodo.hijos[indice];
         }
         nodo.esPalabra = true;
+        System.out.println(comparaciones);
     }
 
     public int busqueda(String unaPalabra) {

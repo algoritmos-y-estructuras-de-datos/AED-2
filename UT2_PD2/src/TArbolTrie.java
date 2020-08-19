@@ -10,6 +10,7 @@
  */
 public class TArbolTrie {
     private TNodoTrie raiz;
+    
     public void insertar(String palabra){
         if(raiz == null){
             raiz = new TNodoTrie();
@@ -17,11 +18,11 @@ public class TArbolTrie {
         raiz.insertar(palabra);
     }
     
-    public void insertarConPaginas(String palabra,Integer paginas){
+    public int insertarConPaginas(String palabra,Integer paginas){
         if(raiz == null){
             raiz = new TNodoTrie();
         }
-        raiz.insertarConPaginas(palabra,paginas);
+        return raiz.insertarConPaginas(palabra,paginas);
     }
     
     public void imprimir() {
