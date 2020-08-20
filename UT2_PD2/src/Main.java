@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * • ¿cuál es la altura del árbol trie resultante? (camino mas largo)
  *
- *
+ * La altura del Trie es 14
  *
  * • ¿cuál es su tamaño?
  *
