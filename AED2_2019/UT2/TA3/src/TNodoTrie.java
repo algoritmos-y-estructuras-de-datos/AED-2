@@ -72,7 +72,8 @@ public class TNodoTrie implements Serializable {
         if (nodo != null) {
             if (nodo.esPalabra) {
                 palabras.add(prefijo + s);
-                //System.out.println(prefijo + s);
+                //bandera
+                System.out.println(prefijo + s);
             }
 
             for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
