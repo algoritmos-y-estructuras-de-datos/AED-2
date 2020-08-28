@@ -1,27 +1,25 @@
 account
 astonishment
 brain
-cesspool 
-deduction 
-doctor 
+cesspool
+deduction
+doctor
 expense
-fellow 
-felt 
+fellow
+felt
 glasses
-kith 
-landing 
-marvels 
-metropolis 
+kith
+landing
+marvels
+metropolis
 passion
-pencil 
+pencil
 point
 politics
-shoulder 
-superstitions 
+shoulder
+superstitions
 violin
 year
-
-
 
 
 

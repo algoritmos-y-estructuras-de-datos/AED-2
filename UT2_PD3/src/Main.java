@@ -14,7 +14,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        TArbolTrie arbol = new TArbolTrie();
+        String[] array = ManejadorArchivosGenerico.leerArchivo("src/PalabrasBuscar.txt");
+        for (String i : array){
+            arbol.insertar(i);
+        }
+        
+        //System.out.println(arbol.buscar("alar"));
     }
     
 }
