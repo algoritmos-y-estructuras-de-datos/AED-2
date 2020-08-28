@@ -105,15 +105,23 @@ public class TNodoTrie {
         imprimir("", this);
     }
 
-    public int altura(TNodoTrie node) {
-        int lev = 1;
-        if (node != null) {
-            TNodoTrie current = node;
-            //int lev = 1;
-            for (TNodoTrie child : node.hijos) {
-                lev = Math.max(lev, 1 + altura(child));
+    public int altura(TNodoTrie nodo) {
+        int altura = 1;
+        if (nodo != null) {
+            for (TNodoTrie hijo : nodo.hijos) {
+                altura = Math.max(altura, altura(hijo) + 1);
             }
         }
-        return lev;
+        return altura;
+    }
+
+    public int tamanio(TNodoTrie nodo) {
+        int tamanio = 1;
+        if (nodo != null) {
+            for (TNodoTrie aux : nodo.hijos) {
+                tamanio++;
+            }
+        }
+        return tamanio;
     }
 }

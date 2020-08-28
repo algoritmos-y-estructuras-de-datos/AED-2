@@ -66,20 +66,10 @@ public class Main {
         System.out.println("Comparaciones para Proselitismo: " + arbol.buscar("proselitismo"));
         System.out.println("Comparaciones para insertar Cazadores: " + arbol.insertarConPaginas("cazadores", 89));
 
-        System.out.println(altura(arbol.raiz));
+        System.out.println("La altura del arbol es: " + arbol.altura(arbol.raiz));
+        
+        System.out.println("El tamanio del arbol es: " + arbol.tamanio(arbol.raiz));
 
-    }
-
-    public static int altura(TNodoTrie node) {
-        int lev = 1;
-        if (node != null) {
-            TNodoTrie current = node;
-            //int lev = 1;
-            for (TNodoTrie child : node.hijos) {
-                lev = Math.max(lev, 1 + altura(child));
-            }
-        }
-        return lev;
     }
 
 }
