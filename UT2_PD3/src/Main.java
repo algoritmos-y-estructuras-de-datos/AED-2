@@ -16,11 +16,13 @@ public class Main {
     public static void main(String[] args) {
         TArbolTrie arbol = new TArbolTrie();
         String[] array = ManejadorArchivosGenerico.leerArchivo("src/PalabrasBuscar.txt");
+        //String[] array = ManejadorArchivosGenerico.leerArchivo("src/PalabrasIndice.txt");
+        //Se sobrecarga el heap
+        //String[] array = ManejadorArchivosGenerico.leerArchivo("src/PalabrasEx.txt");
         for (String i : array){
             arbol.insertar(i.trim());
         }
-        
-        //System.out.println(arbol.buscar("alar"));
+       
     }
     
 }

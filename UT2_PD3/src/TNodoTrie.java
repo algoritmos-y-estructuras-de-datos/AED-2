@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TNodoTrie {
 
-    private static final int CANT_CHR_ABECEDARIO = 26;
+    private static final int CANT_CHR_ABECEDARIO = 9000;
     public TNodoTrie[] hijos;
     private boolean esPalabra;
     private ArrayList<Integer> paginas = new ArrayList<Integer>();
