@@ -17,7 +17,7 @@ public class Main {
         TArbolTrie arbol = new TArbolTrie();
         String[] array = ManejadorArchivosGenerico.leerArchivo("src/PalabrasBuscar.txt");
         for (String i : array){
-            arbol.insertar(i);
+            arbol.insertar(i.trim());
         }
         
         //System.out.println(arbol.buscar("alar"));
