@@ -6,11 +6,11 @@ public class TNodoTrie implements INodoTrie {
 
     private static final int MAX_DATOS = 2;
 
-    //private static final int CANT_CHR_ABECEDARIO = 26;
-    private static final char[] abc = new char[]{'a', 'c', 'g', 't'};
+    private static final int CANT_CHR_ABECEDARIO = 26;
+    //private static final char[] abc = new char[]{'a', 'c', 'g', 't'};
     private HashMap<Character, TNodoTrie> hijos;
     private boolean esPalabra;
-    private int inicio;
+    //private int inicio;
     public LinkedList<LinkedList<Integer>> datos;
 
     public TNodoTrie() {
@@ -42,10 +42,9 @@ public class TNodoTrie implements INodoTrie {
                 System.out.println(s);
 
             }
-            for (int c = 0; c < 4; c++) {
-                if (nodo.hijos.containsKey(abc[c])) {
-                    imprimir(s + abc[c], nodo.hijos.get(abc[c]));
-                }
+            for (Object indice : nodo.hijos.keySet()){
+                char caracter = (char)indice;
+                imprimir (s+caracter,(TNodoTrie)nodo.hijos.get(caracter));
             }
         }
     }

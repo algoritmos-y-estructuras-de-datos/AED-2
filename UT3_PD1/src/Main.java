@@ -1,24 +1,24 @@
 
 import java.util.LinkedList;
 
-
 public class Main {
 
     /**
      * @param args
      */
-    public static void main(String[] args){
-        
+    public static void main(String[] args) {
 
         TArbolTrie trie = new TArbolTrie();
-        
 
         String[] palabrasClave = ManejadorArchivosGenerico.leerArchivo("src/PalabrasIndice.txt");
         for (String palabra : palabrasClave) {
-
+            //System.out.println(palabra);
             trie.insertar(IndizarLibro.filtrarPalabra(palabra));
         }
         
+        trie.imprimir();
+        
+        /*
         String[] lineasLibro = ManejadorArchivosGenerico.leerArchivo("src/libro.txt");
         int contLineas = 0;
         for (String linea : lineasLibro) {
@@ -43,6 +43,7 @@ public class Main {
         
         
         System.out.println("...");
-
+         */
     }
+
 }
