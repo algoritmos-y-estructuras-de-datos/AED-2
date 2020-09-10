@@ -16,9 +16,9 @@ public class Main {
             trie.insertar(IndizarLibro.filtrarPalabra(palabra));
         }
         
-        trie.imprimir();
+        //trie.imprimir();
         
-        /*
+        
         String[] lineasLibro = ManejadorArchivosGenerico.leerArchivo("src/libro.txt");
         int contLineas = 0;
         for (String linea : lineasLibro) {
@@ -43,7 +43,6 @@ public class Main {
         
         
         System.out.println("...");
-         */
     }
 
 }
