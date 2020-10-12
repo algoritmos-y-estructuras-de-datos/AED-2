@@ -1,7 +1,0 @@
-algoritmo;tiempo;memoria
-MedicionPredecirHashMap;1048.9048;1.2673616409301758
-MedicionPredecirTrie;19.0174;9.96644115447998
-algoritmo;tiempo;memoria
-MedicionPredecirLinkedList;636.0804999999999;0.8938751220703125
-MedicionPredecirHashMap;734.4100999999999;1.2673616409301758
-MedicionPredecirTrie;16.7529;9.96644115447998
