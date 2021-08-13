@@ -27,13 +27,13 @@ public class AlgotimosOrdenamientoV1 {
         sorterB.sort(elArrayB);
         System.out.println("Sorted with BUBBLESORT: " + Arrays.toString(elArrayB));
         int[] elArrayS = {2, 19, 7, 4,12,34,55,66,77,1,900,876,64566};
-        ShellSort sorterS = new ShellSort();
+        /*ShellSort sorterS = new ShellSort();
         sorterS.sort(elArrayS);
-        System.out.println("Sorted with SHELLSORT: " + Arrays.toString(elArrayS));
-        /*int[] elArrayI = {2, 19, 7, 4};
-        InsertionSort sorterI = new InsertionSortt();
+        System.out.println("Sorted with SHELLSORT: " + Arrays.toString(elArrayS));*/
+        int[] elArrayI = {2, 19, 4,99,7};
+        InsertionSort sorterI = new  InsertionSort();
         sorterI.sort(elArrayI);
-        System.out.println("Sorted with INSERTIONSORT: " + Arrays.toString(elArrayI));*/
+        System.out.println("Sorted with INSERTIONSORT: " + Arrays.toString(elArrayI));
     }
 
 }
