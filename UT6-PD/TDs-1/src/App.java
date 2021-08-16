@@ -27,9 +27,9 @@ public class App {
         System.out.println("Ordenado Insercion directa: "+Arrays.toString(cosoI));
         System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoI));
         //Shellsort
-        //clasificador.clasificar(cosoS, 2);
-        //System.out.println("Ordenado ShellSort: "+Arrays.toString(cosoS));
-        //System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoS));
+        clasificador.clasificar(cosoS, 2);
+        System.out.println("Ordenado ShellSort: "+Arrays.toString(cosoS));
+        System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoS));
         //Bubbble
         clasificador.clasificar(cosoB, 3);
         System.out.println("Ordenado Bubble: "+Arrays.toString(cosoB));

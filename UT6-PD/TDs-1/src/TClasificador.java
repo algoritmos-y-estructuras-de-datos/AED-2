@@ -41,17 +41,14 @@ public class TClasificador {
 		int j, inc;
 		int[] incrementos = new int[] { 3223, 358, 51, 10, 3, 1 };
 
-		for (int posIncrementoActual = 1; posIncrementoActual < incrementos.length; posIncrementoActual++) {
+		for (int posIncrementoActual = 0; posIncrementoActual < incrementos.length; posIncrementoActual++) {
 			inc = incrementos[posIncrementoActual];
 			if (inc < (datosParaClasificar.length / 2)) {
 				for (int i = inc; i < datosParaClasificar.length; i++) {
 					j = i - inc;
-					while (j >= 0) {
-						if (datosParaClasificar[j] > datosParaClasificar[j + inc]) {
-							System.out.println(j);
-							intercambiar(datosParaClasificar, j, j + inc);
-							j = j--;
-						}
+					while ((j >= 0) && (datosParaClasificar[j] > datosParaClasificar[j + inc])) {
+						intercambiar(datosParaClasificar, j, j + inc);
+						j = j - inc;
 					}
 				}
 			}
