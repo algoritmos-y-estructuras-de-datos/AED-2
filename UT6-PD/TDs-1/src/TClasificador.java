@@ -3,6 +3,11 @@ public class TClasificador {
 	public static final int METODO_CLASIFICACION_INSERCION = 1;
 	public static final int METODO_CLASIFICACION_SHELL = 2;
 	public static final int METODO_CLASIFICACION_BURBUJA = 3;
+	public static final int METODO_CLASIFICACION_QUICKSORT = 4;
+	public static final int METODO_CLASIFICACION_SELECCION = 5;
+	public static final int METODO_CLASIFICACION_BUCKET = 6;
+	public static final int METODO_CLASIFICACION_RADIX = 7;
+	public static final int METODO_CLASIFICACION_HEAP = 8;
 
 	/**
 	 * Punto de entrada al clasificador
@@ -20,6 +25,16 @@ public class TClasificador {
 				return ordenarPorShell(datosParaClasificar);
 			case METODO_CLASIFICACION_BURBUJA:
 				return ordenarPorBurbuja(datosParaClasificar);
+			case METODO_CLASIFICACION_QUICKSORT:
+				return null;
+			case METODO_CLASIFICACION_SELECCION:
+				return ordenarPorSeleccion(datosParaClasificar);
+			case METODO_CLASIFICACION_BUCKET:
+				return ordenarPorBucket(datosParaClasificar);
+			case METODO_CLASIFICACION_RADIX:
+				return ordenarPorRadix(datosParaClasificar);
+			case METODO_CLASIFICACION_HEAP:
+				return ordenarPorHeap(datosParaClasificar);
 			default:
 				System.err.println("Este codigo no deberia haberse ejecutado");
 				break;
@@ -54,6 +69,53 @@ public class TClasificador {
 			}
 		}
 		return datosParaClasificar;
+	}
+
+	/**
+	 * @param datosParaClasificar
+	 * @return
+	 */
+	public int[] ordenarPorBucket(int[] datosParaClasificar) {
+		return null;
+	}
+
+	/**
+	 * @param datosParaClasificar
+	 * @return
+	 */
+	public int[] ordenarPorRadix(int[] datosParaClasificar) {
+		return null;
+	}
+
+	/**
+	 * @param datosParaClasificar
+	 * @return
+	 */
+	public int[] ordenarPorHeap(int[] datosParaClasificar) {
+		return null;
+	}
+
+	/**
+	 * @param datosParaClasificar
+	 * @return
+	 */
+	public int[] ordenarPorSeleccion(int[] datosParaClasificar) {
+		int[] salida = new int[datosParaClasificar.length];
+		int[] count = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		for (int i = 0; i < datosParaClasificar.length; i++) {
+			count[datosParaClasificar[i]]++;
+		}
+		for (int j = 1; j < count.length; j++) {
+			count[j] += count[j - 1];
+		}
+		for (int p = 0; p < datosParaClasificar.length; p++) {
+			salida[count[datosParaClasificar[p]] - 1] = datosParaClasificar[p];
+			count[datosParaClasificar[p]]--;
+		}
+		for (int h = 0; h < datosParaClasificar.length; h++) {
+			datosParaClasificar[h] = salida[h];
+		}
+		return salida;
 	}
 
 	/**

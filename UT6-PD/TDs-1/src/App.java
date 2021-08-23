@@ -13,6 +13,8 @@ public class App {
         System.out.println("Desordenado ShellSort: "+Arrays.toString(cosoS));
         int[] cosoB = generador.generarDatosAleatorios(5);
         System.out.println("Desordenado Burbuja: "+Arrays.toString(cosoB));
+        int[] cosoSS = generador.generarDatosAleatorios(5);
+        System.out.println("Desordenado Selection: "+Arrays.toString(cosoSS));
 
         // 2) Probar la ejecución del método “clasificar” del TClasificador, para
         // invocar el método Inserción Directa.
@@ -23,7 +25,7 @@ public class App {
          * “estaOrdenado” que tome como parámetro el vector resultante de la ordenación.
          */
         TClasificador clasificador = new TClasificador();
-        clasificador.clasificar(cosoI, 1);
+        /*clasificador.clasificar(cosoI, 1);
         System.out.println("Ordenado Insercion directa: "+Arrays.toString(cosoI));
         System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoI));
         //Shellsort
@@ -34,6 +36,11 @@ public class App {
         clasificador.clasificar(cosoB, 3);
         System.out.println("Ordenado Bubble: "+Arrays.toString(cosoB));
         System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoB));
+        //Selection*/
+        int[] salida = clasificador.ordenarPorSeleccion(cosoSS);
+        clasificador.clasificar(cosoSS, 5);
+        System.out.println("Ordenado Selection: "+Arrays.toString(salida));
+        System.out.println("Valido ordenacion: "+clasificador.estaOrdenado(cosoSS));
         /*
          * 6) Probar la ejecución con vectores con datos ascendentes, descendentes y
          * aleatorios. Desarrollar casos de test para verificar el correcto
