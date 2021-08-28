@@ -4,10 +4,11 @@ public class TClasificador {
 	public static final int METODO_CLASIFICACION_SHELL = 2;
 	public static final int METODO_CLASIFICACION_BURBUJA = 3;
 	public static final int METODO_CLASIFICACION_QUICKSORT = 4;
-	public static final int METODO_CLASIFICACION_SELECCION = 5;
+	public static final int METODO_CLASIFICACION_CUENTA = 5;
 	public static final int METODO_CLASIFICACION_BUCKET = 6;
 	public static final int METODO_CLASIFICACION_RADIX = 7;
 	public static final int METODO_CLASIFICACION_HEAP = 8;
+	public static final int METODO_CLASIFICACION_SELECCION = 9;
 
 	/**
 	 * Punto de entrada al clasificador
@@ -29,6 +30,8 @@ public class TClasificador {
 				return null;
 			case METODO_CLASIFICACION_SELECCION:
 				return ordenarPorSeleccion(datosParaClasificar);
+			case METODO_CLASIFICACION_CUENTA:
+				return ordenarPorCuenta(datosParaClasificar);
 			case METODO_CLASIFICACION_BUCKET:
 				return ordenarPorBucket(datosParaClasificar);
 			case METODO_CLASIFICACION_RADIX:
@@ -71,6 +74,21 @@ public class TClasificador {
 		return datosParaClasificar;
 	}
 
+	protected int[] ordenarPorSeleccion(int[] datosParaClasificar) {
+		for (int i = 0; i < datosParaClasificar.length - 1; i++) {
+			int indiceMenor = i;
+			int claveMenor = datosParaClasificar[i];
+			for (int j = i + 1; j < datosParaClasificar.length; j++) {
+				if (datosParaClasificar[j] < claveMenor) {
+					indiceMenor = j;
+					claveMenor = datosParaClasificar[j];
+				}
+			}
+			intercambiar(datosParaClasificar, i, indiceMenor);
+		}
+		return datosParaClasificar;
+	}
+
 	/**
 	 * @param datosParaClasificar
 	 * @return
@@ -99,9 +117,9 @@ public class TClasificador {
 	 * @param datosParaClasificar
 	 * @return
 	 */
-	public int[] ordenarPorSeleccion(int[] datosParaClasificar) {
+	public int[] ordenarPorCuenta(int[] datosParaClasificar) {
 		int[] salida = new int[datosParaClasificar.length];
-		int[] count = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int[] count = new int[datosParaClasificar.length];
 		for (int i = 0; i < datosParaClasificar.length; i++) {
 			count[datosParaClasificar[i]]++;
 		}
@@ -147,16 +165,15 @@ public class TClasificador {
 		return datosParaClasificar;
 	}
 
-	public boolean estaOrdenado(int[] v) {
-		int primero = v[0];
-		for (int i = 0; i < v.length - 1; i++) {
-			if (v[i] > primero) {
-				return true;
+	public boolean estaOrdenado(int[] datosParaVerificar) {
+		for (int i = 0; i < datosParaVerificar.length - 1; i++) {
+			if (datosParaVerificar[i] > datosParaVerificar[i + 1]) {
+				System.out.println(String.format("%d (índice %d) >= %d (índice %d)", datosParaVerificar[i], i,
+						datosParaVerificar[i + 1], (i + 1)));
+				return false;
 			}
 		}
-
-		return false;
-
+		return true;
 	}
 
 	public static void main(String args[]) {
