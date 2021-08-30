@@ -119,7 +119,7 @@ public class TClasificador {
 	 */
 	public int[] ordenarPorCuenta(int[] datosParaClasificar) {
 		int[] salida = new int[datosParaClasificar.length];
-		int[] count = new int[datosParaClasificar.length];
+		int[] count = {0,0,0,0,0,0,0,0,0,0};
 		for (int i = 0; i < datosParaClasificar.length; i++) {
 			count[datosParaClasificar[i]]++;
 		}

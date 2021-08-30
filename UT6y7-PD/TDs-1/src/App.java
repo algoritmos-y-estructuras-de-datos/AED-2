@@ -7,16 +7,17 @@ public class App {
         // claves enteras, desordenadas
 
         GeneradorDatosGenericos generador = new GeneradorDatosGenericos();
-        int[] cosoI = generador.generarDatosAleatorios(20);
+        /*int[] cosoI = generador.generarDatosAleatorios(20);
         System.out.println("Desordenado INSERCION: " + Arrays.toString(cosoI));
         int[] cosoS = generador.generarDatosAleatorios(20);
         System.out.println("Desordenado SHELLSORT: " + Arrays.toString(cosoS));
         int[] cosoB = generador.generarDatosAleatorios(20);
         System.out.println("Desordenado BUBBLE: " + Arrays.toString(cosoB));
-        int[] cosoSC = generador.generarDatosAleatorios(20);
-        System.out.println("Desordenado CUENTA: " + Arrays.toString(cosoSC));
+        // int[] cosoSC = generador.generarDatosAleatorios(20);
         int[] cosoSS = generador.generarDatosAleatorios(20);
-        System.out.println("Desordenado SELECCION: " + Arrays.toString(cosoSS));
+        System.out.println("Desordenado SELECCION: " + Arrays.toString(cosoSS));*/
+        int[] cosoSC = { 1, 2, 5, 7, 8, 1 };
+        System.out.println("Desordenado CUENTA: " + Arrays.toString(cosoSC));
         System.out.println("---------------------------------------------------------------");
 
         // 2) Probar la ejecución del método “clasificar” del TClasificador, para
@@ -28,39 +29,31 @@ public class App {
          * “estaOrdenado” que tome como parámetro el vector resultante de la ordenación.
          */
         TClasificador clasificador = new TClasificador();
-        // Selection
-        // Encapsulado en cascara
-        long t1 = System.nanoTime();
-        long total = 0;
-        int cantLlamadas = 0;
-        while (total < 1) {
-            cantLlamadas++;
-            clasificador.clasificar(cosoSS, 9);
-            long t2 = System.nanoTime();
-            total = t2 - t1;
-        }
-        long tiempoMedio = total/cantLlamadas; //Tiempo que lleva ejecutar el algoritmo una vez
-        //Ahora hay que descontar el tiempo de las cascaras
-        
-
-
-
-
-        System.out.println("Ordenado SELECCION: " + Arrays.toString(cosoSS));
-        System.out.println("Valido ordenacion SELECCION: " + clasificador.estaOrdenado(cosoSS));
-
-        clasificador.clasificar(cosoI, 1);
-        System.out.println("Ordenado INSERCION: " + Arrays.toString(cosoI));
-        System.out.println("Valido ordenacion INSERCION: " + clasificador.estaOrdenado(cosoI));
-        // Shellsort
-        clasificador.clasificar(cosoS, 2);
-        System.out.println("Ordenado SHELL: " + Arrays.toString(cosoS));
-        System.out.println("Valido ordenacion SHELL: " + clasificador.estaOrdenado(cosoS));
-        // Bubbble
-        clasificador.clasificar(cosoB, 3);
-        System.out.println("Ordenado BUBBLE: " + Arrays.toString(cosoB));
-        System.out.println("Valido ordenacion BUBBLE: " + clasificador.estaOrdenado(cosoB));
-        // Selection
+        /*
+         * // Selection // Encapsulado en cascara long t1 = System.nanoTime(); long
+         * total = 0; int cantLlamadas = 0; while (total < 1) { cantLlamadas++;
+         * clasificador.clasificar(cosoSS, 9); long t2 = System.nanoTime(); total = t2 -
+         * t1; } long tiempoMedio = total/cantLlamadas; //Tiempo que lleva ejecutar el
+         * algoritmo una vez //Ahora hay que descontar el tiempo de las cascaras
+         * 
+         * 
+         * 
+         * 
+         * 
+         * System.out.println("Ordenado SELECCION: " + Arrays.toString(cosoSS));
+         * System.out.println("Valido ordenacion SELECCION: " +
+         * clasificador.estaOrdenado(cosoSS));
+         * 
+         * clasificador.clasificar(cosoI, 1); System.out.println("Ordenado INSERCION: "
+         * + Arrays.toString(cosoI)); System.out.println("Valido ordenacion INSERCION: "
+         * + clasificador.estaOrdenado(cosoI)); // Shellsort
+         * clasificador.clasificar(cosoS, 2); System.out.println("Ordenado SHELL: " +
+         * Arrays.toString(cosoS)); System.out.println("Valido ordenacion SHELL: " +
+         * clasificador.estaOrdenado(cosoS)); // Bubbble clasificador.clasificar(cosoB,
+         * 3); System.out.println("Ordenado BUBBLE: " + Arrays.toString(cosoB));
+         * System.out.println("Valido ordenacion BUBBLE: " +
+         * clasificador.estaOrdenado(cosoB)); // Selection
+         */
         int[] salida = clasificador.ordenarPorCuenta(cosoSC);
         clasificador.clasificar(cosoSC, 5);
         System.out.println("Ordenado CUENTA: " + Arrays.toString(salida));
