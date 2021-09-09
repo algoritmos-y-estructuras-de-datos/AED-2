@@ -1,7 +1,9 @@
 {
     "java.project.sourcePaths": [
         "UT6-PD/TDs-1/src",
+        "UT6-PD/TDs-1",
+        "UT2_PD1/src",
         "Ordenamiento I/AlgotimosOrdenamientoV1/src",
-        "UT6-PD/TDs-1"
+        "UT2_PD2/src"
     ]
 }
