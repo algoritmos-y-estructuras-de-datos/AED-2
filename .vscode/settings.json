@@ -1,7 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "UT2_PD2/src",
-        "UT2_PD1/src",
-        "UT2/UT2_PD1/src"
+        "UT2/UT2_PD1/src",
+        "UT3_TA1-Ej2"
     ]
 }
