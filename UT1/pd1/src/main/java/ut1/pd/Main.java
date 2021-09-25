@@ -5,7 +5,20 @@ import java.util.Random;
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * Desarrollar, en lenguaje JAVA, programa que implemente los métodos de búsqueda lineal y 
+búsqueda binaria sobre un vector de elementos con claves enteras, ordenado en forma 
+ascendente. 
+Estos métodos deberán recibir por parámetro el vector de valores (enteros) y el valor a buscar 
+en dicho vector. 
+Deberán indicarse, para cada algoritmo, la cantidad total de comparaciones realizadas.
+En la sección de la UT1 de la webasignatura se encuentran dos ejemplos de colecciones de 
+valores, en archivos de texto (un valor por línea) que pueden ser utilizados para comparar los 
+métodos de búsqueda.
+Se dese realizar una breve investigación sobre el comportamiento comparativo de estos 
+métodos, indicando promedios de comparaciones para búsquedas exitosas y no exitosas.
+Se sugiere para esto correr el programa una cierta cantidad de veces, para claves de búsqueda 
+diferentes (éstas podrían ser generadas aleatoriamente – entre los rangos del conjunto de 
+datos - y almacenadas en un vector auxiliar), y calcular entonces los promedios solicitados.
      */
     public static void main(String[] args) {
         String[] result = ManejadorArchivosGenerico.leerArchivo("C:/Source/AED-2/UT1/pd1/numeritos.csv", false);
@@ -14,13 +27,28 @@ public class Main {
         // }
         int[] resultInt = StringToIntegerArray(result);
 
+        //Busqueda exitosas
         binarySearch(resultInt, 99);
-
         if (binarySearchRecursive(99, resultInt, 0, resultInt.length - 1) != -1) {
             System.out.println('\n' + "Se encontró mediante la Busqueda Binaria Recursiva");
         }
-
         linearSearch(resultInt, 99);
+        System.out.println("-------------------------------------------------------------------");
+        //Busqueda no exitosas
+        binarySearch(resultInt, 1199);
+        if (binarySearchRecursive(1199, resultInt, 0, resultInt.length - 1) != -1) {
+            System.out.println('\n' + "Se encontró mediante la Busqueda Binaria Recursiva");
+        } else {
+            System.out.println('\n' + "No se encontró mediante la Busqueda Binaria Recursiva");
+        }
+        linearSearch(resultInt, 1199);
+        System.out.println("-------------------------------------------------------------------");
+        //Busquedas exitosas
+        for(Integer num : resultInt){
+            binarySearch(resultInt, num);
+            System.out.println('\n');
+            linearSearch(resultInt, num);
+        }
     }
 
     public static int[] StringToIntegerArray(String[] str) {
@@ -52,7 +80,7 @@ public class Main {
             middle = (first + last) / 2;
             if (first > last) {
                 comparaciones++;
-                System.out.println(number + " is not present in the list.\n" + "Con una cantidad de comparaciones = "
+                System.out.println("Busqueda Binaria Iterativa: " + number + " is not present in the list.\n" + " con una cantidad de comparaciones = "
                         + comparaciones);
             }
         }
