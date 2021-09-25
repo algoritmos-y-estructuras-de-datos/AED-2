@@ -14,10 +14,19 @@ public class Main {
         
         THash nuevoHash = new THash(cadenas.length);
         for(String cadena : cadenas){
-            nuevoHash.insertarLineal2(cadena);
+            nuevoHash.insertarLineal(cadena);
+            nuevoHash.insertarSeparado(cadena);
+            nuevoHash.insertarCuadratico(cadena);
+            // nuevoHash.insertarCuadratico2(cadena);
         }
         
         System.out.println(nuevoHash.miLista.toString());
+        System.out.println(nuevoHash.miListaSeparada.toString());
+        System.out.println(nuevoHash.buscarSeparado("20").toString());
+        System.out.println(nuevoHash.buscarCuadratico("20").toString());
+        
+
+        System.out.println("fin");
         
     }
 }
