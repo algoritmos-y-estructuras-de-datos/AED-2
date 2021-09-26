@@ -2,6 +2,7 @@
     "java.project.sourcePaths": [
         "UT2/UT2_PD1/src",
         "UT1/UT1_PD1/src",
-        "UT1/pd1/src/main/java"
+        "UT1/pd1/src/main/java",
+        "UT2/pd4/src/main/java"
     ]
 }
