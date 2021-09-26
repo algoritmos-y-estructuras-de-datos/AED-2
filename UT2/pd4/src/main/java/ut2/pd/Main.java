@@ -11,17 +11,19 @@ public class Main {
     public static void main(String[] args){
         TArbolTrie trie = new TArbolTrie();
 
-        String[] palabrasclave = ManejadorArchivosGenerico.leerArchivo("C:/Source/AED-2/UT2/pd4/src/main/java/ut2/pd/palabras.txt");
+        String[] palabrasclave = ManejadorArchivosGenerico.leerArchivo("C:/Source/AED-2/UT2/pd4/src/main/java/ut2/pd/libro.txt");
         
         int contadorLineas = 1;
         for (String p : palabrasclave) {
             String[] fraseToPalabras = p.split(" ");
             for(String palabra : fraseToPalabras){
                 String filtrada = IndizarLibro.filtrarPalabra(palabra);
-                trie.insertar(filtrada,contadorLineas);
+                trie.insertar(filtrada,((int) ((contadorLineas / 50) + 1)));
             }
             contadorLineas++;
         }
+
+
         trie.imprimir();
         //System.out.println(Arrays.toString(palabrasclave));
 
