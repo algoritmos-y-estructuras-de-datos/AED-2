@@ -4,7 +4,7 @@ package ut1.pd;
  * Hello world!
  *
  */
-public class App 
+public class WaringProblem 
 {
     public static void main( String[] args )
     {
