@@ -1,4 +1,7 @@
-public class ArbolGenerico  implements IArbolGenerico{
+package ut2.pd;
+
+public class ArbolGenerico
+  implements IArbolGenerico{
     
     private INodoGenerico raiz;
 

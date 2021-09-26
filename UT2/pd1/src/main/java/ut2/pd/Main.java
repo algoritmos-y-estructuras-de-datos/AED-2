@@ -1,4 +1,4 @@
-
+package ut2.pd;
 public class Main {
 
     /**

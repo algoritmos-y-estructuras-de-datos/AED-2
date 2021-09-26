@@ -1,4 +1,5 @@
 
+package ut2.pd;
 public class NodoGenerico implements INodoGenerico {
    
     private INodoGenerico primHijo;

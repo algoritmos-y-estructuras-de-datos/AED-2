@@ -1,3 +1,5 @@
+package ut1.pd;
+
 public interface IElementoAB<T> {
 
     /**
