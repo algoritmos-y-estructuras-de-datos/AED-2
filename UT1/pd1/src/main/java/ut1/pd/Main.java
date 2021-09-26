@@ -21,7 +21,7 @@ diferentes (éstas podrían ser generadas aleatoriamente – entre los rangos de
 datos - y almacenadas en un vector auxiliar), y calcular entonces los promedios solicitados.
      */
     public static void main(String[] args) {
-        String[] result = ManejadorArchivosGenerico.leerArchivo("C:/Source/AED-2/UT1/pd1/numeritos.csv", false);
+        String[] result = ManejadorArchivosGenerico.leerArchivo("UT1/pd1/numeritos.csv", false);
         // for (String res : result) {
         // System.out.println(res + "\n");
         // }
