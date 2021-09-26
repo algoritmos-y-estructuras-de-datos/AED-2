@@ -1,18 +1,21 @@
 package ut2.pd;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
-
+import java.util.ArrayList;
+import java.util.Set;
 public class TNodoTrie implements INodoTrie {
 
     private static final int CANT_CHR_ABECEDARIO = 26;
     private TNodoTrie[] hijos;
     private boolean esPalabra;
-    private LinkedList<Integer> paginas;
+    private Set<Integer> paginas;
 
     public TNodoTrie() {
         hijos = new TNodoTrie[CANT_CHR_ABECEDARIO];
         esPalabra = false;
-        paginas =  new LinkedList<>();
+        paginas =  new HashSet<>();
     }
 
     @Override
@@ -32,7 +35,7 @@ public class TNodoTrie implements INodoTrie {
     private void imprimir(String s, TNodoTrie nodo) {
         if (nodo != null) {
             if (nodo.esPalabra) {
-                System.out.println(s + " Paginas:  " + this.paginas.toString());
+                System.out.println(s + " Paginas:  " + nodo.paginas.toString());
 
             }
             for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
