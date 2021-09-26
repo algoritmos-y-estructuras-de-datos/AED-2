@@ -1,4 +1,4 @@
-package ut1.pd;
+package ut2.pd;
 
 /**
  * Hello world!
@@ -8,6 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        
+        System.out.println( "Hello World!" );
     }
 }
