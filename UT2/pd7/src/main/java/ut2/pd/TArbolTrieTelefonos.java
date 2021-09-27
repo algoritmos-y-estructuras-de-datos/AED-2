@@ -8,12 +8,17 @@ public class TArbolTrieTelefonos implements IArbolTrieTelefonos {
 
     @Override
     public LinkedList<TAbonado> buscarTelefonos(String pais, String area) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<TAbonado> listaAux = new LinkedList<>();
+        raiz.buscarTelefonos((pais + area), listaAux);
+        return listaAux;
     }
 
     @Override
     public void insertar(TAbonado unAbonado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(raiz == null){
+            raiz = new TNodoTrieTelefonos();
+        }
+        raiz.insertar(unAbonado);
     }
 
  
