@@ -1,3 +1,5 @@
+package ut2.pd;
+
 import java.util.LinkedList;
 
 /*
@@ -10,9 +12,9 @@ import java.util.LinkedList;
  *
  * @author ernesto
  */
-public interface IArbolTrieTelefonos {
+public interface INodoTrieTelefonos {
 
-    LinkedList<TAbonado> buscarTelefonos(String pais, String area);
+    void buscarTelefonos(String primerosDigitos, LinkedList<TAbonado> abonados);
 
     void insertar(TAbonado unAbonado);
     
