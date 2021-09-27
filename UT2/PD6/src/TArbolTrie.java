@@ -1,43 +1,36 @@
-package uy.edu.ucu.aed2;
-
 import java.util.LinkedList;
 
-
-public class TArbolTrie implements IArbolTrie {
-
+/**
+ *
+ * @author lucas
+ */
+public class TArbolTrie implements IArbolTrie{
     private TNodoTrie raiz;
-
-    @Override
-    public void insertar(String palabra) {
-        if (raiz == null) {
+    
+    
+    public void insertar(String palabra, int[] posEnArray){
+        if(raiz == null){
             raiz = new TNodoTrie();
         }
-        raiz.insertar(palabra);
+        raiz.insertar(palabra, posEnArray);
     }
 
-    @Override
     public void imprimir() {
-        if (raiz != null) {
+        if(raiz != null){
             raiz.imprimir();
         }
     }
 
-    @Override
-    public int buscar(String palabra) {
-        if (raiz == null) {
-            return 0;
-        }
+    public int buscar(String palabra){
         return raiz.buscar(palabra);
     }
 
     @Override
     public LinkedList<String> predecir(String prefijo) {
-        LinkedList<String> listaPalabras = new LinkedList<String>();
-        if(raiz != null){
-            raiz.predecir(prefijo, listaPalabras);
-        }
-        return listaPalabras;
+        LinkedList<String> palabras = new LinkedList<>();
+        raiz.predecir(prefijo, palabras);
+        return palabras;
     }
-    
-    
+
+  
 }

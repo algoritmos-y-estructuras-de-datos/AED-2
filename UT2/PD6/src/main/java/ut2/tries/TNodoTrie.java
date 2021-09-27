@@ -1,5 +1,5 @@
+// package uy.edu.ucu.aed2;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class TNodoTrie implements INodoTrie {
@@ -7,16 +7,14 @@ public class TNodoTrie implements INodoTrie {
     private static final int CANT_CHR_ABECEDARIO = 26;
     private TNodoTrie[] hijos;
     private boolean esPalabra;
-    private int[] posArray;
 
     public TNodoTrie() {
         hijos = new TNodoTrie[CANT_CHR_ABECEDARIO];
         esPalabra = false;
-        posArray = new int[2];
     }
 
     @Override
-    public void insertar(String unaPalabra, int[] posEnArray) {
+    public void insertar(String unaPalabra) {
         TNodoTrie nodo = this;
         for (int c = 0; c < unaPalabra.length(); c++) {
             int indice = unaPalabra.charAt(c) - 'a';
@@ -26,13 +24,13 @@ public class TNodoTrie implements INodoTrie {
             nodo = nodo.hijos[indice];
         }
         nodo.esPalabra = true;
-        nodo.posArray = posEnArray;
     }
 
     private void imprimir(String s, TNodoTrie nodo) {
         if (nodo != null) {
             if (nodo.esPalabra) {
-                System.out.println("Palabra del nodo: '" + s + "' | Pos en String: " + Arrays.toString(nodo.posArray) + "\n");
+                System.out.println(s);
+
             }
             for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
                 if (nodo.hijos[c] != null) {
@@ -62,20 +60,18 @@ public class TNodoTrie implements INodoTrie {
     }
 
     private void predecir(String s, String prefijo, LinkedList<String> palabras, TNodoTrie nodo) {
-        
-        
         if(nodo != null){
-            for(int c = 0; c < CANT_CHR_ABECEDARIO; c++){
+            if(nodo.esPalabra == true){
+                palabras.add(prefijo + s);
+                System.out.println("hola");
+            }
+            else{
+                for(int c = 0; c < CANT_CHR_ABECEDARIO; c++){
                     if(nodo.hijos[c] !=  null){
-                        predecir("" + (char) (c + 'a'), prefijo, palabras, nodo.hijos[c]);
+                        predecir(s + (char) (c + 'a'), prefijo, palabras, nodo.hijos[c]);
                     }
                 }
-            if(nodo.esPalabra == true){
-                palabras.add(prefijo + " [" + nodo.posArray[0] + "] "); //+s
             }
-      
-                
-            
         }
     }
 

@@ -1,4 +1,4 @@
-
+package uy.edu.ucu.aed2;
 
 import java.util.LinkedList;
 
@@ -12,13 +12,13 @@ import java.util.LinkedList;
  *
  * @author ernesto
  */
-public interface INodoTrie {
+public interface IArbolTrie {
 
-    int buscar(String s); // devuelve la cantidad de comparaciones!
     void imprimir();
+    int buscar(String palabra);
 
-    void insertar(String unaPalabra, int[] posEnArray);
-    public void predecir(String prefijo, LinkedList<String> palabras);
-    
+    void insertar(String palabra);
+
+    LinkedList<String> predecir(String prefijo);
     
 }
