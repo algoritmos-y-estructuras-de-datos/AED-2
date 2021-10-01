@@ -44,4 +44,9 @@ public class TestCases {
         assertEquals(pos.size(), 0);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testExcepcion() {
+        aprobar.encontrarPatron("A");
+    }
+
 }
