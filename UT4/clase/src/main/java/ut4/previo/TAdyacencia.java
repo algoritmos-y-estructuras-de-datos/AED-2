@@ -1,4 +1,4 @@
-
+package ut4.previo;
 public class TAdyacencia implements IAdyacencia {
    
 
