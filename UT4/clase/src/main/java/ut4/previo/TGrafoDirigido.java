@@ -132,10 +132,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mapOrdenado.keySet().toArray();
     }
 
-    // public ArrayList<Integer> Dijkstra(){
-    // int[] S;
-    // int[] D;
-    // }
+
 
     /**
      * @return the vertices
@@ -146,8 +143,15 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Comparable centroDelGrafo() {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-                                                                       // Tools | Templates.
+        Comparable aRetornar = Double.MAX_VALUE;
+
+        for (Comparable etiquetaAux : vertices.keySet()){
+           if(obtenerExcentricidad(etiquetaAux).compareTo(aRetornar) < 0){
+                aRetornar = obtenerExcentricidad(etiquetaAux);
+           }
+
+        }
+        return aRetornar;
     }
 
     @Override
@@ -158,7 +162,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         for (k = 0; k < matrizCos.length; k++) {
             for (i = 0; i < matrizCos.length; i++) {
                 for (j = 0; j < matrizCos.length; j++) {
-                    //Badass se dio cuenta que estaba mal asignado
                     if (matrizCos[i][k] + matrizCos[k][j] < matrizCos[i][j]) {
                         matrizCos[i][j] = matrizCos[i][k] + matrizCos[k][j];
                     }
@@ -168,10 +171,25 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return matrizCos;
     }
 
+    //Segunda obra maestra del badass
     @Override
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-                                                                       // Tools | Templates.
+        Double mayorValor = 0d;
+        Double[][] matrizFloyd = floyd();
+        Object[] etiquetas = vertices.keySet().toArray();
+        int j, col;
+
+        for (col = 0; col < etiquetas.length; col++) {
+            if (etiquetas[col].equals(etiquetaVertice)) {
+                for (j = 0; j < etiquetas.length; j++) {
+                    if (matrizFloyd[j][col] > mayorValor) {
+                        mayorValor = matrizFloyd[j][col];
+                    }
+                }
+            }
+        }
+        
+        return mayorValor;
     }
 
     @Override
@@ -192,13 +210,13 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public Collection<TVertice> bpf(TVertice vertice) {
         desvisitarVertices();
         LinkedList<TVertice> visitados = new LinkedList<>();
-        TVertice verticeAux = this.vertices.get(vertice.getEtiqueta());
+        TVertice verticeAux = vertices.get(vertice.getEtiqueta());
         verticeAux.bpf(visitados);
         return visitados;
     }
 
     public void desvisitarVertices() {
-        for(TVertice verticeAux : vertices.values()){
+        for (TVertice verticeAux : vertices.values()) {
             verticeAux.setVisitado(false);
         }
     }
@@ -206,7 +224,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public Collection<TVertice> bpf(Comparable etiquetaOrigen) {
         desvisitarVertices();
         LinkedList<TVertice> visitados = new LinkedList<>();
-        TVertice verticeAux = this.vertices.get(etiquetaOrigen);
+        TVertice verticeAux = vertices.get(etiquetaOrigen);
         verticeAux.bpf(visitados);
         return visitados;
     }
@@ -214,8 +232,8 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public Collection<TVertice> bpf() {
         desvisitarVertices();
         LinkedList<TVertice> visitados = new LinkedList<>();
-        for(TVertice vertice : vertices.values()){
-            if(!vertice.getVisitado()){
+        for (TVertice vertice : vertices.values()) {
+            if (!vertice.getVisitado()) {
                 vertice.bpf(visitados);
             }
         }

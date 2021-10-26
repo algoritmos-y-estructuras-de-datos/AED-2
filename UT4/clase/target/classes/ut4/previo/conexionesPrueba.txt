@@ -4,3 +4,4 @@ Porto_Alegre,Punta_Del_Este,390
 San_Pablo,Montevideo,400
 San_Pablo,Porto_Alegre,200
 Punta_Del_Este,San_Pablo,410
+Flores,Montevideo,100

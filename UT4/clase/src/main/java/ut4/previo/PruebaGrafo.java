@@ -12,11 +12,18 @@ public class PruebaGrafo {
         
         Double[][] mfloyd = gd.floyd();
         UtilGrafos.imprimirMatrizMejorado(mfloyd, gd.getVertices(), "Matriz luego de FLOYD");
+
+        String vertice = "Montevideo";
+
+        System.out.println(gd.centroDelGrafo());
+
+        System.out.println("La excentricidad del vértice " + vertice + " es: " +gd.obtenerExcentricidad(vertice));
         
-        for (int i = 0; i < etiquetasarray.length; i++) {
-            System.out.println("excentricidad de " + etiquetasarray[i] + " : " + gd.obtenerExcentricidad((Comparable) etiquetasarray[i]));
-        }
+        // for (int i = 0; i < etiquetasarray.length; i++) {
+        //     System.out.println("excentricidad de " + etiquetasarray[i] + " : " + gd.obtenerExcentricidad((Comparable) etiquetasarray[i]));
+        // }
         System.out.println();
+        
         System.out.println("Centro del grafo: " + gd.centroDelGrafo());
        
        
