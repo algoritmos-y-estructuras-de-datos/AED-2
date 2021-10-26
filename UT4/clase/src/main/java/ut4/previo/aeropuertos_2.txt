@@ -1,9 +1,4 @@
-Asuncion
-Buenos_Aires
-Curitiba
-Florianopolis
 Montevideo
 Porto_Alegre
-Rio_de_Janeiro
 San_Pablo
-Santos
+Punta_Del_Este
