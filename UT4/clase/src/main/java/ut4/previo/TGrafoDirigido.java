@@ -189,4 +189,37 @@ public class TGrafoDirigido implements IGrafoDirigido {
         // retur false;
     }
 
+    public Collection<TVertice> bpf(TVertice vertice) {
+        desvisitarVertices();
+        LinkedList<TVertice> visitados = new LinkedList<>();
+        TVertice verticeAux = this.vertices.get(vertice.getEtiqueta());
+        verticeAux.bpf(visitados);
+        return visitados;
+    }
+
+    public void desvisitarVertices() {
+        for(TVertice verticeAux : vertices.values()){
+            verticeAux.setVisitado(false);
+        }
+    }
+
+    public Collection<TVertice> bpf(Comparable etiquetaOrigen) {
+        desvisitarVertices();
+        LinkedList<TVertice> visitados = new LinkedList<>();
+        TVertice verticeAux = this.vertices.get(etiquetaOrigen);
+        verticeAux.bpf(visitados);
+        return visitados;
+    }
+
+    public Collection<TVertice> bpf() {
+        desvisitarVertices();
+        LinkedList<TVertice> visitados = new LinkedList<>();
+        for(TVertice vertice : vertices.values()){
+            if(!vertice.getVisitado()){
+                vertice.bpf(visitados);
+            }
+        }
+        return visitados;
+    }
+
 }

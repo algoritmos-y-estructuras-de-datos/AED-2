@@ -104,4 +104,15 @@ public class TVertice<T> implements IVertice {
         return datos;
     }
 
+    public void bpf(Collection<TVertice> visitados) {
+        this.setVisitado(true);
+        visitados.add(this);
+        for (TAdyacencia adyacentes : this.adyacentes){
+            TVertice destino  = adyacentes.getDestino();
+            if(!destino.getVisitado()){
+                destino.bpf(visitados);
+            }
+        }
+    }
+
 }
