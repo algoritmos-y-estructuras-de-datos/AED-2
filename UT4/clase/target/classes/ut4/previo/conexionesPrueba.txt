@@ -3,6 +3,6 @@ Porto_Alegre,Montevideo,300
 Porto_Alegre,Punta_Del_Este,390
 San_Pablo,Montevideo,400
 San_Pablo,Porto_Alegre,200
-Flores Montevideo 100
-Punta_Del_Este Montevideo 150
-San_Pablo Flores 100
+Flores,Montevideo,100
+Punta_Del_Este,Montevideo,150
+San_Pablo,Flores,100

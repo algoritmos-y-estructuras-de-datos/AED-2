@@ -132,8 +132,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mapOrdenado.keySet().toArray();
     }
 
-
-
     /**
      * @return the vertices
      */
@@ -145,10 +143,10 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public Comparable centroDelGrafo() {
         Comparable aRetornar = Double.MAX_VALUE;
 
-        for (Comparable etiquetaAux : vertices.keySet()){
-           if(obtenerExcentricidad(etiquetaAux).compareTo(aRetornar) < 0){
+        for (Comparable etiquetaAux : vertices.keySet()) {
+            if (obtenerExcentricidad(etiquetaAux).compareTo(aRetornar) < 0) {
                 aRetornar = obtenerExcentricidad(etiquetaAux);
-           }
+            }
 
         }
         return aRetornar;
@@ -171,7 +169,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return matrizCos;
     }
 
-    //Segunda obra maestra del badass
+    // Segunda obra maestra del badass
     @Override
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
         Double mayorValor = 0d;
@@ -188,28 +186,46 @@ public class TGrafoDirigido implements IGrafoDirigido {
                 }
             }
         }
-        
+
         return mayorValor;
     }
 
-    public boolean[][] cerraduraTransitiva(){
+    public boolean[][] cerraduraTransitiva() {
         Double[][] matrizCos = UtilGrafos.obtenerMatrizCostos(this.getVertices());
         boolean[][] Ctransitiva = new boolean[matrizCos.length][matrizCos.length];
-        
+
         int i, j;
-        for (i = 0; i < matrizCos.length; i++ ){
-            for (j = 0; j < matrizCos.length; j++){
-                if (matrizCos[i][j] != 0){
+        for (i = 0; i < matrizCos.length; i++) {
+            for (j = 0; j < matrizCos.length; j++) {
+                if (matrizCos[i][j] != 0) {
                     Ctransitiva[i][j] = true;
                 }
             }
         }
         return Ctransitiva;
     }
-
+    
     @Override
     public boolean[][] warshall() {
-        return null;
+        Double[][] A = UtilGrafos.obtenerMatrizCostos(vertices);
+        boolean[][] B = new boolean[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                B[i][j] = A[i][j] != Double.MAX_VALUE;
+            }
+        }
+
+        for (int k = 0; k < vertices.size(); k++) {
+            for (int i = 0; i < vertices.size(); i++) {
+                for (int j = 0; j < vertices.size(); j++) {
+                    if (!B[i][j]) {
+                        B[i][j] = B[i][k] && B[k][j];
+                    }
+                }
+            }
+        }
+        return B;
     }
 
     @Override
@@ -257,10 +273,10 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public boolean tieneCiclo() {
         desvisitarVertices();
         boolean res = false;
-        for(TVertice verticeAux : this.vertices.values()){
+        for (TVertice verticeAux : this.vertices.values()) {
             LinkedList<Comparable> caminos = new LinkedList<>();
             res = verticeAux.tieneCiclo(caminos);
-            if(res){
+            if (res) {
                 return res;
             }
         }
@@ -273,7 +289,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         if (v != null) {
             todosLosCaminos = new TCaminos();
             TCamino caminoPrevio = new TCamino(v);
-            v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos); 
+            v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos);
         }
         return todosLosCaminos;
     }

@@ -24,8 +24,7 @@ public class PruebaGrafo {
     //         System.out.println("no tiene ciclos");
     //     }
         
-    //     // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
-    //     // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz");
+
         
     //     // Double[][] mfloyd = gd.floyd();
     //     // UtilGrafos.imprimirMatrizMejorado(mfloyd, gd.getVertices(), "Matriz luego de FLOYD");
@@ -59,6 +58,12 @@ public class PruebaGrafo {
         
         TCaminos caminos = gd.todosLosCaminos("Asuncion", "Montevideo");
         System.out.println(caminos.imprimirCaminos());
+
+        Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
+        UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz");
+
+        System.out.println(gd.warshall());
+        System.out.println(gd.cerraduraTransitiva());
 
     }
 }
