@@ -192,10 +192,24 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mayorValor;
     }
 
+    public boolean[][] cerraduraTransitiva(){
+        Double[][] matrizCos = UtilGrafos.obtenerMatrizCostos(this.getVertices());
+        boolean[][] Ctransitiva = new boolean[matrizCos.length][matrizCos.length];
+        
+        int i, j;
+        for (i = 0; i < matrizCos.length; i++ ){
+            for (j = 0; j < matrizCos.length; j++){
+                if (matrizCos[i][j] != 0){
+                    Ctransitiva[i][j] = true;
+                }
+            }
+        }
+        return Ctransitiva;
+    }
+
     @Override
     public boolean[][] warshall() {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-                                                                       // Tools | Templates.
+        return null;
     }
 
     @Override
@@ -240,4 +254,27 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return visitados;
     }
 
+    public boolean tieneCiclo() {
+        desvisitarVertices();
+        boolean res = false;
+        for(TVertice verticeAux : this.vertices.values()){
+            LinkedList<Comparable> caminos = new LinkedList<>();
+            res = verticeAux.tieneCiclo(caminos);
+            if(res){
+                return res;
+            }
+        }
+        return res;
+    }
+
+    public TCaminos todosLosCaminos(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
+        TCaminos todosLosCaminos = null;
+        TVertice v = buscarVertice(etiquetaOrigen);
+        if (v != null) {
+            todosLosCaminos = new TCaminos();
+            TCamino caminoPrevio = new TCamino(v);
+            v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos); 
+        }
+        return todosLosCaminos;
+    }
 }

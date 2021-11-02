@@ -1,4 +1,5 @@
 package ut4.previo;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -107,12 +108,51 @@ public class TVertice<T> implements IVertice {
     public void bpf(Collection<TVertice> visitados) {
         this.setVisitado(true);
         visitados.add(this);
-        for (TAdyacencia adyacentes : this.adyacentes){
-            TVertice destino  = adyacentes.getDestino();
-            if(!destino.getVisitado()){
+        for (TAdyacencia adyacentes : this.adyacentes) {
+            TVertice destino = adyacentes.getDestino();
+            if (!destino.getVisitado()) {
                 destino.bpf(visitados);
             }
         }
+    }
+
+    public boolean tieneCiclo(LinkedList<Comparable> camino) {
+        this.setVisitado(true);
+        camino.add(this.getEtiqueta());
+        for (TAdyacencia adyacencia : this.getAdyacentes()) {
+            if (!adyacencia.getDestino().getVisitado()) {
+            
+                if (adyacencia.getDestino().tieneCiclo(camino)) {
+                    return true;
+                }
+            } else {
+                if (camino.contains(adyacencia.getEtiqueta())) {
+                    return true;
+                }
+            }
+            camino.remove(adyacencia);
+        }
+        return false;
+    }
+
+    public TCaminos todosLosCaminos(Comparable etVertDest, TCamino caminoPrevio, TCaminos todosLosCaminos) {
+        this.setVisitado(true);
+        for (TAdyacencia adyacencia : this.getAdyacentes()) {
+            TVertice destino = adyacencia.getDestino();
+            if (!destino.getVisitado()) {
+                if (destino.getEtiqueta().compareTo(etVertDest) == 0) {
+                    TCamino copia = caminoPrevio.copiar();
+                    copia.agregarAdyacencia(adyacencia);
+                    todosLosCaminos.getCaminos().add(copia);
+                } else {
+                    caminoPrevio.agregarAdyacencia(adyacencia);
+                    destino.todosLosCaminos(etVertDest, caminoPrevio, todosLosCaminos);
+                    caminoPrevio.eliminarAdyacencia(adyacencia);
+                }
+            } 
+        }
+        this.setVisitado(false);
+        return todosLosCaminos;
     }
 
 }
