@@ -1,6 +1,6 @@
 package ut4.grafosd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
@@ -53,7 +53,6 @@ public class AppTest {
     @Test(expected = NullPointerException.class) //Para un grafo nulo, si se intenta obtener el centro de un grafo = null, se espera null
     public void testCentroDelGrafoNulo() {
         grafoNulo.centroDelGrafo();
-        assertTrue(true);
     }
 
     @Test //Verifico que el costo entre dos vertices es el que espero luego de floyd
@@ -64,9 +63,9 @@ public class AppTest {
         assertEquals(expected,actual);
     }
 
-    @Test
+    @Test // Verifico si el grafo tiene un ciclo
     public void testTieneCiclo() {
-        assertTrue("Funciona correctamente",grafoPrueba.tieneCiclo());
+        assertTrue("El grafo no tiene ciclos",grafoPrueba.tieneCiclo());
     }
 
     @Test
@@ -78,18 +77,20 @@ public class AppTest {
     @Test
     public void testTodosLosCaminos() {
         
-        Comparable etiquetaOrigen = "";
-        Comparable etiquetaDestino = "";
-        grafoNulo.todosLosCaminos(etiquetaOrigen, etiquetaDestino);
-        assertTrue(true);
+        Comparable etiquetaOrigen = "Flores";
+        Comparable etiquetaDestino = "Montevideo";
+        TCaminos actualCaminos = grafoPrueba.todosLosCaminos(etiquetaOrigen, etiquetaDestino);
+        TCamino costoActual = actualCaminos.caminoMayorCosto();
+        Double actual = costoActual.getCostoTotal();
+        Double expected = 100.0;
+        assertEquals(expected, actual);
     }
 
-    @Test
+    @Test (expected = NullPointerException.class) //Si se envian como parametros etiquetas que no existen, se obtiene nullpointer
     public void testTodosLosCaminosFail() {
-        Comparable etiquetaOrigen = "";
-        Comparable etiquetaDestino = "";
+        Comparable etiquetaOrigen = "Prueba";
+        Comparable etiquetaDestino = "Prueba2";
         grafoNulo.todosLosCaminos(etiquetaOrigen, etiquetaDestino);
-        assertTrue(true);
     }
 
     @Test
