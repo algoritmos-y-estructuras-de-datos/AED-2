@@ -18,13 +18,13 @@ public class AppTest {
     
     @Before
     public void setUp(){
-        grafoPrueba = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt", "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt",
+        grafoPrueba = (TGrafoDirigido) UtilGrafos.cargarGrafo("C:/Source/AED-2/UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt", "C:/Source/AED-2/UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt",
                 false, TGrafoDirigido.class);
 
         grafoNulo = null;
     }
 
-    @Test
+    @Test //Me aseguro que la etiqueta correspondiente exista en la coleccion que devuelve bpf
     public void testBPF() {
         boolean tieneEtiqueta = false; 
         for(TVertice vertAux : grafoPrueba.bpf()){
@@ -35,23 +35,18 @@ public class AppTest {
         assertTrue(tieneEtiqueta);
     }
 
-    @Test(expected = NullPointerException.class) //Desde una etiqueta origen que no existe, esperamos NullPointer
-    public void testBPFEtiquetaOrigen() {
-        TVertice etiquetaOrigen = new TVertice("Hola");        
-        assertTrue("Funciona correctamente",grafoPrueba.bpf(etiquetaOrigen).contains(etiquetaOrigen));
+
+    @Test // El tamaño del BPF coincide con el tamaño del Mapa de Vertices
+    public void testBPFTamanio(){
+        assertTrue("El tamaño del BPF no coincide con el tamaño del Mapa de Vertices", grafoPrueba.getVertices().size() == grafoPrueba.bpf().size());
     }
 
-    @Test
-    public void testBPFEtiquetaNoEncontrada() {
-        TVertice etiquetaOrigen = new TVertice("Hola");        
-        assertTrue("Funciona correctamente",grafoPrueba.bpf(etiquetaOrigen).contains(etiquetaOrigen));
-        
-    }
 
     @Test
     public void testCentroDelGrafo() {
-        grafoPrueba.centroDelGrafo();
-        assertTrue(true);
+        Comparable expectedCenter = 
+        assertTrue(grafoPrueba.centroDelGrafo().compareTo(expectedCenter) == 0);
+        
     }
 
     @Test(expected = NullPointerException.class) //Para un grafo nulo, si se intenta obtener el centro de un grafo = null, se espera null
