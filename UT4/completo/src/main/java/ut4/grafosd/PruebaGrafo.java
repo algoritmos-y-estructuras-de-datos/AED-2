@@ -2,6 +2,7 @@ package ut4.grafosd;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class PruebaGrafo {
 
@@ -47,11 +48,14 @@ public class PruebaGrafo {
        
     // }
     public static void main(String[] args) {
-        TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/clase/src/main/java/ut4/previo/aeropuertos_1.txt", "UT4/clase/src/main/java/ut4/previo/conexionesPrueba.txt",
+        TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/clase/src/main/java/ut4/previo/aeropuertos_2.txt", "UT4/clase/src/main/java/ut4/previo/conexionesPrueba.txt",
                 false, TGrafoDirigido.class);
         
         System.out.println(gd.bpf().toArray().length);
 
+
+        LinkedList<TVertice> lista = gd.unOrdenTopologico();
+        gd.imprimirTopologico(lista);
 
         Collection<TVertice> recorrido_Asuncion = gd.bpf("Asuncion");
         // imprimir etiquetas del bpf desde Asunción....

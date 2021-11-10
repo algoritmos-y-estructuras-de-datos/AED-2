@@ -155,4 +155,17 @@ public class TVertice<T> implements IVertice {
         return todosLosCaminos;
     }
 
+    public void unOrdenTopologico(LinkedList<TVertice> camino) {
+        this.setVisitado(true);
+        LinkedList<TAdyacencia> listaAdyacentes = this.getAdyacentes();
+        if (listaAdyacentes.size()>=0){
+            for(TAdyacencia ady: listaAdyacentes){
+                if(!ady.getDestino().getVisitado()){
+                    ady.getDestino().unOrdenTopologico(camino);
+                }
+            }
+            camino.add(this);
+        }
+    }
+
 }

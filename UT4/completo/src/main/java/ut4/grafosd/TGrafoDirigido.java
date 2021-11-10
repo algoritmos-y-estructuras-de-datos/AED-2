@@ -363,8 +363,33 @@ public class TGrafoDirigido implements IGrafoDirigido {
     esto ya esta en TArista. Luego en vez de agregar en el principio como bpf, 
     es agregarlos al final para la salida topologica
     */
-    @Override
-    public LinkedList<TVertice> unOrdenTopologico() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // @Override
+    // public LinkedList<TVertice> unOrdenTopologico() {
+    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
+
+    public LinkedList<TVertice> unOrdenTopologico(){
+        if(!tieneCiclo()){
+            this.desvisitarVertices();
+            LinkedList<TVertice> camino = new LinkedList();
+            for(TVertice v: vertices.values()){
+                if(!v.getVisitado()){
+                    v.unOrdenTopologico(camino);
+                }
+            }
+            return camino;
+        }
+        System.out.println("Tiene ciclos");
+        return null;
+    }
+    
+    public void imprimirTopologico(LinkedList<TVertice> camino){
+        String oTopologico = "";
+        if(camino!=null){  
+            for(TVertice v: camino){
+                oTopologico = v.getEtiqueta() + " - " + oTopologico;
+            }
+            System.out.println(oTopologico);           
+        }
     }
 }

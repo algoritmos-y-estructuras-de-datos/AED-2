@@ -101,8 +101,8 @@ public class AppTest {
 
     @Test
     public void testWarshall() {
-        grafoNulo.warshall();
-        assertTrue(false);
+
+        assertTrue(grafoPrueba.warshall()[2][1]);
     }
 
     
