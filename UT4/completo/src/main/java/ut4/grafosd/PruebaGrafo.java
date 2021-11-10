@@ -51,6 +51,9 @@ public class PruebaGrafo {
                 false, TGrafoDirigido.class);
         
         System.out.println(gd.bpf().toArray().length);
+        
+
+        gd.floyd()
 
         Collection<TVertice> recorrido_Asuncion = gd.bpf("Asuncion");
         // imprimir etiquetas del bpf desde Asunción....

@@ -1,5 +1,6 @@
 package ut4.grafosd;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
@@ -44,7 +45,7 @@ public class AppTest {
 
     @Test
     public void testCentroDelGrafo() {
-        Comparable expectedCenter = 
+        Double expectedCenter = 550d;
         assertTrue(grafoPrueba.centroDelGrafo().compareTo(expectedCenter) == 0);
         
     }
@@ -55,10 +56,12 @@ public class AppTest {
         assertTrue(true);
     }
 
-    @Test
+    @Test //Verifico que el costo entre dos vertices es el que espero luego de floyd
     public void testFloyd() {
-        grafoNulo.floyd();
-        assertTrue(true);
+        Double[][] matrizCos = grafoPrueba.floyd();
+        Double expected = 200.0;
+        Double actual = matrizCos[2][1];
+        assertEquals(expected,actual);
     }
 
     @Test
