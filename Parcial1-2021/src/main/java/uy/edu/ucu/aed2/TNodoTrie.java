@@ -86,5 +86,11 @@ public class TNodoTrie implements INodoTrie {
         this.encontrarPatron("", prefijo, palabras, buscado);
     }
 
+    @Override
+    public int buscar(String s) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 
 }

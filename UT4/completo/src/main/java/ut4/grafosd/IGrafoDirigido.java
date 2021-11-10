@@ -1,4 +1,6 @@
 package ut4.grafosd;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Map;
 
 
@@ -90,4 +92,12 @@ public interface IGrafoDirigido {
     boolean[][] warshall();
     
     public Map<Comparable, TVertice> getVertices(); 
+
+    public void desvisitarVertices();
+
+    public TCaminos todosLosCaminos(Comparable etiquetaOrigen, Comparable etiquetaDestino);
+
+    public boolean tieneCiclo();
+
+    public LinkedList<TVertice> unOrdenTopologico();
 }

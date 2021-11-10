@@ -11,6 +11,14 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     private Map<Comparable, TVertice> vertices; // vertices del grafo.-
 
+    /*Se agrega como atributo matriz predecesores y costos controlando mediante una
+    bandera si las matrices corresponden al grafo actual. Esto para evitar utilizar metodos
+    como floyd que presentan un orden cubico innecesariamente.*/
+    private int[][] predecesores;
+    private int[][] costos;
+    private boolean grafoActualizado;
+
+
     public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
         this.vertices = new HashMap<>();
         for (TVertice vertice : vertices) {
@@ -19,6 +27,14 @@ public class TGrafoDirigido implements IGrafoDirigido {
         for (TArista arista : aristas) {
             insertarArista(arista);
         }
+    }
+
+    public int[][] getPred(){
+        return this.predecesores;
+    }
+
+    public int[][] getCostos(){
+        return this.costos;
     }
 
     /**
@@ -218,7 +234,8 @@ public class TGrafoDirigido implements IGrafoDirigido {
     }
 
     /**
-     * 
+     * Cerradura transitiva de un grafo se define como el grafo que tiene un uno si hay un camino
+     * entre vertice y vertice
      * @return
      */
     public boolean[][] cerraduraTransitiva(){
@@ -237,8 +254,32 @@ public class TGrafoDirigido implements IGrafoDirigido {
     }
 
     @Override
+    /**
+     * El algoritmo de Warshall es un ejemplo de algoritmo booleano. A partir de una tabla inicial compuesta de 0`s (no hay correspondencia inicial en el grafo) y 1`s (hay una correspondencia, llamase “flecha”, entre nodos), obtiene una nueva matriz denominada “Matriz de Clausura Transitiva” en la que se muestran todas las posibles uniones entre nodos, directa o indirectamente. Es decir, si de “A” a “B” no hay una “flecha”, 
+     * es posible que si haya de “A” a “C” y luego de “C” a “B”. Luego, este resultado se verá volcado en la matriz final.
+     * 
+     * Creo que esto mismo es la cerradura transitiva.
+     */
     public boolean[][] warshall() {
-        return null;
+        Double[][] A = UtilGrafos.obtenerMatrizCostos(vertices);
+        boolean[][] B = new boolean[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                B[i][j] = (A[i][j] != Double.MAX_VALUE);
+            }
+        }
+
+        for (int k = 0; k < vertices.size(); k++) {
+            for (int i = 0; i < vertices.size(); i++) {
+                for (int j = 0; j < vertices.size(); j++) {
+                    if (!B[i][j]) {
+                        B[i][j] = B[i][k] && B[k][j];
+                    }
+                }
+            }
+        }
+        return B;
     }
 
     @Override
@@ -249,7 +290,13 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return getVertices().containsKey(nombreVertice);
         // retur false;
     }
-
+    /**
+     * La busqueda en profunidad se trata de una busqueda que consiste en ir expandiendo cada uno de los vertices
+     * de forma recursiva (de padre a hijo) cuando ya no quedan nodos en ese camino regresa al predecesor
+     * se va repitiendo con cada uno de los vecinos del nodo
+     * @param vertice
+     * @return
+     */
     public Collection<TVertice> bpf(TVertice vertice) {
         desvisitarVertices();
         LinkedList<TVertice> visitados = new LinkedList<>();
@@ -283,6 +330,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return visitados;
     }
 
+    @Override
     public boolean tieneCiclo() {
         desvisitarVertices();
         boolean res = false;
@@ -296,6 +344,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return res;
     }
 
+    @Override
     public TCaminos todosLosCaminos(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
         TCaminos todosLosCaminos = null;
         TVertice v = buscarVertice(etiquetaOrigen);
@@ -305,5 +354,17 @@ public class TGrafoDirigido implements IGrafoDirigido {
             v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos); 
         }
         return todosLosCaminos;
+    }
+
+
+    /*
+    Poscondicion orden topologica: Grafo incambiado, por eso 
+    hay que crear un neuvo grafo con las aristas invertidas, 
+    esto ya esta en TArista. Luego en vez de agregar en el principio como bpf, 
+    es agregarlos al final para la salida topologica
+    */
+    @Override
+    public LinkedList<TVertice> unOrdenTopologico() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
