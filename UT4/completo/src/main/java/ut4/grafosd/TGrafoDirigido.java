@@ -11,13 +11,14 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     private Map<Comparable, TVertice> vertices; // vertices del grafo.-
 
-    /*Se agrega como atributo matriz predecesores y costos controlando mediante una
-    bandera si las matrices corresponden al grafo actual. Esto para evitar utilizar metodos
-    como floyd que presentan un orden cubico innecesariamente.*/
+    /*
+     * Se agrega como atributo matriz predecesores y costos controlando mediante una
+     * bandera si las matrices corresponden al grafo actual. Esto para evitar
+     * utilizar metodos como floyd que presentan un orden cubico innecesariamente.
+     */
     private int[][] predecesores;
     private int[][] costos;
     private boolean grafoActualizado;
-
 
     public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
         this.vertices = new HashMap<>();
@@ -29,11 +30,11 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
     }
 
-    public int[][] getPred(){
+    public int[][] getPred() {
         return this.predecesores;
     }
 
-    public int[][] getCostos(){
+    public int[][] getCostos() {
         return this.costos;
     }
 
@@ -148,8 +149,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mapOrdenado.keySet().toArray();
     }
 
-
-
     /**
      * @return the vertices
      */
@@ -159,17 +158,18 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     /**
-     * Vertice que no esta excesivamente lejos de ninguna de las localizaciones
-     * Es el vertice o conjunto de vertices que tienen la minima excentricidad
+     * Vertice que no esta excesivamente lejos de ninguna de las localizaciones Es
+     * el vertice o conjunto de vertices que tienen la minima excentricidad
+     * 
      * @return vertice centro del grafo
      */
     public Comparable centroDelGrafo() {
         Comparable aRetornar = Double.MAX_VALUE;
 
-        for (Comparable etiquetaAux : vertices.keySet()){
-           if(obtenerExcentricidad(etiquetaAux).compareTo(aRetornar) < 0){
+        for (Comparable etiquetaAux : vertices.keySet()) {
+            if (obtenerExcentricidad(etiquetaAux).compareTo(aRetornar) < 0) {
                 aRetornar = obtenerExcentricidad(etiquetaAux);
-           }
+            }
 
         }
         return aRetornar;
@@ -192,11 +192,12 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return matrizCos;
     }
 
-    //Segunda obra maestra del badass
+    // Segunda obra maestra del badass
     @Override
     /**
-     * Excentricidad de un vertice, es la distancia de este al vertice mas alejado de si mismo
-     * El mayor de los caminos mas cortos partiendo desde un vertice
+     * Excentricidad de un vertice, es la distancia de este al vertice mas alejado
+     * de si mismo El mayor de los caminos mas cortos partiendo desde un vertice
+     * 
      * @return distancia al vertice mas lejano
      */
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
@@ -214,38 +215,42 @@ public class TGrafoDirigido implements IGrafoDirigido {
                 }
             }
         }
-        
+
         return mayorValor;
     }
 
     /**
      * Maximo de las excentricidades
+     * 
      * @return
      */
-    public Double diametro(){
-        return null;
-    }
-    /**
-     * Minimo de las excentricidades
-     * @return
-     */
-    public Double radio(){
+    public Double diametro() {
         return null;
     }
 
     /**
-     * Cerradura transitiva de un grafo se define como el grafo que tiene un uno si hay un camino
-     * entre vertice y vertice
+     * Minimo de las excentricidades
+     * 
      * @return
      */
-    public boolean[][] cerraduraTransitiva(){
+    public Double radio() {
+        return null;
+    }
+
+    /**
+     * Cerradura transitiva de un grafo se define como el grafo que tiene un uno si
+     * hay un camino entre vertice y vertice
+     * 
+     * @return
+     */
+    public boolean[][] cerraduraTransitiva() {
         Double[][] matrizCos = UtilGrafos.obtenerMatrizCostos(this.getVertices());
         boolean[][] Ctransitiva = new boolean[matrizCos.length][matrizCos.length];
-        
+
         int i, j;
-        for (i = 0; i < matrizCos.length; i++ ){
-            for (j = 0; j < matrizCos.length; j++){
-                if (matrizCos[i][j] != 0){
+        for (i = 0; i < matrizCos.length; i++) {
+            for (j = 0; j < matrizCos.length; j++) {
+                if (matrizCos[i][j] != 0) {
                     Ctransitiva[i][j] = true;
                 }
             }
@@ -255,8 +260,13 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     /**
-     * El algoritmo de Warshall es un ejemplo de algoritmo booleano. A partir de una tabla inicial compuesta de 0`s (no hay correspondencia inicial en el grafo) y 1`s (hay una correspondencia, llamase “flecha”, entre nodos), obtiene una nueva matriz denominada “Matriz de Clausura Transitiva” en la que se muestran todas las posibles uniones entre nodos, directa o indirectamente. Es decir, si de “A” a “B” no hay una “flecha”, 
-     * es posible que si haya de “A” a “C” y luego de “C” a “B”. Luego, este resultado se verá volcado en la matriz final.
+     * El algoritmo de Warshall es un ejemplo de algoritmo booleano. A partir de una
+     * tabla inicial compuesta de 0`s (no hay correspondencia inicial en el grafo) y
+     * 1`s (hay una correspondencia, llamase “flecha”, entre nodos), obtiene una
+     * nueva matriz denominada “Matriz de Clausura Transitiva” en la que se muestran
+     * todas las posibles uniones entre nodos, directa o indirectamente. Es decir,
+     * si de “A” a “B” no hay una “flecha”, es posible que si haya de “A” a “C” y
+     * luego de “C” a “B”. Luego, este resultado se verá volcado en la matriz final.
      * 
      * Creo que esto mismo es la cerradura transitiva.
      */
@@ -290,10 +300,13 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return getVertices().containsKey(nombreVertice);
         // retur false;
     }
+
     /**
-     * La busqueda en profunidad se trata de una busqueda que consiste en ir expandiendo cada uno de los vertices
-     * de forma recursiva (de padre a hijo) cuando ya no quedan nodos en ese camino regresa al predecesor
-     * se va repitiendo con cada uno de los vecinos del nodo
+     * La busqueda en profunidad se trata de una busqueda que consiste en ir
+     * expandiendo cada uno de los vertices de forma recursiva (de padre a hijo)
+     * cuando ya no quedan nodos en ese camino regresa al predecesor se va
+     * repitiendo con cada uno de los vecinos del nodo
+     * 
      * @param vertice
      * @return
      */
@@ -334,10 +347,10 @@ public class TGrafoDirigido implements IGrafoDirigido {
     public boolean tieneCiclo() {
         desvisitarVertices();
         boolean res = false;
-        for(TVertice verticeAux : this.vertices.values()){
+        for (TVertice verticeAux : this.vertices.values()) {
             LinkedList<Comparable> caminos = new LinkedList<>();
             res = verticeAux.tieneCiclo(caminos);
-            if(res){
+            if (res) {
                 return res;
             }
         }
@@ -351,29 +364,23 @@ public class TGrafoDirigido implements IGrafoDirigido {
         if (v != null) {
             todosLosCaminos = new TCaminos();
             TCamino caminoPrevio = new TCamino(v);
-            v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos); 
+            v.todosLosCaminos(etiquetaDestino, caminoPrevio, todosLosCaminos);
         }
         return todosLosCaminos;
     }
 
-
     /*
-    Poscondicion orden topologica: Grafo incambiado, por eso 
-    hay que crear un neuvo grafo con las aristas invertidas, 
-    esto ya esta en TArista. Luego en vez de agregar en el principio como bpf, 
-    es agregarlos al final para la salida topologica
-    */
-    // @Override
-    // public LinkedList<TVertice> unOrdenTopologico() {
-    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-
-    public LinkedList<TVertice> unOrdenTopologico(){
-        if(!tieneCiclo()){
+     * Poscondicion orden topologica: Grafo incambiado, por eso hay que crear un
+     * neuvo grafo con las aristas invertidas, esto ya esta en TArista. Luego en vez
+     * de agregar en el principio como bpf, es agregarlos al final para la salida
+     * topologica
+     */
+    public LinkedList<TVertice> unOrdenTopologico() {
+        if (!tieneCiclo()) {
             this.desvisitarVertices();
             LinkedList<TVertice> camino = new LinkedList();
-            for(TVertice v: vertices.values()){
-                if(!v.getVisitado()){
+            for (TVertice v : vertices.values()) {
+                if (!v.getVisitado()) {
                     v.unOrdenTopologico(camino);
                 }
             }
@@ -382,14 +389,33 @@ public class TGrafoDirigido implements IGrafoDirigido {
         System.out.println("Tiene ciclos");
         return null;
     }
-    
-    public void imprimirTopologico(LinkedList<TVertice> camino){
+
+    public void imprimirTopologico(LinkedList<TVertice> camino) {
         String oTopologico = "";
-        if(camino!=null){  
-            for(TVertice v: camino){
+        if (camino != null) {
+            for (TVertice v : camino) {
                 oTopologico = v.getEtiqueta() + " - " + oTopologico;
             }
-            System.out.println(oTopologico);           
+            System.out.println(oTopologico);
         }
+    }
+
+    /**
+     * Este algoritmo retorna true si el grafo es conexo o false en caso contrario
+     * @return
+     */
+    public boolean esConexo() {
+        for (TVertice a : this.vertices.values()) {
+            Collection<TVertice> res = bpf(a.getEtiqueta());
+            if (res.containsAll(this.vertices.keySet())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LinkedList<TVertice> componentesConexos(){
+        //https://programmerclick.com/article/33691890301/
+        throw new UnsupportedOperationException("No esta programada aún");
     }
 }
