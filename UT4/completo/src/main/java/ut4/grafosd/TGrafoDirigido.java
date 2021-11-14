@@ -477,9 +477,4 @@ public class TGrafoDirigido implements IGrafoDirigido {
         throw new UnsupportedOperationException("No esta programada aún");
     }
 
-<<<<<<< HEAD
-s
-=======
-    
->>>>>>> 20dd9e36c575a17552b859dca34d9aa940577bc6
 }

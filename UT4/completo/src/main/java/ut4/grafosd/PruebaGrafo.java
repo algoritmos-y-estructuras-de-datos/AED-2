@@ -1,8 +1,11 @@
 package ut4.grafosd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PruebaGrafo {
 
@@ -51,15 +54,41 @@ public class PruebaGrafo {
         TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt", "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt",
                 false, TGrafoDirigido.class);
         
-    
-        Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
-        UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");
+        
+
+        //PD1 Insertar vértices
+        List<TVertice> vertices = new ArrayList<>();
+        vertices.add(new TVertice<>("Artigas"));
+        vertices.add(new TVertice<>("Canelones"));
+        vertices.add(new TVertice<>("Durazno"));
+        vertices.add(new TVertice<>("Florida"));
+        vertices.add(new TVertice<>("Montevideo"));
+        vertices.add(new TVertice<>("Punta_del_Este"));
+        vertices.add(new TVertice<>("Rocha"));
+        
+        /*PD1 Inserar aristas: Artigas, Rocha, 400; Canelones, Artigas, 500; Canelones, Colonia, 200; Canelones, Durazno, 170; Canelones, 
+        Punta del Este, 90; Colonia, Montevideo, 180; Florida, Durazno, 60; Montevideo, Artigas, 700; Montevideo, 
+        Canelones, 30; Montevideo, Punta del Este, 130; Punta del Este, Rocha, 90; Rocha, Montevideo, 270; Florida, 
+        Durazno, 60*/
+        List<TArista> aristas = new ArrayList<>();
+        aristas.add(new TArista("Artigas", "Rocha", 400));
+        
+        
+        
+        
+        TGrafoDirigido gdpd1 = new TGrafoDirigido(vertices, aristas);
+
+
+       
 
         //Recuperar caminos, un camino desde un vertice origen a un destino
         TCaminos caminolas = gd.todosLosCaminos("Porto_Alegre", "Punta_Del_Este");
         System.out.println(caminolas.imprimirCaminos());
         System.out.println(caminolas.caminoMenorCosto().imprimirEtiquetas());
         
+
+        Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
+        UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");
         
         // LinkedList<TVertice> lista = gd.unOrdenTopologico();
         // gd.imprimirTopologico(lista);
