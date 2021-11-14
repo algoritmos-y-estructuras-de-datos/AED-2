@@ -20,6 +20,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
     private int[][] predecesores;
     private int[][] costos;
     private boolean grafoActualizado;
+    private Double[][] floyd;
 
     public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
         this.vertices = new HashMap<>();
@@ -175,6 +176,30 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
         return aRetornar;
     }
+    //Esto lo modifiqué yo porque el nuestro es un culo, hay que ver porqué
+    public Comparable centroDelGrafo2() {
+        Double[][] floydTemp = this.floyd();
+        Comparable centro = 0.0;
+        Comparable etiquetaCentro ="";
+        Set<Comparable> etiquetas = this.vertices.keySet();
+        Comparable[] arrayEtiquetas = new Comparable[floydTemp.length];
+        arrayEtiquetas = etiquetas.toArray(arrayEtiquetas);
+        Comparable[] excentricidades = new Comparable[floydTemp.length];
+            for (int i = 0; i < arrayEtiquetas.length; i++) {
+                Comparable exTemp = obtenerExcentricidad(arrayEtiquetas[i]);
+                excentricidades[i] = exTemp;
+            }
+            centro = excentricidades[0];
+            etiquetaCentro = arrayEtiquetas[0];
+            for (int i = 0; i < excentricidades.length; i++) {
+                Comparable candidato = excentricidades[i];
+                    if(candidato.compareTo(centro) <0){
+                       centro = candidato;
+                       etiquetaCentro = arrayEtiquetas[i];
+                    } 
+            }
+         return "Centro del grafo "+centro +" Etiqueta: "+ etiquetaCentro;
+        }
 
     @Override
     public Double[][] floyd() {
@@ -193,6 +218,33 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
         return matrizCos;
     }
+    //Esto lo cambié yo porque el ejercicio de la pd1 me fallaba, tenemos que ver porqué
+    public Double[][] floyd2() {
+        int tamano = vertices.size();
+        Double[][] a = new Double[tamano][tamano];
+        Double[][] p = new Double[tamano][tamano];
+        Double[][] c = UtilGrafos.obtenerMatrizCostos(vertices);
+
+        for (int i = 0; i < tamano; i++) {
+            for (int j = 0; j < tamano; j++) {
+                p[i][j] = 0.0;
+                a[i][j] = c[i][j];
+            }
+        }
+        for (int k = 0; k < tamano; k++) {
+            for (int i = 0; i < tamano; i++) {
+                for (int j = 0; j < tamano; j++) {
+                    if((a[i][k]+a[k][j])< a[i][j]){
+                        a[i][j] = a[i][k]+a[k][j];
+                        p[i][j] = k+0.0;
+                
+                    }
+                }
+            }
+        }
+        floyd = a;
+        return a;
+    }
 
     // Segunda obra maestra del badass
     @Override
@@ -204,7 +256,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
      */
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
         Double mayorValor = 0d;
-        Double[][] matrizFloyd = floyd();
+        Double[][] matrizFloyd = floyd2();
         Object[] etiquetas = vertices.keySet().toArray();
         int j, col;
 
@@ -220,10 +272,9 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
         return mayorValor;
     }
-
-    // Excentricidad colecciones
-    public Comparable obtenerExcentricidadColeccion(Comparable etiquetaVertice) {
-        Double[][] floydTemp = this.floyd();
+    //Esto lo modifiqué yo porque el nuestro no funcionaba, hay que ver porqué
+    public Comparable obtenerExcentricidad2(Comparable etiquetaVertice) {
+        Double[][] floydTemp = this.floyd2();
         Set<Comparable> etiquetasDeVertices = this.vertices.keySet();              
         Comparable[] array = new Comparable[floydTemp.length];
         array = etiquetasDeVertices.toArray(array);             
@@ -251,6 +302,37 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
         return excentricidad;
     }
+
+    // Excentricidad colecciones
+    // public Comparable obtenerExcentricidadColeccion(Comparable etiquetaVertice) {
+    //     Double[][] floydTemp = this.floyd();
+    //     Set<Comparable> etiquetasDeVertices = this.vertices.keySet();              
+    //     Comparable[] array = new Comparable[floydTemp.length];
+    //     array = etiquetasDeVertices.toArray(array);             
+    //     int numeroColumna = 0;
+    //     for (int c = 0; c < array.length; c++) {
+            
+    //         if(array[c] == etiquetaVertice){
+    //             numeroColumna = c;
+    //             break;
+    //         }
+            
+    //     }
+    //     Double excentricidad = 0.0;
+    //     for (int i = 0; i < floyd.length; i++) {
+    //         if(floyd[i][numeroColumna] > excentricidad){
+    //             if (floyd[i][numeroColumna] < Double.MAX_VALUE){
+    //                 if (floyd[i][numeroColumna] > 0.0) {
+                      
+    //                     excentricidad = floyd[i][numeroColumna];
+    //                 }
+                    
+    //             }
+                
+    //         } 
+    //     }
+    //     return excentricidad;
+    // }
 
     /**
      * Maximo de las excentricidades
