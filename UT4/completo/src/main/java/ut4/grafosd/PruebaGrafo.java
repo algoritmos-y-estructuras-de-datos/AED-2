@@ -10,100 +10,114 @@ import java.util.List;
 public class PruebaGrafo {
 
     // public static void main(String[] args) {
-    //     TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/clase/src/main/java/ut4/previo/aeropuertos_1.txt","UT4/clase/src/main/java/ut4/previo/conexionesPrueba.txt",
-    //             false, TGrafoDirigido.class);
+    // TGrafoDirigido gd = (TGrafoDirigido)
+    // UtilGrafos.cargarGrafo("UT4/clase/src/main/java/ut4/previo/aeropuertos_1.txt","UT4/clase/src/main/java/ut4/previo/conexionesPrueba.txt",
+    // false, TGrafoDirigido.class);
 
-    //     // Object[] etiquetasarray = gd.getEtiquetasOrdenado();
+    // // Object[] etiquetasarray = gd.getEtiquetasOrdenado();
 
+    // Object[] etiquetasarray = gd.getEtiquetasOrdenado();
 
-    //     Object[] etiquetasarray = gd.getEtiquetasOrdenado();
+    // gd.desvisitarVertices();
 
-   
-    //     gd.desvisitarVertices();
+    // gd.todosLosCaminos("San_Pablo", "Montevideo");
 
-    //     gd.todosLosCaminos("San_Pablo", "Montevideo");
-   
-    //     if (gd.tieneCiclo()) {
-    //         System.out.println("tiene ciclos");
-    //     } else {
-    //         System.out.println("no tiene ciclos");
-    //     }
-        
-    //     // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
-    //     // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz");
-        
-    //     // Double[][] mfloyd = gd.floyd();
-    //     // UtilGrafos.imprimirMatrizMejorado(mfloyd, gd.getVertices(), "Matriz luego de FLOYD");
+    // if (gd.tieneCiclo()) {
+    // System.out.println("tiene ciclos");
+    // } else {
+    // System.out.println("no tiene ciclos");
+    // }
 
-    //     // String vertice = "Montevideo";
+    // // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
+    // // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz");
 
-    //     // System.out.println(gd.centroDelGrafo());
+    // // Double[][] mfloyd = gd.floyd();
+    // // UtilGrafos.imprimirMatrizMejorado(mfloyd, gd.getVertices(), "Matriz luego
+    // de FLOYD");
 
-    //     // System.out.println("La excentricidad del vértice " + vertice + " es: " +gd.obtenerExcentricidad(vertice));
-        
-    //     // // for (int i = 0; i < etiquetasarray.length; i++) {
-    //     // //     System.out.println("excentricidad de " + etiquetasarray[i] + " : " + gd.obtenerExcentricidad((Comparable) etiquetasarray[i]));
-    //     // // }
-    //     // System.out.println();
-        
-    //     // System.out.println("Centro del grafo: " + gd.centroDelGrafo());
-       
-       
+    // // String vertice = "Montevideo";
+
+    // // System.out.println(gd.centroDelGrafo());
+
+    // // System.out.println("La excentricidad del vértice " + vertice + " es: "
+    // +gd.obtenerExcentricidad(vertice));
+
+    // // // for (int i = 0; i < etiquetasarray.length; i++) {
+    // // // System.out.println("excentricidad de " + etiquetasarray[i] + " : " +
+    // gd.obtenerExcentricidad((Comparable) etiquetasarray[i]));
+    // // // }
+    // // System.out.println();
+
+    // // System.out.println("Centro del grafo: " + gd.centroDelGrafo());
+
     // }
     public static void main(String[] args) {
-        TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo("UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt", "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt",
-                false, TGrafoDirigido.class);
-        
-        
+        TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo(
+                "UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt",
+                "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt", false, TGrafoDirigido.class);
 
-        //PD1 Insertar vértices
-        List<TVertice> vertices = new ArrayList<>();
-        vertices.add(new TVertice<>("Artigas"));
-        vertices.add(new TVertice<>("Canelones"));
-        vertices.add(new TVertice<>("Durazno"));
-        vertices.add(new TVertice<>("Florida"));
-        vertices.add(new TVertice<>("Montevideo"));
-        vertices.add(new TVertice<>("Punta_del_Este"));
-        vertices.add(new TVertice<>("Rocha"));
-        
-        /*PD1 Inserar aristas: Artigas, Rocha, 400; Canelones, Artigas, 500; Canelones, Colonia, 200; Canelones, Durazno, 170; Canelones, 
-        Punta del Este, 90; Colonia, Montevideo, 180; Florida, Durazno, 60; Montevideo, Artigas, 700; Montevideo, 
-        Canelones, 30; Montevideo, Punta del Este, 130; Punta del Este, Rocha, 90; Rocha, Montevideo, 270; Florida, 
-        Durazno, 60*/
-        List<TArista> aristas = new ArrayList<>();
-        aristas.add(new TArista("Artigas", "Rocha", 400));
-        
-        
-        
-        
-        TGrafoDirigido gdpd1 = new TGrafoDirigido(vertices, aristas);
+        // PD1 Insertar vértices
+        List<TVertice> verticespd1 = new ArrayList<>();
+        verticespd1.add(new TVertice<>("Artigas"));
+        verticespd1.add(new TVertice<>("Canelones"));
+        verticespd1.add(new TVertice<>("Durazno"));
+        verticespd1.add(new TVertice<>("Florida"));
+        verticespd1.add(new TVertice<>("Montevideo"));
+        verticespd1.add(new TVertice<>("Punta_del_Este"));
+        verticespd1.add(new TVertice<>("Rocha"));
+        // PD1 Inserar aristas
+        List<TArista> aristaspd1 = new ArrayList<>();
+        aristaspd1.add(new TArista("Artigas", "Rocha", 400.0));
+        aristaspd1.add(new TArista("Canelones", "Artigas", 500.0));
+        aristaspd1.add(new TArista("Canelones", "Colonia", 200.0));
+        aristaspd1.add(new TArista("Canelones", "Duraznos", 170.0));
+        aristaspd1.add(new TArista("Canelones", "Punta_del_Este", 90.0));
+        aristaspd1.add(new TArista("Colonia", "Montevideo", 180.0));
+        aristaspd1.add(new TArista("Florida", "Durazno", 60.0));
+        aristaspd1.add(new TArista("Montevideo", "Artigas", 700.0));
+        aristaspd1.add(new TArista("Montevideo", "Canelones", 30.0));
+        aristaspd1.add(new TArista("Montevideo", "Punta_del_Este", 130.0));
+        aristaspd1.add(new TArista("Punta_del_Este", "Rocha", 90.0));
+        aristaspd1.add(new TArista("Rocha", "Montevideo", 270.0));
+        aristaspd1.add(new TArista("Florida", "Durazno", 60.0));
+        // Grafo pd1
+        TGrafoDirigido gdpd1 = new TGrafoDirigido(verticespd1, aristaspd1);
+        // Ejercicio 1 pd1
+        Double[][] matrizpd1 = UtilGrafos.obtenerMatrizCostos(gdpd1.getVertices());
+        UtilGrafos.imprimirMatrizMejorado(matrizpd1, gdpd1.getVertices(), "Matriz PD1");
+        // Ejercicio 2 pd1 costos de caminos mínimos de acuerdo al algoritmo de Floyd
+        Double[][] matrizFloydpd1 = gdpd1.floyd2();
+        UtilGrafos.imprimirMatrizMejorado(matrizFloydpd1, gdpd1.getVertices(), "Matriz PD1 luego de FLOYD");
+        // Ejercicio 3 pd1
+        Object[] etiquetasarray = gdpd1.getEtiquetasOrdenado();
+        for (int i = 0; i < etiquetasarray.length; i++) {
+            System.out.println("excentricidad de " + etiquetasarray[i] + " : "
+                    + gdpd1.obtenerExcentricidad2((Comparable) etiquetasarray[i]));
+        }
+        System.out.println();
+        System.out.println(gdpd1.centroDelGrafo());
 
+        // //Recuperar caminos, un camino desde un vertice origen a un destino
+        // TCaminos caminolas = gd.todosLosCaminos("Porto_Alegre", "Punta_Del_Este");
+        // System.out.println(caminolas.imprimirCaminos());
+        // System.out.println(caminolas.caminoMenorCosto().imprimirEtiquetas());
 
-       
+        // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
+        // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");
 
-        //Recuperar caminos, un camino desde un vertice origen a un destino
-        TCaminos caminolas = gd.todosLosCaminos("Porto_Alegre", "Punta_Del_Este");
-        System.out.println(caminolas.imprimirCaminos());
-        System.out.println(caminolas.caminoMenorCosto().imprimirEtiquetas());
-        
-
-        Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
-        UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");
-        
         // LinkedList<TVertice> lista = gd.unOrdenTopologico();
         // gd.imprimirTopologico(lista);
 
         // Collection<TVertice> recorrido_Asuncion = gd.bpf("Asuncion");
         // // imprimir etiquetas del bpf desde Asunción....
         // for (TVertice etVert : recorrido_Asuncion) {
-        //     System.out.print(etVert.getEtiqueta() + " ");
+        // System.out.print(etVert.getEtiqueta() + " ");
         // }
 
         // gd.desvisitarVertices();
-        
+
         // TCaminos caminos = gd.todosLosCaminos("Asuncion", "Montevideo");
         // System.out.println(caminos.imprimirCaminos());
 
     }
 }
-
