@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class TGrafoDirigido implements IGrafoDirigido {
@@ -219,6 +220,37 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mayorValor;
     }
 
+    // Excentricidad colecciones
+    public Comparable obtenerExcentricidadColeccion(Comparable etiquetaVertice) {
+        Double[][] floydTemp = this.floyd();
+        Set<Comparable> etiquetasDeVertices = this.vertices.keySet();              
+        Comparable[] array = new Comparable[floydTemp.length];
+        array = etiquetasDeVertices.toArray(array);             
+        int numeroColumna = 0;
+        for (int c = 0; c < array.length; c++) {
+            
+            if(array[c] == etiquetaVertice){
+                numeroColumna = c;
+                break;
+            }
+            
+        }
+        Double excentricidad = 0.0;
+        for (int i = 0; i < floyd.length; i++) {
+            if(floyd[i][numeroColumna] > excentricidad){
+                if (floyd[i][numeroColumna] < Double.MAX_VALUE){
+                    if (floyd[i][numeroColumna] > 0.0) {
+                      
+                        excentricidad = floyd[i][numeroColumna];
+                    }
+                    
+                }
+                
+            } 
+        }
+        return excentricidad;
+    }
+
     /**
      * Maximo de las excentricidades
      * 
@@ -402,6 +434,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     /**
      * Este algoritmo retorna true si el grafo es conexo o false en caso contrario
+     * 
      * @return
      */
     public boolean esConexo() {
@@ -414,8 +447,12 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return false;
     }
 
-    public LinkedList<TVertice> componentesConexos(){
-        //https://programmerclick.com/article/33691890301/
+    public LinkedList<TVertice> componentesConexos() {
+        // https://programmerclick.com/article/33691890301/
         throw new UnsupportedOperationException("No esta programada aún");
+    }
+
+    public void bpf(Collection visitados){
+        throw new UnsupportedOperationException();
     }
 }
