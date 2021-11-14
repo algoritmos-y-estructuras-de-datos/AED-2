@@ -400,6 +400,30 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
     }
 
+    public int devuelvePos(Comparable unaEtiqueta){
+        if(this.vertices.containsKey(unaEtiqueta)){
+            int pos = 0;
+            for(TVertice verticeAux : this.vertices.values()){
+                if(verticeAux.getEtiqueta().compareTo(unaEtiqueta) == 0){
+                    return pos;
+                }
+                pos++;
+            }
+        }
+        return -1;
+    }
+
+    public boolean hayContectividad(Comparable ciudadOrigen, Comparable ciudadDestino){
+        int posOrigen = devuelvePos(ciudadOrigen);
+        int posDestino = devuelvePos(ciudadDestino);
+        boolean[][] matrizWarshall = warshall();
+
+        if(posOrigen != -1 && posDestino != -1){
+            return matrizWarshall[posOrigen][posDestino];
+        }
+        return false;
+    }
+
     /**
      * Este algoritmo retorna true si el grafo es conexo o false en caso contrario
      * @return
