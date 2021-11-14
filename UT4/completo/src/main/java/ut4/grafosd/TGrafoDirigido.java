@@ -185,6 +185,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
                 for (j = 0; j < matrizCos.length; j++) {
                     if (matrizCos[i][k] + matrizCos[k][j] < matrizCos[i][j]) {
                         matrizCos[i][j] = matrizCos[i][k] + matrizCos[k][j];
+                        this.predecesores[i][j] = k;
                     }
                 }
             }
@@ -442,4 +443,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         //https://programmerclick.com/article/33691890301/
         throw new UnsupportedOperationException("No esta programada aún");
     }
+
+    
 }
