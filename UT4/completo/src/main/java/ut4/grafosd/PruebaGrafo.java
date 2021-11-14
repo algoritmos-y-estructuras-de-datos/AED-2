@@ -55,8 +55,8 @@ public class PruebaGrafo {
         TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo(
                 "UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt",
                 "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt", false, TGrafoDirigido.class);
-        
-        //Dice PD1, pero debería ser PD2, no voy a cambiar todas las ocurrencias...
+
+        // Dice PD1, pero debería ser PD2, no voy a cambiar todas las ocurrencias...
         // PD1 Insertar vértices
         List<TVertice> verticespd1 = new ArrayList<>();
         verticespd1.add(new TVertice<>("Artigas"));
@@ -97,12 +97,24 @@ public class PruebaGrafo {
         }
         System.out.println();
         System.out.println(gdpd1.centroDelGrafo2());
-        System.out.println("========================================================================================================");
+        System.out.println();
+        System.out.println(
+                "=======================================================================================================");
+        System.out.println();
+
+        /*
+         * PD3 ejercicio 2 Implementa un algoritmo que permita conocer la conectividad
+         * entre cualquier par de ciudades. El programa Java resultante deberá permitir
+         * contestar interactivamente preguntas del tipo “indique si es posible volar
+         * desde la ciudad x a la ciudad y”.
+         */
+        boolean[][] mWarshall = gd.warshall();
+        UtilGrafos.imprimirMatrizBooleanos(mWarshall, gd.getVertices(), "Matriz luego de WARSHALL");
+        // PD3 imprimo la matriz warshall para verificar que el resultado de lo
+        // siguiente es verdad
+        // HAY CONECTIVIDAD?, un camino desde un vertice origen a un destino
+        System.out.println(gd.hayConexion("Flores", "Porto_Alegre"));
         
-        // //Recuperar caminos, un camino desde un vertice origen a un destino
-        // TCaminos caminolas = gd.todosLosCaminos("Porto_Alegre", "Punta_Del_Este");
-        // System.out.println(caminolas.imprimirCaminos());
-        // System.out.println(caminolas.caminoMenorCosto().imprimirEtiquetas());
 
         // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
         // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");

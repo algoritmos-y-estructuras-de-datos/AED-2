@@ -225,4 +225,84 @@ public class UtilGrafos {
         } 
         return null;
     }
+
+    /**
+     * Metodo creado con la finalidad de poder imprimir la matriz de warshall (boolean)
+     * @param matriz
+     * @param vertices
+     * @param titulo
+     */
+    public static void imprimirMatrizBooleanos(boolean[][] matriz, Map<Comparable, TVertice> vertices, String titulo) {
+        if (vertices != null && matriz.length == vertices.keySet().size()) {
+
+            Comparable[] etiquetas = vertices.keySet().toArray(new Comparable[vertices.keySet().size()]);
+            int etiquetaMasLarga = stringMasLargo(etiquetas);
+            int datoMasLargo = 0;
+            String infinito = "-false-";
+            String nulo = "NULO";
+            int separacionEntreColumnas = 3;
+            Comparable[] datos = new Comparable[matriz.length];
+
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz.length; j++) {
+                    if (i-j==0) {
+                        datos[j] = nulo;
+                    } else{ 
+                        if (!matriz[i][j]) {
+                            datos[j] = infinito;
+                        } else {
+                            datos[j] = matriz[i][j];
+                        }
+                    }   
+                }
+                if (stringMasLargo(datos) > datoMasLargo) {
+                    datoMasLargo = stringMasLargo(datos);
+                }
+            }
+
+            int largo = Math.max(etiquetaMasLarga, datoMasLargo) + separacionEntreColumnas;
+
+            for (int i = 0; i < etiquetas.length; i++) {
+                etiquetas[i] = rellenar(etiquetas[i].toString(), largo, ' ');
+            }
+
+            int tope = (largo) * (etiquetas.length + 1);
+
+            String linea = rellenar("", tope, '-');
+            String separador = rellenar("", largo, ' ');
+            String sepTitulo = rellenar("", tope, '*');
+
+            System.out.println(sepTitulo);
+            System.out.println(devolverCentrado(titulo, tope));
+            System.out.println(sepTitulo);
+            System.out.println(linea);
+
+            System.out.print(separador);
+            for (int i = 0; i < matriz.length; i++) {
+                System.out.print(etiquetas[i]);
+            }
+
+            System.out.println();
+            System.out.println(linea);
+
+            for (int i = 0; i < matriz.length; i++) {
+                System.out.print(etiquetas[i]);
+                for (int j = 0; j < matriz.length; j++) {
+
+                    if (i-j==0) {
+                        System.out.print(rellenar(nulo, largo, ' '));
+                    } else{
+                        if (!matriz[i][j]) {
+                            System.out.print(rellenar(infinito, largo, ' '));
+                        } else {
+                            System.out.print(rellenar("True", largo, ' '));
+                        }
+                    }
+                }
+                System.out.println();
+                System.out.println(linea);
+            }
+        }
+        System.out.println();
+    }
 }
