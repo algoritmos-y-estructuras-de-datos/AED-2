@@ -178,7 +178,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
     }
     //Esto lo modifiqué yo porque el nuestro es un culo, hay que ver porqué
     public Comparable centroDelGrafo2() {
-        Double[][] floydTemp = this.floyd();
+        Double[][] floydTemp = this.floyd2();
         Comparable centro = 0.0;
         Comparable etiquetaCentro ="";
         Set<Comparable> etiquetas = this.vertices.keySet();
@@ -186,7 +186,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         arrayEtiquetas = etiquetas.toArray(arrayEtiquetas);
         Comparable[] excentricidades = new Comparable[floydTemp.length];
             for (int i = 0; i < arrayEtiquetas.length; i++) {
-                Comparable exTemp = obtenerExcentricidad(arrayEtiquetas[i]);
+                Comparable exTemp = obtenerExcentricidad2(arrayEtiquetas[i]);
                 excentricidades[i] = exTemp;
             }
             centro = excentricidades[0];

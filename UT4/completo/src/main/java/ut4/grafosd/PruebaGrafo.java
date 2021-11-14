@@ -55,7 +55,8 @@ public class PruebaGrafo {
         TGrafoDirigido gd = (TGrafoDirigido) UtilGrafos.cargarGrafo(
                 "UT4/completo/src/main/java/ut4/grafosd/aeropuertos_2.txt",
                 "UT4/completo/src/main/java/ut4/grafosd/conexionesPrueba.txt", false, TGrafoDirigido.class);
-
+        
+        //Dice PD1, pero debería ser PD2, no voy a cambiar todas las ocurrencias...
         // PD1 Insertar vértices
         List<TVertice> verticespd1 = new ArrayList<>();
         verticespd1.add(new TVertice<>("Artigas"));
@@ -95,8 +96,9 @@ public class PruebaGrafo {
                     + gdpd1.obtenerExcentricidad2((Comparable) etiquetasarray[i]));
         }
         System.out.println();
-        System.out.println(gdpd1.centroDelGrafo());
-
+        System.out.println(gdpd1.centroDelGrafo2());
+        System.out.println("========================================================================================================");
+        
         // //Recuperar caminos, un camino desde un vertice origen a un destino
         // TCaminos caminolas = gd.todosLosCaminos("Porto_Alegre", "Punta_Del_Este");
         // System.out.println(caminolas.imprimirCaminos());
