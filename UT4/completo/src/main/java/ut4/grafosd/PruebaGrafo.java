@@ -112,8 +112,17 @@ public class PruebaGrafo {
         UtilGrafos.imprimirMatrizBooleanos(mWarshall, gd.getVertices(), "Matriz luego de WARSHALL");
         // PD3 imprimo la matriz warshall para verificar que el resultado de lo
         // siguiente es verdad
-        // HAY CONECTIVIDAD?, un camino desde un vertice origen a un destino
-        System.out.println(gd.hayConexion("Flores", "Porto_Alegre"));
+        // HAY CONECTIVIDAD?, un camino de largo 1 de un vertice origen a un destino
+        System.out.println("Existe conectividad entre origen y destino?: " + gd.hayConexion("Flores", "Porto_Alegre"));
+        System.out.println();
+        //PD3 ejercicio 3 
+        Collection<TVertice> resultadoBPF = gd.bpf("Montevideo"); //BPF tiene Big O(a) siendo a numero de aristas
+        //PD3 ejercicio 3 imprimir etiquetas en el orden que fueron visitadas, habría que modificar para que no le encaje una flechita al final
+        for(TVertice ver : resultadoBPF){
+            System.out.print(ver.getEtiqueta()+" -> ");
+        }
+        //PD3 ejercicio 3  ¿cómo harías para que, usando el mismo método, se 
+        //complete la visita de los vértices que aún no han sido visitados?
         
 
         // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
