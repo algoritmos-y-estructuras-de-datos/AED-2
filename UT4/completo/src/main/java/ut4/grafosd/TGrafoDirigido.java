@@ -476,7 +476,5 @@ public class TGrafoDirigido implements IGrafoDirigido {
         throw new UnsupportedOperationException("No esta programada aún");
     }
 
-    public void bpf(Collection visitados){
-        throw new UnsupportedOperationException();
-    }
+s
 }
