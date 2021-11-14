@@ -7,5 +7,6 @@
         "UT2/pd6/src/main/java",
         "UT2/pd1/src/main/java",
         "UT2/pd6/src/main/java/ut2/tries"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

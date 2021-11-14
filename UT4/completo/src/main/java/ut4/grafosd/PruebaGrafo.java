@@ -115,15 +115,36 @@ public class PruebaGrafo {
         // HAY CONECTIVIDAD?, un camino de largo 1 de un vertice origen a un destino
         System.out.println("Existe conectividad entre origen y destino?: " + gd.hayConexion("Flores", "Porto_Alegre"));
         System.out.println();
-        //PD3 ejercicio 3 
-        Collection<TVertice> resultadoBPF = gd.bpf("Montevideo"); //BPF tiene Big O(a) siendo a numero de aristas
-        //PD3 ejercicio 3 imprimir etiquetas en el orden que fueron visitadas, habría que modificar para que no le encaje una flechita al final
-        for(TVertice ver : resultadoBPF){
-            System.out.print(ver.getEtiqueta()+" -> ");
+        // PD3 ejercicio 3
+        Collection<TVertice> resultadoBPF = gd.bpf("Montevideo"); // BPF tiene Big O(a) siendo a numero de aristas
+        // PD3 ejercicio 3 imprimir etiquetas en el orden que fueron visitadas, habría
+        // que modificar para que no le encaje una flechita al final
+        for (TVertice ver : resultadoBPF) {
+            System.out.print(ver.getEtiqueta() + " -> ");
         }
-        //PD3 ejercicio 3  ¿cómo harías para que, usando el mismo método, se 
-        //complete la visita de los vértices que aún no han sido visitados?
-        
+        // PD3 ejercicio 3 ¿cómo harías para que, usando el mismo método, se
+        // complete la visita de los vértices que aún no han sido visitados?
+
+        // PD4 es camino y todos los caminos, ya está hecho
+
+        // PD5 ejercicio 2 Big O(v) siendo v los vertices?
+        // OJO QUE ESTO ES UN MONO CON METRALLETA, DEVUELVE NULL SI TIENE CICLO
+        LinkedList<TVertice> ordenTopo = gd.unOrdenTopologico();
+        if (ordenTopo != null) {
+            for (TVertice ver : ordenTopo) {
+                System.out.print(ver.getEtiqueta() + " -> ");
+            }
+        }
+        System.out.println();
+
+        // PD5 ejercicio 2 ¿Cómo harías para obtener todas las ordenaciones topológicas
+        // existentes?
+
+        // PD5 ejercicio 3
+        System.out.println("El grafo se trata de un grafo conexo?: " + gd.esConexo());
+
+        //PD5 dado un grafo dirigido de entrada, hallar todos sus componentes fuertes
+        Collection<Collection<TVertice>> componentes = gd.componentesConexos();
 
         // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
         // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");

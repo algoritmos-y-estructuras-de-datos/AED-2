@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import scala.collection.Iterator;
+import scala.collection.convert.impl.ObjectArrayStepper;
 
 public class TGrafoDirigido implements IGrafoDirigido {
 
@@ -307,37 +311,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return excentricidad;
     }
 
-    // Excentricidad colecciones
-    // public Comparable obtenerExcentricidadColeccion(Comparable etiquetaVertice) {
-    // Double[][] floydTemp = this.floyd();
-    // Set<Comparable> etiquetasDeVertices = this.vertices.keySet();
-    // Comparable[] array = new Comparable[floydTemp.length];
-    // array = etiquetasDeVertices.toArray(array);
-    // int numeroColumna = 0;
-    // for (int c = 0; c < array.length; c++) {
-
-    // if(array[c] == etiquetaVertice){
-    // numeroColumna = c;
-    // break;
-    // }
-
-    // }
-    // Double excentricidad = 0.0;
-    // for (int i = 0; i < floyd.length; i++) {
-    // if(floyd[i][numeroColumna] > excentricidad){
-    // if (floyd[i][numeroColumna] < Double.MAX_VALUE){
-    // if (floyd[i][numeroColumna] > 0.0) {
-
-    // excentricidad = floyd[i][numeroColumna];
-    // }
-
-    // }
-
-    // }
-    // }
-    // return excentricidad;
-    // }
-
     /**
      * Maximo de las excentricidades
      * 
@@ -542,6 +515,24 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
         return false;
     }
+    /**
+     * Tremenda obra maestra, que en base a todos los caminos te dice si existe
+     * alguno de tamanio 1 Esto es analogo a tener un true en la matriz de warshallo
+     * 
+     * @param origen
+     * @param destino
+     * @return
+     */
+    public boolean hayConexion(Comparable origen, Comparable destino) {
+        TCaminos caminolas = this.todosLosCaminos(origen, destino);
+        for (TCamino camino : caminolas.getCaminos()) {
+            if (camino.getOtrosVertices().size() != 1) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Este algoritmo retorna true si el grafo es conexo o false en caso contrario
@@ -558,26 +549,132 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return false;
     }
 
-    public LinkedList<TVertice> componentesConexos() {
-        // https://programmerclick.com/article/33691890301/
-        throw new UnsupportedOperationException("No esta programada aún");
+    public LinkedList<LinkedList<TVertice>> componentesFuertes() {
+        LinkedList<TVertice> todosVertices = new LinkedList<>(vertices.values());
+        LinkedList<TVertice> misVertices = new LinkedList<>();
+        LinkedList<TVertice> aux = new LinkedList<>();
+        int[] contador = new int[1];
+        contador[0] = 0;
+        TVertice vertice = todosVertices.getFirst();
+        while (!misVertices.containsAll(todosVertices)) {
+            this.desvisitarVertices();
+            aux.clear();
+            aux.addAll(todosVertices);
+            for (TVertice v : misVertices)
+                aux.remove(v);
+            vertice = aux.getFirst();
+            vertice.componentesFuertes(misVertices, contador);
+        }
+
+        LinkedList<TArista> listaAristas = new LinkedList<>();
+        for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
+            TArista arst = (TArista) it.next();
+            listaAristas.add(new TArista(arst.etiquetaDestino, arst.etiquetaOrigen, arst.costo));
+        }
+        TGrafoDirigido auxiliar = new TGrafoDirigido(todosVertices, listaAristas);
+        misVertices.clear();
+        aux.clear();
+        todosVertices.clear();
+        todosVertices.addAll(auxiliar.vertices.values());
+        LinkedList<TVertice> misVertices2 = new LinkedList<>();
+        LinkedList<LinkedList<TVertice>> componentes = new LinkedList<>();
+        while (!misVertices.containsAll(todosVertices)) {
+            auxiliar.desvisitarVertices();
+            aux.clear();
+            aux.addAll(todosVertices);
+            for (TVertice v : misVertices)
+                aux.remove(v);
+            vertice = this.masFuerte(aux);
+            misVertices2 = new LinkedList<>();
+            vertice.bpf(misVertices2);
+            misVertices.addAll(misVertices2);
+            componentes.add(misVertices2);
+        }
+        return componentes;
+    }
+
+    public LinkedList listaAristas() {
+        LinkedList<TArista> lista = new LinkedList<>();
+        for (TVertice ver : vertices.values()) {
+            for (TAdyacencia ady2 : ver.getAdyacentes())
+                lista.add(new TArista(ver.getEtiqueta(), ady2.getDestino().getEtiqueta(), ady2.getCosto()));
+        }
+        return lista;
     }
 
     /**
-     * Tremenda obra maestra, que en base a todos los caminos te dice si existe alguno de tamanio 1
-     * Esto es analogo a tener un true en la matriz de warshallo
-     * @param origen
-     * @param destino
-     * @return
+     * Método para saber el vértice con el mayor número en el recorrido para
+     * componentes fuertes
+     * 
+     * @param vertices Lista de vértices con componente fuerte
+     * @return Vertice con número de componente fuerte más grande
      */
-    public boolean hayConexion(Comparable origen, Comparable destino) {
-        TCaminos caminolas = this.todosLosCaminos(origen, destino);
-        for (TCamino camino : caminolas.getCaminos()) {
-            if (camino.getOtrosVertices().size() != 1) {
-                continue;
+    public TVertice masFuerte(LinkedList<TVertice> vertices) {
+        TVertice mayor = vertices.getFirst();
+        for (TVertice ver : vertices) {
+            if (ver.cfuerte > mayor.cfuerte) {
+                mayor = ver;
             }
-            return true;
         }
-        return false;
+        return mayor;
     }
+
+    public TCamino caminoCritico(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
+
+        if (!tieneCiclo()) {
+            double max = 0;
+            TCamino camino = null;
+            TCaminos lista = todosLosCaminos(etiquetaOrigen, etiquetaDestino);
+            for (TCamino c : lista.getCaminos()) {
+                if (max < c.getCostoTotal()) {
+                    max = c.getCostoTotal();
+                    camino = c.copiar();
+                    camino.setCostoTotal(camino.getCostoTotal() + (max - camino.getCostoTotal()));
+                }
+            }
+            return camino;
+        }
+        return null;
+    }
+
+    public Collection<Collection<TVertice>> componentesConexos() {
+        Collection<Collection<TVertice>> componentes = new LinkedList<>();
+
+        Collection<TVertice> bpfTotal = this.bpfPostOrden();
+
+        TGrafoDirigido grafoInverso = this.grafoOpuesto();
+        LinkedList<TVertice> arbol = new LinkedList<>();
+        for (TVertice vertice : bpfTotal) {
+            TVertice vEnOpuesto = grafoInverso.getVertices().get(vertice.getEtiqueta());
+            if (!vEnOpuesto.getVisitado()) {
+                vEnOpuesto.setVisitado(true);
+                vEnOpuesto.bpf(arbol);
+                componentes.add(arbol);
+                arbol = new LinkedList<>();
+            }
+        }
+        return componentes;
+    }
+
+    private TGrafoDirigido grafoOpuesto() {
+        List<TArista> aristas = new LinkedList<>();
+        for (TVertice v : vertices.values()) {
+            for (TAdyacencia adyacente : v.getAdyacentes()) {
+                aristas.add(new TArista(adyacente.getEtiqueta(), v.getEtiqueta(), adyacente.getCosto()));
+            }
+        }
+        return new TGrafoDirigido(this.getVertices().values(), aristas);
+    }
+
+    private Collection<TVertice> bpfPostOrden() {
+        LinkedList<TVertice> col = new LinkedList<>();
+        for (TVertice vertice : this.vertices.values()) {
+            if (!vertice.getVisitado()) {
+                vertice.bpfPostOrden(col);
+            }
+        }
+        return col;
+    }
+
+    
 }

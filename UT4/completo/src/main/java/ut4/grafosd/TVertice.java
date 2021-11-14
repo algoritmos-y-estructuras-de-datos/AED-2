@@ -9,6 +9,7 @@ public class TVertice<T> implements IVertice {
     private LinkedList<TAdyacencia> adyacentes;
     private boolean visitado;
     private T datos;
+    public int cfuerte;
 
     public Comparable getEtiqueta() {
         return etiqueta;
@@ -121,7 +122,7 @@ public class TVertice<T> implements IVertice {
         camino.add(this.getEtiqueta());
         for (TAdyacencia adyacencia : this.getAdyacentes()) {
             if (!adyacencia.getDestino().getVisitado()) {
-            
+
                 if (adyacencia.getDestino().tieneCiclo(camino)) {
                     return true;
                 }
@@ -149,7 +150,7 @@ public class TVertice<T> implements IVertice {
                     destino.todosLosCaminos(etVertDest, caminoPrevio, todosLosCaminos);
                     caminoPrevio.eliminarAdyacencia(adyacencia);
                 }
-            } 
+            }
         }
         this.setVisitado(false);
         return todosLosCaminos;
@@ -158,14 +159,38 @@ public class TVertice<T> implements IVertice {
     public void unOrdenTopologico(LinkedList<TVertice> camino) {
         this.setVisitado(true);
         LinkedList<TAdyacencia> listaAdyacentes = this.getAdyacentes();
-        if (listaAdyacentes.size()>=0){
-            for(TAdyacencia ady: listaAdyacentes){
-                if(!ady.getDestino().getVisitado()){
+        if (listaAdyacentes.size() >= 0) {
+            for (TAdyacencia ady : listaAdyacentes) {
+                if (!ady.getDestino().getVisitado()) {
                     ady.getDestino().unOrdenTopologico(camino);
                 }
             }
             camino.add(this);
         }
+    }
+
+    public void componentesFuertes(Collection<TVertice> visitados, int[] contador) {
+        LinkedList<Comparable> todosVertices = new LinkedList<>();
+        setVisitado(true);
+        visitados.add(this);
+        for (TAdyacencia adyacente : adyacentes) {
+            TVertice vertAdy = adyacente.getDestino();
+            if (!vertAdy.getVisitado()) {
+                vertAdy.componentesFuertes(visitados, contador);
+            }
+        }
+        this.cfuerte = contador[0];
+        contador[0]++;
+    }
+
+    public void bpfPostOrden(LinkedList<TVertice> visitados) {
+        visitado = true;
+        for (IAdyacencia adyacente : adyacentes) {
+            if (!adyacente.getDestino().getVisitado()) {
+                adyacente.getDestino().bpfPostOrden(visitados);
+            }
+        }
+        visitados.addFirst(this);
     }
 
 }
