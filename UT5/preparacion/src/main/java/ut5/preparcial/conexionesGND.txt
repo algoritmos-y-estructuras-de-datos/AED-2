@@ -1,0 +1,7 @@
+Montevideo,Buenos_Aires,100
+Montevideo,Asuncion,400
+Florianopolis,Montevideo,200
+Curitiba,Florianopolis,100
+Montevideo,Curitiba,400
+Curitiba,Asuncion,3400
+Buenos_Aires,Asuncion,10
