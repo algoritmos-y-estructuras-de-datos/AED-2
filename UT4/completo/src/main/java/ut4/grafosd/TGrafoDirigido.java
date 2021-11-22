@@ -566,41 +566,41 @@ public class TGrafoDirigido implements IGrafoDirigido {
             vertice.componentesFuertes(misVertices, contador);
         }
 
-        LinkedList<TArista> listaAristas = new LinkedList<>();
-        for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
-            TArista arst = (TArista) it.next();
-            listaAristas.add(new TArista(arst.etiquetaDestino, arst.etiquetaOrigen, arst.costo));
-        }
-        TGrafoDirigido auxiliar = new TGrafoDirigido(todosVertices, listaAristas);
-        misVertices.clear();
-        aux.clear();
-        todosVertices.clear();
-        todosVertices.addAll(auxiliar.vertices.values());
-        LinkedList<TVertice> misVertices2 = new LinkedList<>();
-        LinkedList<LinkedList<TVertice>> componentes = new LinkedList<>();
-        while (!misVertices.containsAll(todosVertices)) {
-            auxiliar.desvisitarVertices();
-            aux.clear();
-            aux.addAll(todosVertices);
-            for (TVertice v : misVertices)
-                aux.remove(v);
-            vertice = this.masFuerte(aux);
-            misVertices2 = new LinkedList<>();
-            vertice.bpf(misVertices2);
-            misVertices.addAll(misVertices2);
-            componentes.add(misVertices2);
-        }
-        return componentes;
-    }
+    //     LinkedList<TArista> listaAristas = new LinkedList<>();
+    //     for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
+    //         TArista arst = (TArista) it.next();
+    //         listaAristas.add(new TArista(arst.etiquetaDestino, arst.etiquetaOrigen, arst.costo));
+    //     }
+    //     TGrafoDirigido auxiliar = new TGrafoDirigido(todosVertices, listaAristas);
+    //     misVertices.clear();
+    //     aux.clear();
+    //     todosVertices.clear();
+    //     todosVertices.addAll(auxiliar.vertices.values());
+    //     LinkedList<TVertice> misVertices2 = new LinkedList<>();
+    //     LinkedList<LinkedList<TVertice>> componentes = new LinkedList<>();
+    //     while (!misVertices.containsAll(todosVertices)) {
+    //         auxiliar.desvisitarVertices();
+    //         aux.clear();
+    //         aux.addAll(todosVertices);
+    //         for (TVertice v : misVertices)
+    //             aux.remove(v);
+    //         vertice = this.masFuerte(aux);
+    //         misVertices2 = new LinkedList<>();
+    //         vertice.bpf(misVertices2);
+    //         misVertices.addAll(misVertices2);
+    //         componentes.add(misVertices2);
+    //     }
+    //     return componentes;
+    // }
 
-    public LinkedList listaAristas() {
-        LinkedList<TArista> lista = new LinkedList<>();
-        for (TVertice ver : vertices.values()) {
-            for (TAdyacencia ady2 : ver.getAdyacentes())
-                lista.add(new TArista(ver.getEtiqueta(), ady2.getDestino().getEtiqueta(), ady2.getCosto()));
-        }
-        return lista;
-    }
+    // public LinkedList listaAristas() {
+    //     LinkedList<TArista> lista = new LinkedList<>();
+    //     for (TVertice ver : vertices.values()) {
+    //         for (TAdyacencia ady2 : ver.getAdyacentes())
+    //             lista.add(new TArista(ver.getEtiqueta(), ady2.getDestino().getEtiqueta(), ady2.getCosto()));
+    //     }
+    //     return lista;
+    // }
 
     /**
      * Método para saber el vértice con el mayor número en el recorrido para
@@ -637,34 +637,34 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return null;
     }
 
-    public Collection<Collection<TVertice>> componentesConexos() {
-        Collection<Collection<TVertice>> componentes = new LinkedList<>();
+    // public Collection<Collection<TVertice>> componentesConexos() {
+    //     Collection<Collection<TVertice>> componentes = new LinkedList<>();
 
-        Collection<TVertice> bpfTotal = this.bpfPostOrden();
+    //     Collection<TVertice> bpfTotal = this.bpfPostOrden();
 
-        TGrafoDirigido grafoInverso = this.grafoOpuesto();
-        LinkedList<TVertice> arbol = new LinkedList<>();
-        for (TVertice vertice : bpfTotal) {
-            TVertice vEnOpuesto = grafoInverso.getVertices().get(vertice.getEtiqueta());
-            if (!vEnOpuesto.getVisitado()) {
-                vEnOpuesto.setVisitado(true);
-                vEnOpuesto.bpf(arbol);
-                componentes.add(arbol);
-                arbol = new LinkedList<>();
-            }
-        }
-        return componentes;
-    }
+    //     TGrafoDirigido grafoInverso = this.grafoOpuesto();
+    //     LinkedList<TVertice> arbol = new LinkedList<>();
+    //     for (TVertice vertice : bpfTotal) {
+    //         TVertice vEnOpuesto = grafoInverso.getVertices().get(vertice.getEtiqueta());
+    //         if (!vEnOpuesto.getVisitado()) {
+    //             vEnOpuesto.setVisitado(true);
+    //             vEnOpuesto.bpf(arbol);
+    //             componentes.add(arbol);
+    //             arbol = new LinkedList<>();
+    //         }
+    //     }
+    //     return componentes;
+    // }
 
-    private TGrafoDirigido grafoOpuesto() {
-        List<TArista> aristas = new LinkedList<>();
-        for (TVertice v : vertices.values()) {
-            for (TAdyacencia adyacente : v.getAdyacentes()) {
-                aristas.add(new TArista(adyacente.getEtiqueta(), v.getEtiqueta(), adyacente.getCosto()));
-            }
-        }
-        return new TGrafoDirigido(this.getVertices().values(), aristas);
-    }
+    // private TGrafoDirigido grafoOpuesto() {
+    //     List<TArista> aristas = new LinkedList<>();
+    //     for (TVertice v : vertices.values()) {
+    //         for (TAdyacencia adyacente : v.getAdyacentes()) {
+    //             aristas.add(new TArista(adyacente.getEtiqueta(), v.getEtiqueta(), adyacente.getCosto()));
+    //         }
+    //     }
+    //     return new TGrafoDirigido(this.getVertices().values(), aristas);
+    // }
 
     private Collection<TVertice> bpfPostOrden() {
         LinkedList<TVertice> col = new LinkedList<>();
