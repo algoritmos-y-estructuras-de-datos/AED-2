@@ -22,10 +22,11 @@ public class TGrafoKevinBacon extends TGrafoNoDirigido implements IGrafoKevinBac
     // }
     @Override
     public int numBacon(Comparable actor) {
-        TVerticeKevinBacon kevin = (TVerticeKevinBacon) getVertices().get("Kevin_Bacon");
-        kevin.beatrizBacon(actor);
-        TVerticeKevinBacon objetivo = (TVerticeKevinBacon) getVertices().get(actor);
-        return objetivo.getBacon();
+        // TVerticeKevinBacon kevin = (TVerticeKevinBacon) getVertices().get("Kevin_Bacon");
+        // kevin.beatrizBacon(actor);
+        // TVerticeKevinBacon objetivo = (TVerticeKevinBacon) getVertices().get(actor);
+        // return objetivo.getBacon();
+        return 0;
     }
 
     // public int numBacon3(Comparable actor) {

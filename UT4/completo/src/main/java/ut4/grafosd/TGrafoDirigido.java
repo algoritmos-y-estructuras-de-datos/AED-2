@@ -549,23 +549,6 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return false;
     }
 
-    public LinkedList<LinkedList<TVertice>> componentesFuertes() {
-        LinkedList<TVertice> todosVertices = new LinkedList<>(vertices.values());
-        LinkedList<TVertice> misVertices = new LinkedList<>();
-        LinkedList<TVertice> aux = new LinkedList<>();
-        int[] contador = new int[1];
-        contador[0] = 0;
-        TVertice vertice = todosVertices.getFirst();
-        while (!misVertices.containsAll(todosVertices)) {
-            this.desvisitarVertices();
-            aux.clear();
-            aux.addAll(todosVertices);
-            for (TVertice v : misVertices)
-                aux.remove(v);
-            vertice = aux.getFirst();
-            vertice.componentesFuertes(misVertices, contador);
-        }
-
     //     LinkedList<TArista> listaAristas = new LinkedList<>();
     //     for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
     //         TArista arst = (TArista) it.next();

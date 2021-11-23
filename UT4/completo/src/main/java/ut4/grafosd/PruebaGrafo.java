@@ -144,7 +144,7 @@ public class PruebaGrafo {
         System.out.println("El grafo se trata de un grafo conexo?: " + gd.esConexo());
 
         //PD5 dado un grafo dirigido de entrada, hallar todos sus componentes fuertes
-        Collection<Collection<TVertice>> componentes = gd.componentesConexos();
+        //Collection<Collection<TVertice>> componentes = gd.componentesConexos();
 
         // Double[][] matriz = UtilGrafos.obtenerMatrizCostos(gd.getVertices());
         // UtilGrafos.imprimirMatrizMejorado(matriz, gd.getVertices(), "Matriz Costos");
