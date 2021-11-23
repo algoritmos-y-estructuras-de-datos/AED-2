@@ -37,10 +37,10 @@ public class TVerticeKevinBacon extends TVertice implements IVerticeKevinBacon {
 
         salir://Label para poder salir cuando se encuentra el actor destino
         while (!vertices.isEmpty()){
-            TVerticeKevinBacon verticeX = vertices.poll();
+            TVertice verticeX = vertices.poll();
             LinkedList<TAdyacencia> ady = verticeX.getAdyacentes();
             for(TAdyacencia y : ady){
-                TVerticeKevinBacon verticeY = (TVerticeKevinBacon) y.getDestino();
+                TVertice verticeY = y.getDestino();
                 if(!verticeY.getVisitado()){
                     verticeY.setVisitado(true);
                     verticeY.setBacon(baconActual);
