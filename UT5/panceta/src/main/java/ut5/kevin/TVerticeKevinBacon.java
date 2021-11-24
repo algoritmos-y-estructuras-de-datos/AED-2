@@ -41,7 +41,7 @@ public class TVerticeKevinBacon extends TVertice implements IVerticeKevinBacon {
             LinkedList<TAdyacencia> ady = verticeX.getAdyacentes();
 
             for (TAdyacencia y : ady) {
-                TVertice verticeY = y.getDestino();
+                TVerticeKevinBacon verticeY = (TVerticeKevinBacon) y.getDestino();
                 if (!verticeY.getVisitado()) {
                     verticeY.setVisitado(true);
                     verticeY.setBacon(baconActual);

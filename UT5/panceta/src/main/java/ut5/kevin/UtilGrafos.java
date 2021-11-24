@@ -226,4 +226,34 @@ public class UtilGrafos {
         } 
         return null;
     }
+
+    public static <T extends IGrafoDirigido> T cargarGrafoKevinBacon(String nomArchVert, String nomArchAdy, 
+            boolean ignoreHeader, Class t  ) {
+
+        String[] vertices = ManejadorArchivosGenerico.leerArchivo(nomArchVert, ignoreHeader);
+        String[] aristas = ManejadorArchivosGenerico.leerArchivo(nomArchAdy, ignoreHeader);
+
+        List<TVerticeKevinBacon> verticesList = new ArrayList<TVerticeKevinBacon>(vertices.length);
+        List<TArista> aristasList = new ArrayList<TArista>(aristas.length);
+
+        for (String verticeString : vertices) {
+            if ((verticeString != null) && (! verticeString.trim().equals(""))) {
+                verticeString = verticeString.split(",")[0];
+                verticesList.add(new TVerticeKevinBacon(verticeString));
+            }
+        }
+        for (String aristaString : aristas) {
+            if ((aristaString != null) && (aristaString.trim() != "")) {
+                String[] datos = aristaString.split(",");
+                aristasList.add(new TArista(datos[0], datos[1], Double.parseDouble(datos[2])));
+            }
+        }
+        try {
+            t.getConstructor(Collection.class, Collection.class);
+            return (T) (t.getConstructor(Collection.class, Collection.class).newInstance(verticesList, aristasList));
+        } catch (Exception ex) {
+            Logger.getLogger(UtilGrafos.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return null;
+    }
 }

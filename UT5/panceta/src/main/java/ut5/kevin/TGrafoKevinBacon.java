@@ -12,6 +12,16 @@ public class TGrafoKevinBacon extends TGrafoNoDirigido implements IGrafoKevinBac
 
     }
 
+    @Override
+    public boolean insertarVertice(Comparable unaEtiqueta) {
+        if ((unaEtiqueta != null) && (!existeVertice(unaEtiqueta))) {
+            TVerticeKevinBacon vert = new TVerticeKevinBacon(unaEtiqueta);
+            getVertices().put(unaEtiqueta, vert);
+            return getVertices().containsKey(unaEtiqueta);
+        }
+        return false;
+    }
+
     // @Override
     // public int numBacon(Comparable actor) {
     //     TVerticeKevinBacon kevin = (TVerticeKevinBacon) getVertices().get("Kevin_Bacon");
@@ -22,11 +32,10 @@ public class TGrafoKevinBacon extends TGrafoNoDirigido implements IGrafoKevinBac
     // }
     @Override
     public int numBacon(Comparable actor) {
-        // TVerticeKevinBacon kevin = (TVerticeKevinBacon) getVertices().get("Kevin_Bacon");
-        // kevin.beatrizBacon(actor);
-        // TVerticeKevinBacon objetivo = (TVerticeKevinBacon) getVertices().get(actor);
-        // return objetivo.getBacon();
-        return 0;
+        TVerticeKevinBacon kevin = (TVerticeKevinBacon) getVertices().get("Kevin_Bacon");
+        kevin.beatrizBacon(actor);
+        TVerticeKevinBacon objetivo = (TVerticeKevinBacon) getVertices().get(actor);
+        return objetivo.getBacon();
     }
 
     // public int numBacon3(Comparable actor) {
