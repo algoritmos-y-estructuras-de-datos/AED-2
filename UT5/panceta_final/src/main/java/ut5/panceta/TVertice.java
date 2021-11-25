@@ -1,23 +1,30 @@
-package ut4.parcial;
+package ut5.panceta;
 
 import java.util.Collection;
-import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class TVertice<T> implements IVertice {
+public class TVertice<T> implements IVertice, IVerticeKevinBacon {
 
     private Comparable etiqueta;
     private LinkedList<TAdyacencia> adyacentes;
     private boolean visitado;
     private T datos;
-    private int bacon = Integer.MAX_VALUE;
-    private int numBp = 1;
-    private int numBajo = Integer.MAX_VALUE;
-    private int numBacon = 0;
+    private int bacon;
 
     public Comparable getEtiqueta() {
         return etiqueta;
+    }
+
+    @Override
+    public int getBacon() {
+        return bacon;
+    }
+
+    @Override
+    public void setBacon(int newBacon) {
+        bacon = newBacon;
     }
 
     @Override
@@ -29,15 +36,6 @@ public class TVertice<T> implements IVertice {
         this.etiqueta = unaEtiqueta;
         adyacentes = new LinkedList();
         visitado = false;
-        //contadorEnlace = 0;
-    }
-
-    public void setNumBp(int newBp) {
-        this.numBp = newBp;
-    }
-
-    public int getNumBp() {
-        return this.numBp;
     }
 
     public void setVisitado(boolean valor) {
@@ -144,7 +142,6 @@ public class TVertice<T> implements IVertice {
                     destino.todosLosCaminos(etVertDest, caminoPrevio, todosLosCaminos);
                     caminoPrevio.eliminarAdyacencia(adyacencia);
                 }
-
             }
         }
         this.setVisitado(false);
@@ -170,80 +167,61 @@ public class TVertice<T> implements IVertice {
         return false;
     }
 
-    public void unOrdenTopologico(LinkedList<TVertice> camino) {
-        this.setVisitado(true);
-        for (TAdyacencia ady : this.getAdyacentes()) {
-            if (!ady.getDestino().getVisitado()) {
-                ady.getDestino().unOrdenTopologico(camino);
-            }
-        }
-        camino.add(this);
-
+    @Override
+    public boolean conectadoCon(TVertice destino) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
+    @Override
     public void bea(Collection<TVertice> visitados) {
-        Deque<TVertice> porVisitar = new LinkedList<>();
 
-        porVisitar.push(this);
+        Queue<TVertice> vertices = new LinkedList<>();
         this.setVisitado(true);
-        LinkedList<TAdyacencia> adyacentes;
-        while (!porVisitar.isEmpty()) {
-            TVertice v = porVisitar.pop();
-            adyacentes = v.getAdyacentes();
-            visitados.add(v);
+        vertices.add(this);
+        visitados.add(this);
 
-            for (TAdyacencia a : adyacentes) {
-                TVertice destino = a.getDestino();
-                if (!destino.getVisitado()) {
-                    porVisitar.add(destino);
-                    destino.setVisitado(true);
+        while (!vertices.isEmpty()) {
+            TVertice verticeX = vertices.poll();
+            LinkedList<TAdyacencia> ady = verticeX.getAdyacentes();
+            for (TAdyacencia y : ady) {
+                TVertice verticeY = y.getDestino();
+                if (!verticeY.visitado) {
+                    verticeY.setVisitado(true);
+                    vertices.add(verticeY);
+                    visitados.add(verticeY);
                 }
             }
         }
     }
 
-    public void puntoArticulacion(LinkedList<TVertice> puntos, int[] cont) {
-        cont[0]++;
-        this.setVisitado(true);
-        this.numBp = cont[0];
-        this.numBajo = cont[0];
-        LinkedList<TVertice> hijos = new LinkedList<>();
-        for (TAdyacencia adyAux : this.adyacentes) {
-            TVertice adyacente = adyAux.getDestino();
-            if (!adyacente.visitado) {
-                adyacente.puntoArticulacion(puntos, cont);
-                hijos.add(adyacente);
-                this.numBajo = Math.min(this.numBajo, adyacente.numBajo);
-            } else {
-                this.numBajo = Math.min(this.numBajo, adyacente.numBp);
-            }
+    public int numBacon(Collection<TVertice> visitados) {
+        setVisitado(true);
+        visitados.add(this);
+        Queue<TVertice> cola = new LinkedList<>();
+        cola.add(this);
+        if (etiqueta.equals("Kevin_Bacon")) {
+            setBacon(0);
+            return getBacon();
         }
-        if (this.numBp > 1) {
-            for (TVertice hijo : hijos) {
-                if (hijo.numBajo >= this.numBp) {
-                    puntos.add(this);
+        int numNuevo = 0;
+        while (!cola.isEmpty()) {
+            TVertice x = cola.remove();
+            setBacon(numNuevo);
+            for (TAdyacencia ady : (LinkedList<TAdyacencia>) x.adyacentes) {
+                if (!ady.getDestino().visitado) {
+                    ady.getDestino().setBacon(x.getBacon() + 1);
+                    ady.getDestino().setVisitado(true);
+                    visitados.add(ady.getDestino());
+                    cola.add(ady.getDestino());
+                    if (ady.getDestino().etiqueta.equals("Kevin_Bacon")) {
+                        return ady.getDestino().getBacon();
+                    }
                 }
             }
-        } else if (hijos.size() > 1) {
-            puntos.add(this);
+            numNuevo += 1;
         }
+        return -1;
     }
-
-    
-    public void listarContactos(Collection<TVertice> visitados, int maxSaltos) {
-        this.setVisitado(true);
-        for (TAdyacencia adyacentes : this.adyacentes) {
-            if (!adyacentes.getDestino().getVisitado()) {
-                adyacentes.getDestino().numBacon=this.numBacon +1 ;
-                if (adyacentes.getDestino().numBacon <= maxSaltos)
-                {
-                    visitados.add(adyacentes.getDestino());
-                    adyacentes.getDestino().listarContactos(visitados, maxSaltos);
-                }
-                
-            }
-        }
-    }
-
 
 }

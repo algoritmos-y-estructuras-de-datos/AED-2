@@ -110,16 +110,16 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         return true;
     }
 
-    public LinkedList<TVertice> calculoEnlaces(Comparable etiquetaOrigen,int separacionMax){
-        this.desvisitarVertices();
+    // public LinkedList<TVertice> calculoEnlaces(Comparable etiquetaOrigen,int separacionMax){
+    //     this.desvisitarVertices();
 
-        LinkedList<TVertice> verticesVisitados = new LinkedList<>();
-        TVertice verticeOrigen =  this.getVertices().get(etiquetaOrigen);
-        if(verticeOrigen != null){
-            verticeOrigen.calculoEnlaces(verticesVisitados, separacionMax);
-        }
-        return verticesVisitados;
-    }
+    //     LinkedList<TVertice> verticesVisitados = new LinkedList<>();
+    //     TVertice verticeOrigen =  this.getVertices().get(etiquetaOrigen);
+    //     if(verticeOrigen != null){
+    //         verticeOrigen.calculoEnlaces(verticesVisitados, separacionMax);
+    //     }
+    //     return verticesVisitados;
+    // }
 
     public Collection<TVertice> listarContactos(String nombreActor, int maxSaltos) {
         TVertice origen = this.getVertices().get(nombreActor);
@@ -130,5 +130,7 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         }
         return visitados;
     }
+
+    
 
 }
