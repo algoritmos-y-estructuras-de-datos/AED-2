@@ -1,0 +1,8 @@
+Fabian,Marcelo,1
+Fabian,Miguelito,1
+Miguelito,Marianito,1
+Marianito,Martin,1
+Miguelito,Mariana,1
+Marcelo,ElJoaco,1
+Miguelito,Luisito,1
+Marcelo,Ruben,1

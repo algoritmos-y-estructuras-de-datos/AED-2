@@ -10,7 +10,7 @@ public class KevinPancetaMain {
         TGrafoNoDirigido grafoKevinBacon = (TGrafoNoDirigido) UtilGrafos.cargarGrafo("UT5/panceta_final/src/main/java/ut5/panceta/actores.csv", "UT5/panceta_final/src/main/java/ut5/panceta/en_pelicula.csv",
                 false, TGrafoNoDirigido.class);
 
-        //System.out.println(grafoKevinBacon.numBacon("Kevin_Bacon")); 
+        System.out.println(grafoKevinBacon.numBacon("Lucas_Astor")); 
         
         String[] vertices = ManejadorArchivosGenerico.leerArchivo("UT5/panceta_final/src/main/java/ut5/panceta/actores.csv",true);
         List<TVertice> verticesList = new ArrayList<TVertice>();
@@ -20,6 +20,8 @@ public class KevinPancetaMain {
                 System.out.println(verticeString + " : " + grafoKevinBacon.numBacon(verticeString));
             }
         }
+
+        System.out.println(grafoKevinBacon.getVertices().get("Edward_Norton").getBacon());
         
 
 
