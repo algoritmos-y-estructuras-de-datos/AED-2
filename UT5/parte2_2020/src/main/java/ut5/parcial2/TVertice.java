@@ -245,5 +245,17 @@ public class TVertice<T> implements IVertice {
         }
     }
 
+    @Override
+    public void puntosArt(Collection<TVertice> puntos, int[] cont) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean conectadoCon(TVertice destino) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 
 }

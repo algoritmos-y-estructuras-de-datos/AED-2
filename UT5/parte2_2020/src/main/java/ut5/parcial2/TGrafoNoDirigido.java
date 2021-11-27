@@ -25,7 +25,6 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         return tempbool;
     }
 
-
     @Override
     public Collection<TVertice> bea() {
         TVertice v = this.getVertices().get(0);
@@ -42,8 +41,8 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         Collection<TVertice> etiquetas = new LinkedList();
         TVertice verticeOrigen = this.getVertices().get(etiquetaOrigen);
         if (verticeOrigen != null) {
-        verticeOrigen.bea(etiquetas);
-        return etiquetas;
+            verticeOrigen.bea(etiquetas);
+            return etiquetas;
         }
         return etiquetas;
 
@@ -91,7 +90,7 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
 
         this.desvisitarVertices();
         LinkedList<TVertice> puntos = new LinkedList<>();
-        int[] cont = {0};
+        int[] cont = { 0 };
         TVertice verticeOrigen = this.getVertices().get(etOrigen);
         if (verticeOrigen != null) {
             verticeOrigen.puntoArticulacion(puntos, cont);
@@ -110,27 +109,29 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         return true;
     }
 
-    // public LinkedList<TVertice> calculoEnlaces(Comparable etiquetaOrigen,int separacionMax){
-    //     this.desvisitarVertices();
-
-    //     LinkedList<TVertice> verticesVisitados = new LinkedList<>();
-    //     TVertice verticeOrigen =  this.getVertices().get(etiquetaOrigen);
-    //     if(verticeOrigen != null){
-    //         verticeOrigen.calculoEnlaces(verticesVisitados, separacionMax);
-    //     }
-    //     return verticesVisitados;
-    // }
-
-    public Collection<TVertice> listarContactos(String nombreActor, int maxSaltos) {
+    public Collection<TVertice> listarContactos(Comparable nombreActor, int maxSaltos) {
         TVertice origen = this.getVertices().get(nombreActor);
         Collection<TVertice> visitados = new ArrayList<>();
-        if (origen != null)
-        {
+        if (origen != null) {
             origen.listarContactos(visitados, maxSaltos);
         }
         return visitados;
     }
 
-    
+    @Override
+    public boolean conectados(TVertice origen, TVertice destino) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public AnillosContagio anillosDeProbablesContagiados(Persona personaCOVID, int maxDistancia) {
+        Comparable nombrePersona = personaCOVID.getNombre();
+        TVertice origen = this.getVertices().get(nombrePersona);
+        AnillosContagio visitados = new ArrayList<>();
+        if (origen != null) {
+            origen.listarContactos(visitados, maxDistancia);
+        }
+        return visitados;
+    }
 
 }
