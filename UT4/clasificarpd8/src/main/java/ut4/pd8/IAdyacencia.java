@@ -1,3 +1,4 @@
+package ut4.pd8;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,15 +7,14 @@
 
 /**
  *
- * @author lucas
+ * @author Ernesto
  */
-public class Main {
+public interface IAdyacencia {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+    double getCosto();
+
+    TVertice getDestino();
+
+    Comparable getEtiqueta();
     
 }
