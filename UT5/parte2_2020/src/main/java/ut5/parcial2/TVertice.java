@@ -1,20 +1,23 @@
 package ut5.parcial2;
 
+import java.beans.Visibility;
+import java.security.KeyStore.Entry;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TVertice<T> implements IVertice {
+public class TVertice<T> implements IVertice, IPersona {
 
     private Comparable etiqueta;
     private LinkedList<TAdyacencia> adyacentes;
     private boolean visitado;
     private T datos;
-    private int bacon = Integer.MAX_VALUE;
+    private int distanciaContacto = 0;
     private int numBp = 1;
     private int numBajo = Integer.MAX_VALUE;
-    private int numBacon = 0;
+    public int numBacon = 0; //ERA PRIVATE PERO LO HICE PUBLICO PARA VERLO
 
     public Comparable getEtiqueta() {
         return etiqueta;
@@ -245,6 +248,52 @@ public class TVertice<T> implements IVertice {
         }
     }
 
+    public void anillosDeProbablesContagiados(HashMap<TVertice,Integer> visitados, int maxSaltos) {
+        this.setVisitado(true);
+        for (TAdyacencia adyacentes : this.adyacentes) {
+            if (!adyacentes.getDestino().getVisitado()) {
+                adyacentes.getDestino().numBacon=this.numBacon +1 ;
+                if (adyacentes.getDestino().numBacon <= maxSaltos)
+                {
+                    visitados.put(adyacentes.getDestino(),numBacon);
+                    adyacentes.getDestino().anillosDeProbablesContagiados(visitados, maxSaltos);
+                }
+                
+            }
+        }
+    }
+
+    // public void anillosDeProbablesContagiados2(AnillosContagio<TVertice,Integer> visitados, int maxSaltos) {
+    //     this.setVisitado(true);
+    //     for (TAdyacencia adyacentes : this.adyacentes) {
+    //         if (!adyacentes.getDestino().getVisitado()) {
+    //             adyacentes.getDestino().numBacon=this.numBacon +1 ;
+    //             if (adyacentes.getDestino().numBacon <= maxSaltos)
+    //             {
+    //                 visitados.put(adyacentes.getDestino(),numBacon);
+    //                 adyacentes.getDestino().anillosDeProbablesContagiados(visitados, maxSaltos);
+    //             }
+                
+    //         }
+    //     }
+    // }
+
+    public void anillosDeProbablesContagiados2Secundario(AnillosContagio visitados, int maxSaltos) {
+        this.setVisitado(true);
+        for (TAdyacencia adyacentes : this.adyacentes) {
+            if (!adyacentes.getDestino().getVisitado()) {
+                adyacentes.getDestino().numBacon=this.numBacon +1 ;
+                if (adyacentes.getDestino().numBacon <= maxSaltos)
+                {
+                    // visitados.put(adyacentes.getDestino(),numBacon);
+                    visitados.agregarContagio(numBacon, adyacentes.getDestino());
+                    adyacentes.getDestino().anillosDeProbablesContagiados2Secundario(visitados, maxSaltos);
+                }
+                
+            }
+        }
+    }
+
     @Override
     public void puntosArt(Collection<TVertice> puntos, int[] cont) {
         // TODO Auto-generated method stub
@@ -255,6 +304,18 @@ public class TVertice<T> implements IVertice {
     public boolean conectadoCon(TVertice destino) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    
+    @Override
+    public void setDistanciaContacto(int dist) {
+        this.distanciaContacto = dist;
+        
+    }
+
+    @Override
+    public int getDistanciaContacto() {
+        return distanciaContacto;
     }
 
 

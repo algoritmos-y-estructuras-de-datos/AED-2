@@ -2,6 +2,7 @@ package ut5.parcial2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -118,18 +119,38 @@ public class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido
         return visitados;
     }
 
+    //  1  2  3
+    // [[],[],[],[]],[[],[],[]],[]
+
     @Override
     public boolean conectados(TVertice origen, TVertice destino) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    public AnillosContagio anillosDeProbablesContagiados(Persona personaCOVID, int maxDistancia) {
-        Comparable nombrePersona = personaCOVID.getNombre();
-        TVertice origen = this.getVertices().get(nombrePersona);
-        AnillosContagio visitados = new ArrayList<>();
+    public HashMap<TVertice,Integer> anillosDeProbablesContagiados(TVertice personaCOVID, int maxDistancia) {
+        TVertice origen = personaCOVID;
+        HashMap<TVertice,Integer> visitados = new HashMap<>();
         if (origen != null) {
-            origen.listarContactos(visitados, maxDistancia);
+            origen.anillosDeProbablesContagiados(visitados, maxDistancia);
+        }
+        return visitados;
+    }
+
+    // public AnillosContagio<TVertice,Integer> anillosDeProbablesContagiados2(TVertice personaCOVID, int maxDistancia) {
+    //     TVertice origen = personaCOVID;
+    //     AnillosContagio<TVertice,Integer> visitados = new AnillosContagio<>();
+    //     if (origen != null) {
+    //         origen.anillosDeProbablesContagiados2(visitados, maxDistancia);
+    //     }
+    //     return visitados;
+    // }
+
+    public AnillosContagio anillosDeProbablesContagiados2Secundario(TVertice personaCOVID, int maxDistancia) {
+        TVertice origen = personaCOVID;
+        AnillosContagio visitados = new AnillosContagio();
+        if (origen != null) {
+            origen.anillosDeProbablesContagiados2Secundario(visitados, maxDistancia);
         }
         return visitados;
     }
