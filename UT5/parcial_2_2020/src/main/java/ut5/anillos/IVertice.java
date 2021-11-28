@@ -1,4 +1,5 @@
 package ut5.anillos;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -11,7 +12,7 @@ import java.util.LinkedList;
  *
  * @author Ernesto
  */
-public interface IVerticeContagio {
+public interface IVertice {
 
     TAdyacencia buscarAdyacencia(TVertice verticeDestino);
 
@@ -24,10 +25,20 @@ public interface IVerticeContagio {
     Double obtenerCostoAdyacencia(TVertice verticeDestino);
 
     TVertice primerAdyacente();
+    
+    LinkedList<TAdyacencia> getAdyacentes();
 
     TVertice siguienteAdyacente(TVertice w);
 
-      public void obtenerAnillos(TAnillosContagio losAnillos , int maxDistancia);
-    
+    public void bpf(Collection<TVertice> visitados);
 
+    public TCaminos todosLosCaminos(Comparable etVertDest, TCamino caminoPrevio, TCaminos todosLosCaminos);
+    
+    public boolean tieneCiclo(LinkedList<Comparable> camino);
+    
+    public void bea(Collection<TVertice> visitados);
+    
+    public void puntosArt(Collection<TVertice> puntos, int[] cont);
+    
+    public boolean conectadoCon(TVertice destino);
 }

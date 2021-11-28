@@ -1,6 +1,8 @@
-
+package ut5.anillos;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeSet;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,11 +22,25 @@ public class TGrafoContagios extends TGrafoNoDirigido implements IGrafoContagio{
 
     @Override
     public TAnillosContagio anillosDeProbablesContagiados(String personaCOVID, int maxDistancia) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        // debe realizarse invocando el metodo de TVertice "obtenerAnillos"...
+        this.desvisitarVertices();
+        TVertice origen = this.getVertices().get(personaCOVID);
+        TAnillosContagio anillos = new TAnillosContagio();
+        if (origen != null) {
+            origen.obtenerAnillos(anillos, maxDistancia);
+        }
+        return anillos;
     }
     
-  
+    // #Referencia
+    public TAnillosContagio anillosDeProbablesContagiadosEntreDos(String personaCOVID, int minDistancia , int maxDistancia) {
+        this.desvisitarVertices();
+        TVertice origen = this.getVertices().get(personaCOVID);
+        TAnillosContagio anillos = new TAnillosContagio();
+        if (origen != null) {
+            origen.obtenerAnillosEntreDos(anillos, minDistancia, maxDistancia);
+        }
+        return anillos;
+    }
 
           
     

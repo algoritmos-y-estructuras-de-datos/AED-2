@@ -1,4 +1,4 @@
-
+package ut5.anillos;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class TAnillosContagio extends HashMap<Integer, TreeSet<String>> {
    
-     public void agregarContagio(int distancia, String nombrePersona){
+    public void agregarContagio(int distancia, String nombrePersona){
          TreeSet<String> elAnillo = this.get(distancia);
          if (elAnillo == null){
              elAnillo = new TreeSet<>();
@@ -15,9 +15,9 @@ public class TAnillosContagio extends HashMap<Integer, TreeSet<String>> {
          elAnillo.add(nombrePersona);
      }
     
- public TreeSet<String> obtenerAnillo(int distancia){
-     return this.get(distancia);
- }
+    public TreeSet<String> obtenerAnillo(int distancia){
+        return this.get(distancia);
+    }
 
    
     
