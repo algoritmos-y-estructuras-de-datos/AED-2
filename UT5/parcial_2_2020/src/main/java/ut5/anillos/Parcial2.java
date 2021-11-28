@@ -79,8 +79,11 @@ public class Parcial2 {
         // System.out.println("Emitir por consola la cantidad de contactos que se encuentran a la distancia de la personaCOVID indicada EN EL PIZARRÓN: Cantidad" + anillosContagiosCtd.size());
                   
         
+        TGrafoDirigido grafo = (TGrafoDirigido) UtilGrafos.cargarGrafo(
+                "UT5/parcial_2_2020/src/main/java/ut5/anillos/personasPANCETEADAS.txt",
+                "UT5/parcial_2_2020/src/main/java/ut5/anillos/amistadesPANCETEADAS.txt",
+                false, TGrafoDirigido.class);
         
-        
-       
+        // grafo
     }
 }

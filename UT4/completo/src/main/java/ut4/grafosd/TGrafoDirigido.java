@@ -515,6 +515,7 @@ public class TGrafoDirigido implements IGrafoDirigido {
         }
         return false;
     }
+
     /**
      * Tremenda obra maestra, que en base a todos los caminos te dice si existe
      * alguno de tamanio 1 Esto es analogo a tener un true en la matriz de warshallo
@@ -549,40 +550,42 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return false;
     }
 
-    //     LinkedList<TArista> listaAristas = new LinkedList<>();
-    //     for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
-    //         TArista arst = (TArista) it.next();
-    //         listaAristas.add(new TArista(arst.etiquetaDestino, arst.etiquetaOrigen, arst.costo));
-    //     }
-    //     TGrafoDirigido auxiliar = new TGrafoDirigido(todosVertices, listaAristas);
-    //     misVertices.clear();
-    //     aux.clear();
-    //     todosVertices.clear();
-    //     todosVertices.addAll(auxiliar.vertices.values());
-    //     LinkedList<TVertice> misVertices2 = new LinkedList<>();
-    //     LinkedList<LinkedList<TVertice>> componentes = new LinkedList<>();
-    //     while (!misVertices.containsAll(todosVertices)) {
-    //         auxiliar.desvisitarVertices();
-    //         aux.clear();
-    //         aux.addAll(todosVertices);
-    //         for (TVertice v : misVertices)
-    //             aux.remove(v);
-    //         vertice = this.masFuerte(aux);
-    //         misVertices2 = new LinkedList<>();
-    //         vertice.bpf(misVertices2);
-    //         misVertices.addAll(misVertices2);
-    //         componentes.add(misVertices2);
-    //     }
-    //     return componentes;
+    // LinkedList<TArista> listaAristas = new LinkedList<>();
+    // for (java.util.Iterator it = listaAristas().iterator(); it.hasNext();) {
+    // TArista arst = (TArista) it.next();
+    // listaAristas.add(new TArista(arst.etiquetaDestino, arst.etiquetaOrigen,
+    // arst.costo));
+    // }
+    // TGrafoDirigido auxiliar = new TGrafoDirigido(todosVertices, listaAristas);
+    // misVertices.clear();
+    // aux.clear();
+    // todosVertices.clear();
+    // todosVertices.addAll(auxiliar.vertices.values());
+    // LinkedList<TVertice> misVertices2 = new LinkedList<>();
+    // LinkedList<LinkedList<TVertice>> componentes = new LinkedList<>();
+    // while (!misVertices.containsAll(todosVertices)) {
+    // auxiliar.desvisitarVertices();
+    // aux.clear();
+    // aux.addAll(todosVertices);
+    // for (TVertice v : misVertices)
+    // aux.remove(v);
+    // vertice = this.masFuerte(aux);
+    // misVertices2 = new LinkedList<>();
+    // vertice.bpf(misVertices2);
+    // misVertices.addAll(misVertices2);
+    // componentes.add(misVertices2);
+    // }
+    // return componentes;
     // }
 
     // public LinkedList listaAristas() {
-    //     LinkedList<TArista> lista = new LinkedList<>();
-    //     for (TVertice ver : vertices.values()) {
-    //         for (TAdyacencia ady2 : ver.getAdyacentes())
-    //             lista.add(new TArista(ver.getEtiqueta(), ady2.getDestino().getEtiqueta(), ady2.getCosto()));
-    //     }
-    //     return lista;
+    // LinkedList<TArista> lista = new LinkedList<>();
+    // for (TVertice ver : vertices.values()) {
+    // for (TAdyacencia ady2 : ver.getAdyacentes())
+    // lista.add(new TArista(ver.getEtiqueta(), ady2.getDestino().getEtiqueta(),
+    // ady2.getCosto()));
+    // }
+    // return lista;
     // }
 
     /**
@@ -621,32 +624,33 @@ public class TGrafoDirigido implements IGrafoDirigido {
     }
 
     // public Collection<Collection<TVertice>> componentesConexos() {
-    //     Collection<Collection<TVertice>> componentes = new LinkedList<>();
+    // Collection<Collection<TVertice>> componentes = new LinkedList<>();
 
-    //     Collection<TVertice> bpfTotal = this.bpfPostOrden();
+    // Collection<TVertice> bpfTotal = this.bpfPostOrden();
 
-    //     TGrafoDirigido grafoInverso = this.grafoOpuesto();
-    //     LinkedList<TVertice> arbol = new LinkedList<>();
-    //     for (TVertice vertice : bpfTotal) {
-    //         TVertice vEnOpuesto = grafoInverso.getVertices().get(vertice.getEtiqueta());
-    //         if (!vEnOpuesto.getVisitado()) {
-    //             vEnOpuesto.setVisitado(true);
-    //             vEnOpuesto.bpf(arbol);
-    //             componentes.add(arbol);
-    //             arbol = new LinkedList<>();
-    //         }
-    //     }
-    //     return componentes;
+    // TGrafoDirigido grafoInverso = this.grafoOpuesto();
+    // LinkedList<TVertice> arbol = new LinkedList<>();
+    // for (TVertice vertice : bpfTotal) {
+    // TVertice vEnOpuesto = grafoInverso.getVertices().get(vertice.getEtiqueta());
+    // if (!vEnOpuesto.getVisitado()) {
+    // vEnOpuesto.setVisitado(true);
+    // vEnOpuesto.bpf(arbol);
+    // componentes.add(arbol);
+    // arbol = new LinkedList<>();
+    // }
+    // }
+    // return componentes;
     // }
 
     // private TGrafoDirigido grafoOpuesto() {
-    //     List<TArista> aristas = new LinkedList<>();
-    //     for (TVertice v : vertices.values()) {
-    //         for (TAdyacencia adyacente : v.getAdyacentes()) {
-    //             aristas.add(new TArista(adyacente.getEtiqueta(), v.getEtiqueta(), adyacente.getCosto()));
-    //         }
-    //     }
-    //     return new TGrafoDirigido(this.getVertices().values(), aristas);
+    // List<TArista> aristas = new LinkedList<>();
+    // for (TVertice v : vertices.values()) {
+    // for (TAdyacencia adyacente : v.getAdyacentes()) {
+    // aristas.add(new TArista(adyacente.getEtiqueta(), v.getEtiqueta(),
+    // adyacente.getCosto()));
+    // }
+    // }
+    // return new TGrafoDirigido(this.getVertices().values(), aristas);
     // }
 
     private Collection<TVertice> bpfPostOrden() {
@@ -659,5 +663,37 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return col;
     }
 
-    
+    /**
+     * Una de las aplicaciones más usuales de una búsqueda en amplitud en un grafo,
+     * es la de encontrar el camino con la menor cantidad de aristas entre dos
+     * vértices.
+     * Desarrollar una funcionalidad del GRAFO DIRIGIDO (y analizar el orden del
+     * tiempo de ejecución) que devuelva VERDADERO si existe un camino entre dos
+     * vértices y FALSO en caso contrario, que asegure el menor recorrido de aristas
+     * posible.
+     * TGD.buscarCamino(de tipo vértice origen, de tipo vértice destino) devuelve un
+     * boolean
+     * 
+     * @param origen
+     * @param destino
+     * @return
+     */
+
+    public TCamino menorCamino(TVertice origen, TVertice destino) {
+        Integer tam = 0;
+        Integer menorSalto = Integer.MAX_VALUE;
+        TCamino caminoMenorActual = null;
+        if (origen != null && destino != null) {
+            TCaminos caminos = todosLosCaminos(origen.getEtiqueta(), destino.getEtiqueta());
+            for (TCamino cam : caminos.getCaminos()) {
+                tam = cam.getOtrosVertices().size();
+                if (tam < menorSalto) {
+                    caminoMenorActual = cam;
+                    menorSalto = tam;
+                }
+            }
+        }
+        return caminoMenorActual;
+    }
+
 }

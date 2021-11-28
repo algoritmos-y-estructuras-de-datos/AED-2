@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author diego
+ * @author diego maradona
  */
 public class TCaminos implements ICaminos{
     
@@ -59,6 +59,7 @@ public class TCaminos implements ICaminos{
         }       
         return mayorCostoCamino;
     }
+
     
     @Override
     public TCamino caminoMenorCosto(){
