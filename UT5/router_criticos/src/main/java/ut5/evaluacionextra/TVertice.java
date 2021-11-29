@@ -10,6 +10,8 @@ public class TVertice<T> implements IVertice {
     private boolean visitado;
     private T datos;
     private TVertice predecesor;
+    public Integer numBp = 0;
+    public Integer numBajo = 0;
 
     public Comparable getEtiqueta() {
         return etiqueta;
@@ -21,6 +23,22 @@ public class TVertice<T> implements IVertice {
 
     public T getDatos() {
         return datos;
+    }
+
+    public Integer getNumBP(){
+        return numBp;
+    }
+
+    public Integer getNumBajo(){
+        return numBajo;
+    }
+
+    public void setNumBajo(Integer numBajo){
+        this.numBajo = numBajo;
+    }
+
+    public void getNumBP(Integer numBp){
+        this.numBp = numBp;
     }
 
     /**

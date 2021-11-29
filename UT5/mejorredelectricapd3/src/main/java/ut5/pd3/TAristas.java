@@ -1,13 +1,13 @@
 package ut5.pd3;
 
 import java.util.Collection;
-
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class TAristas extends LinkedList<TArista> {
 
     private final static String SEPARADOR_ELEMENTOS_IMPRESOS = "-";
-    //private Collection<TArista> aristas  = new LinkedList<TArista>();
+    // private Collection<TArista> aristas = new LinkedList<TArista>();
 
     /**
      * Busca dentro de la lista de aristas una arista que conecte a etOrigen con
@@ -18,7 +18,14 @@ public class TAristas extends LinkedList<TArista> {
      * @return
      */
     public TArista buscar(Comparable etOrigen, Comparable etDestino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TArista result = null;
+        for(TArista aristaAux : this){
+            if(aristaAux.etiquetaOrigen.compareTo(etOrigen) == 0 && aristaAux.etiquetaDestino.compareTo(etDestino) == 0){
+                result = aristaAux;
+                break;
+            }
+        }
+        return result;
     }
 
     /**
@@ -30,26 +37,36 @@ public class TAristas extends LinkedList<TArista> {
      * @return
      */
     public TArista buscarMin(Collection<Comparable> VerticesU, Collection<Comparable> VerticesV) {
-       
-        //---------COMPLETAR ALGORITMO--------
-        // para todo u en Vertices U
-        // para todo v en Vertices V
-        // tA =buscar (u, v)
-        // si tA <> null y tA.costo < costoMin entonces
-        // tAMin = tA y costoMin = tA.costo
-        // fin para todo v
-        // fin para todo u
-        // devolver tAMin
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TArista tempArista;
+        TArista tAMin = null;
+        Double costoMin = Double.POSITIVE_INFINITY;
+
+        for (Comparable u : VerticesU) {
+            for (Comparable v : VerticesV) {
+                tempArista = buscar(u, v);
+                if (tempArista != null) {
+                    if (tempArista.getCosto() < costoMin) {
+                        costoMin = tempArista.getCosto();
+                        tAMin = tempArista;
+                    }
+                }
+            }
+        }
+        return tAMin;
     }
 
     public String imprimirEtiquetas() {
         if (this.isEmpty()) {
-            return null;
+            //return null;
+            return "";
         }
-        StringBuilder salida = new StringBuilder();
-        //TODO: Completar codigo que imprime todas las aristas de la lista en el siguiente formato:
-        //ORIGEN - DESTINO - COSTO
+        //StringBuilder salida = new StringBuilder();
+        String salida = "";
+        // siguiente formato:
+        // ORIGEN - DESTINO - COSTO
+        for(TArista ta : this){
+            salida=salida+ta.getEtiquetaOrigen()+"-"+ta.getEtiquetaDestino()+"-"+ta.getCosto()+"\n";
+        }
         return salida.toString();
     }
 
@@ -59,6 +76,21 @@ public class TAristas extends LinkedList<TArista> {
             this.add(ta);
             this.add(ta.aristaInversa());
         }
+    }
+
+    public LinkedList<TArista> obtenerAristasOrdenadasPorCosto() {
+        LinkedList<TArista> res = new LinkedList<>(this);
+        res.sort(new Comparator<TArista>() {
+            @Override
+            public int compare(TArista o1, TArista o2) {
+                if (o1.costo < o2.costo) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        return res;
     }
 
 }

@@ -2,9 +2,10 @@ package ut5.evaluacionextra;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.LinkedList;
+
 
 public class TGrafoConexionesRed extends TGrafoNoDirigido implements IGrafoConexionesRed {
+
     public TGrafoConexionesRed(Collection<TVertice> vertices, Collection<TArista> aristas) {
         super(vertices, aristas);
     }
@@ -23,4 +24,7 @@ public class TGrafoConexionesRed extends TGrafoNoDirigido implements IGrafoConex
         }
         return respuesta;
     }
+
+  
+
 }
