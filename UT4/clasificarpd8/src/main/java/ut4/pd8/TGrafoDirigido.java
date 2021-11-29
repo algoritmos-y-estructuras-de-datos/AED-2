@@ -1,5 +1,6 @@
 package ut4.pd8;
 
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -597,13 +598,19 @@ public class TGrafoDirigido implements IGrafoDirigido {
         contenedor[2]=retroceso=new HashMap();
         contenedor[3]=cruzado=new HashMap();
         
-        for(Entry<Comparable,TVertice> v: vertices.entrySet()){
-            if(!v.getValue().getVisitado()){
+        for(TVertice v : this.getVertices().values()){
+            if(!v.getVisitado()){
                 numero[0]++;
-                v.getValue().clasificarAristas(numero,contenedor);
+                v.clasificarAristas(numero,contenedor);
             }
         }
         return contenedor;
+    }
+
+    public void restablecer(){
+        for(TVertice v: vertices.values()){
+            v.setVisitado(false);
+        }
     }
 
     

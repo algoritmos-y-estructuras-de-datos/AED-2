@@ -19,10 +19,21 @@ public class TGrafoConexionesRed extends TGrafoNoDirigido implements IGrafoConex
             TVertice vertice = getVertices().get(etRouter);
             vertice.setNumBajo(1);
             vertice.numerarBP(visitados);
-            desvisitarVertices();
+            // desvisitarVertices();
             vertice.routersCriticos(vertice, respuesta);
         }
         return respuesta;
+    }
+
+    public LinkedList<TVertice> routersCriticos2Secundario(Comparable etOrigen) {
+        this.desvisitarVertices();
+        LinkedList<TVertice> puntos = new LinkedList<>();
+        int[] cont = { 0 };
+        TVertice verticeOrigen = this.getVertices().get(etOrigen);
+        if (verticeOrigen != null) {
+            verticeOrigen.puntoArticulacion(puntos, cont);
+        }
+        return puntos;
     }
     
 }
