@@ -193,4 +193,31 @@ public class TVertice<T> implements IVertice {
         visitados.addFirst(this);
     }
 
+    public void caminoCritico(TCaminos caminos) {
+        Double costoMaximo = 0.0;
+        TCamino caminoCritico = null;
+        for (TCamino camino : caminos.getCaminos()) {
+            if (camino.getCostoTotal() > costoMaximo) {
+                costoMaximo = camino.getCostoTotal();
+                caminoCritico = camino;
+            }
+        }
+        if (caminoCritico != null) {
+            System.out.println("CAMINO CRÍTICO: '" + caminoCritico.imprimirEtiquetas()
+                    + "'\nCOSTO TOTAL: " + caminoCritico.getCostoTotal());
+        } else {
+            System.out.println("ATENCIÓN: No existe un camino crítico.");
+        }
+        int i = 1;
+        for (TCamino camino : caminos.getCaminos()) {
+            if (camino != caminoCritico) {
+                System.out.println("");
+                System.out.println("CAMINO CON HOLGURA " + i + "\n" + camino.imprimirEtiquetas()
+                        + "\nCOSTO DEL CAMINO HOLGADO: " + camino.getCostoTotal() + " - HOLGURA: "
+                        + (caminoCritico.getCostoTotal() - camino.getCostoTotal()));
+                i += 1;
+            }
+        }
+    }
+
 }

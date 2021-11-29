@@ -1,0 +1,3 @@
+Asuncion,Buenos_Aires,1600
+Asuncion,Curitiba,800
+Curitiba,Montevideo,600

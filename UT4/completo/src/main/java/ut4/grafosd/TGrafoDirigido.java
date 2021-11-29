@@ -605,23 +605,23 @@ public class TGrafoDirigido implements IGrafoDirigido {
         return mayor;
     }
 
-    public TCamino caminoCritico(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
+    // public TCamino caminoCritico(Comparable etiquetaOrigen, Comparable etiquetaDestino) {
 
-        if (!tieneCiclo()) {
-            double max = 0;
-            TCamino camino = null;
-            TCaminos lista = todosLosCaminos(etiquetaOrigen, etiquetaDestino);
-            for (TCamino c : lista.getCaminos()) {
-                if (max < c.getCostoTotal()) {
-                    max = c.getCostoTotal();
-                    camino = c.copiar();
-                    camino.setCostoTotal(camino.getCostoTotal() + (max - camino.getCostoTotal()));
-                }
-            }
-            return camino;
-        }
-        return null;
-    }
+    //     if (!tieneCiclo()) {
+    //         double max = 0;
+    //         TCamino camino = null;
+    //         TCaminos lista = todosLosCaminos(etiquetaOrigen, etiquetaDestino);
+    //         for (TCamino c : lista.getCaminos()) {
+    //             if (max < c.getCostoTotal()) {
+    //                 max = c.getCostoTotal();
+    //                 camino = c.copiar();
+    //                 camino.setCostoTotal(camino.getCostoTotal() + (max - camino.getCostoTotal()));
+    //             }
+    //         }
+    //         return camino;
+    //     }
+    //     return null;
+    // }
 
     // public Collection<Collection<TVertice>> componentesConexos() {
     // Collection<Collection<TVertice>> componentes = new LinkedList<>();
@@ -694,6 +694,18 @@ public class TGrafoDirigido implements IGrafoDirigido {
             }
         }
         return caminoMenorActual;
+    }
+
+    public void caminoCritico(Comparable origen, Comparable destino){
+        if(!this.tieneCiclo()){
+            this.desvisitarVertices();
+            TCaminos caminos = this.todosLosCaminos(origen, destino);
+            TVertice vOrigen = this.buscarVertice(origen);
+            vOrigen.caminoCritico(caminos);
+        }
+        else{
+            System.out.println("ATENCIÓN: El grafo tiene ciclos. Finaliza el proceso de caminoCritico().");
+        }
     }
 
 }
