@@ -133,6 +133,24 @@ public class TVertice<T> implements IVertice {
         return null;
     }
 
+    public void numerarBP(LinkedList<TVertice> visitados) {
+        this.setVisitado(true);
+        visitados.add(this);
+        getAdyacentes().forEach((adyacencia) -> {
+            TVertice hijo = adyacencia.getDestino();
+            if (!hijo.getVisitado()) {
+                hijo.setNumBP(visitados.getLast().getNumBP() + 1);
+                hijo.setNumBajo(visitados.getLast().getNumBajo() + 1);
+                hijo.numerarBP(visitados);
+
+            }
+        });
+    }
+
+    private void setNumBP(int nuevoBp) {
+        this.numBp = nuevoBp;
+    }
+
     public void routersCriticos(TVertice padre, LinkedList<TVertice> puntosArt) {
         setVisitado(true);
         int contHijo = 0;
@@ -153,5 +171,34 @@ public class TVertice<T> implements IVertice {
         }
 
     }
+
+    public void puntoArticulacion(LinkedList<TVertice> puntos, int[] cont) {
+        cont[0]++;
+        this.setVisitado(true);
+        this.numBp = cont[0];
+        this.numBajo = cont[0];
+        LinkedList<TVertice> hijos = new LinkedList<>();
+        for (TAdyacencia adyAux : this.adyacentes) {
+            TVertice adyacente = adyAux.getDestino();
+            if (!adyacente.visitado) {
+                adyacente.puntoArticulacion(puntos, cont);
+                hijos.add(adyacente);
+                this.numBajo = Math.min(this.numBajo, adyacente.numBajo);
+            } else {
+                this.numBajo = Math.min(this.numBajo, adyacente.numBp);
+            }
+        }
+        if (this.numBp > 1) {
+            for (TVertice hijo : hijos) {
+                if (hijo.numBajo >= this.numBp) {
+                    puntos.add(this);
+                }
+            }
+        } else if (hijos.size() > 1) {
+            puntos.add(this);
+        }
+    }
+
+
     
 }
